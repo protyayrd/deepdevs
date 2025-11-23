@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Home() {
   // Featured apps data matching Figma design with correct app images
   const featured = [
@@ -120,7 +122,7 @@ export default function Home() {
             </div>
             <nav className="hidden md:flex items-center gap-8 text-sm text-gray-700">
               <a className="hover:text-gray-900 transition-colors" href="#plugins">Our Plugins</a>
-              <a className="text-indigo-600 font-medium" href="/apps">Our Apps</a>
+              <Link className="text-indigo-600 font-medium" href="/apps">Our Apps</Link>
               <a className="hover:text-gray-900 transition-colors" href="#support">Support</a>
               <a className="hover:text-gray-900 transition-colors" href="#contact">Contact Us</a>
             </nav>
@@ -159,7 +161,7 @@ export default function Home() {
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <a href="/apps" className="inline-flex items-center justify-center rounded-md bg-rose-400 hover:bg-rose-500 text-white px-5 py-3 font-medium shadow-sm transition hover-lift floating-button">Get Our Apps</a>
+              <Link href="/apps" className="inline-flex items-center justify-center rounded-md bg-rose-400 hover:bg-rose-500 text-white px-5 py-3 font-medium shadow-sm transition hover-lift floating-button">Get Our Apps</Link>
               <a href="#get-plugins" className="inline-flex items-center justify-center rounded-md border border-gray-300 px-5 py-3 font-medium text-gray-900 bg-white hover:bg-gray-50 transition hover-lift">Get Our Plugins</a>
             </div>
 

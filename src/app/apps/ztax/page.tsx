@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function ZTaxPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,7 +23,7 @@ export default function ZTaxPage() {
             </div>
             <nav className="hidden md:flex items-center gap-8 text-sm text-gray-700">
               <a className="hover:text-gray-900 transition-colors" href="#plugins">Our Plugins</a>
-              <a className="text-indigo-600 font-medium" href="/apps">Our Apps</a>
+              <Link className="text-indigo-600 font-medium" href="/apps">Our Apps</Link>
               <a className="hover:text-gray-900 transition-colors" href="#support">Support</a>
               <a className="hover:text-gray-900 transition-colors" href="#contact">Contact Us</a>
             </nav>
@@ -594,7 +595,7 @@ export default function ZTaxPage() {
                       Organize Expenses and Income
                     </h3>
                     <p className="text-sm sm:text-base md:text-[16px] leading-5 sm:leading-6 md:leading-[24px] text-[#393C41] font-open-sans">
-                      Monitor your business's income and expenses in real-time to keep a clear picture of your finances
+                      Monitor your business&apos;s income and expenses in real-time to keep a clear picture of your finances
                     </p>
                   </div>
 
@@ -604,7 +605,7 @@ export default function ZTaxPage() {
                       Generate Reports
                     </h3>
                     <p className="text-sm sm:text-base md:text-[16px] leading-5 sm:leading-6 md:leading-[24px] text-[#393C41] font-open-sans">
-                      Use the data you've entered to generate detailed financial reports with just a few clicks
+                      Use the data you&apos;ve entered to generate detailed financial reports with just a few clicks
                     </p>
                   </div>
 
@@ -614,7 +615,7 @@ export default function ZTaxPage() {
                       File Your Taxes
                     </h3>
                     <p className="text-sm sm:text-base md:text-[16px] leading-5 sm:leading-6 md:leading-[24px] text-[#393C41] font-open-sans">
-                      Once your financial data is organized, use the app's tax calculation tools to file your taxes quickly and accurately
+                      Once your financial data is organized, use the app&apos;s tax calculation tools to file your taxes quickly and accurately
                     </p>
                   </div>
                 </div>
@@ -672,7 +673,7 @@ export default function ZTaxPage() {
 
                   {/* Testimonial Text */}
                   <p className="w-full text-sm sm:text-base md:text-[16px] leading-5 sm:leading-6 md:leading-[24px] text-[#393C41] font-open-sans">
-                    As a small business owner, keeping track of my expenses, income, and taxes was always a headache. But since I started using Z Tax, it's been smooth sailing. The app is super intuitive, and I love how easy it is to generate reports and file taxes I can add transactions in just a few clicks, and the real-time tracking of my cash
+                    As a small business owner, keeping track of my expenses, income, and taxes was always a headache. But since I started using Z Tax, it&apos;s been smooth sailing. The app is super intuitive, and I love how easy it is to generate reports and file taxes I can add transactions in just a few clicks, and the real-time tracking of my cash
                   </p>
                 </div>
 
@@ -857,7 +858,7 @@ export default function ZTaxPage() {
                       Revolutionize Your Study Routine
                     </h3>
                     <p className="text-sm sm:text-base md:text-[16px] leading-5 sm:leading-6 md:leading-[24px] text-[#393C41] font-open-sans">
-                      In today's fast-paced world, staying organized and efficient...
+                      In today&apos;s fast-paced world, staying organized and efficient...
                     </p>
                   </div>
                   
@@ -929,7 +930,7 @@ export default function ZTaxPage() {
                       Maximize Your Productivity
                     </h3>
                     <p className="text-sm sm:text-base md:text-[16px] leading-5 sm:leading-6 md:leading-[24px] text-[#393C41] font-open-sans">
-                      As students and professionals, we're constantly looking...
+                      As students and professionals, we&apos;re constantly looking...
                     </p>
                   </div>
                   
@@ -961,7 +962,7 @@ export default function ZTaxPage() {
               
               {/* Subtitle */}
               <p className="w-full max-w-[563px] text-sm sm:text-base md:text-[16px] leading-5 sm:leading-6 md:leading-[24px] text-center text-[#393C41] font-open-sans">
-                We hope this FAQ section has addressed some of your common questions. If you have any further queries, please don't hesitate to reach out to us.
+                We hope this FAQ section has addressed some of your common questions. If you have any further queries, please don&apos;t hesitate to reach out to us.
               </p>
             </div>
 

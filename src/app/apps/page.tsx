@@ -1,6 +1,15 @@
+interface App {
+  id: string;
+  title: string;
+  description: string;
+  slug: string;
+  iconUrl: string;
+  featured: boolean;
+}
+
 export default function AppsPage() {
   // Static data for demonstration
-  const apps = [
+  const apps: App[] = [
     {
       id: '1',
       title: 'Sample App 1',
@@ -34,8 +43,8 @@ export default function AppsPage() {
         <p className="mt-2 text-gray-600">Browse all apps managed in the admin panel.</p>
 
         <ul className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {apps.map((app: any) => (
-            <li key={app._id} className="rounded-xl border border-gray-200 p-4 bg-white hover:shadow-sm transition">
+          {apps.map((app) => (
+            <li key={app.id} className="rounded-xl border border-gray-200 p-4 bg-white hover:shadow-sm transition">
               <a href={`/apps/${app.slug}`} className="flex items-start gap-3">
                 <div className="aspect-[81/159] h-24 rounded-md bg-gray-100 overflow-hidden">
                   {app.iconUrl ? (

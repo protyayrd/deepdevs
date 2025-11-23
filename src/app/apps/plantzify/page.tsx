@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function PlantzifyPage() {
   return (
@@ -19,7 +20,7 @@ export default function PlantzifyPage() {
             </div>
             <nav className="hidden md:flex items-center gap-8 text-sm text-gray-700">
               <a className="hover:text-gray-900 transition-colors" href="#plugins">Our Plugins</a>
-              <a className="text-indigo-600 font-medium" href="/apps">Our Apps</a>
+              <Link className="text-indigo-600 font-medium" href="/apps">Our Apps</Link>
               <a className="hover:text-gray-900 transition-colors" href="#support">Support</a>
               <a className="hover:text-gray-900 transition-colors" href="#contact">Contact Us</a>
             </nav>
@@ -153,7 +154,7 @@ export default function PlantzifyPage() {
                       Plant Finder
                     </h3>
                     <p className="w-full font-inter font-normal text-[16px] leading-[160%] text-center text-[#555555]">
-                      Identify plants instantly with just a photo your smart guide to nature's world
+                      Identify plants instantly with just a photo your smart guide to nature&apos;s world
                     </p>
                   </div>
                 </div>
@@ -295,7 +296,7 @@ export default function PlantzifyPage() {
                   {/* Description */}
                   <div className="w-full max-w-[585px]">
                     <p className="font-inter font-normal text-[18px] leading-[28px] text-[#171A20]">
-                      you can spot issues early and take action before it's too late. Whether it's pests, diseases, or improper care, quick identification means healthier, stronger plants that thrive. By understanding what your plants need and responding to their problems in time, you can keep your garden green, vibrant, and full of life.
+                      you can spot issues early and take action before it&apos;s too late. Whether it&apos;s pests, diseases, or improper care, quick identification means healthier, stronger plants that thrive. By understanding what your plants need and responding to their problems in time, you can keep your garden green, vibrant, and full of life.
                     </p>
                   </div>
                 </div>
@@ -335,7 +336,7 @@ export default function PlantzifyPage() {
                   {/* Description */}
                   <div className="w-full max-w-[585px]">
                     <p className="font-inter font-normal text-[18px] leading-[28px] text-[#171A20]">
-                      A thriving garden is more than just plants — it's a source of joy, peace, and accomplishment. When your plants grow strong and vibrant, they reward you with beauty, fresh air, and even food. By giving them the right care and attention, you not only nurture nature but also create a healthier, happier space for yourself. After all, when gardens flourish, so do the people who care for them
+                      A thriving garden is more than just plants — it&apos;s a source of joy, peace, and accomplishment. When your plants grow strong and vibrant, they reward you with beauty, fresh air, and even food. By giving them the right care and attention, you not only nurture nature but also create a healthier, happier space for yourself. After all, when gardens flourish, so do the people who care for them
                     </p>
                   </div>
                 </div>
@@ -403,7 +404,7 @@ export default function PlantzifyPage() {
                 {/* Testimonial Quote */}
                 <div className="w-full max-w-[1055px]">
                   <p className="font-libre-baskerville font-normal italic text-[34px] leading-[58px] text-center text-[#313232]">
-                    " Very happy with flacio; plants arrived in excellent condition, were healthy looking with lots of new growth and are thriving! "
+                    &quot; Very happy with flacio; plants arrived in excellent condition, were healthy looking with lots of new growth and are thriving! &quot;
                   </p>
                 </div>
 
@@ -458,7 +459,7 @@ export default function PlantzifyPage() {
                 {/* Description */}
                 <div className="w-[534px] h-[44px]">
                   <p className="font-inter font-normal text-[18px] leading-[22px] text-center text-[#171A20]">
-                    A thriving garden is more than just plants — it's a source of joy, peace, and accomplishment
+                    A thriving garden is more than just plants — it&apos;s a source of joy, peace, and accomplishment
                   </p>
                 </div>
               </div>
@@ -795,7 +796,7 @@ export default function PlantzifyPage() {
               {/* Main Text */}
               <div className="w-[683px] h-[204px] flex items-center">
                 <h2 className="font-inter font-medium text-[56px] leading-[68px] text-[#171A20]">
-                  Download and unlock nature's secrets and enjoy your greener world
+                  Download and unlock nature&apos;s secrets and enjoy your greener world
                 </h2>
               </div>
 

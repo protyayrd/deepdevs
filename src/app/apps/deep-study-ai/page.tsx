@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function DeepStudyAIPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,7 +23,7 @@ export default function DeepStudyAIPage() {
             </div>
             <nav className="hidden md:flex items-center gap-8 text-sm text-gray-700">
               <a className="hover:text-gray-900 transition-colors" href="#plugins">Our Plugins</a>
-              <a className="text-indigo-600 font-medium" href="/apps">Our Apps</a>
+              <Link className="text-indigo-600 font-medium" href="/apps">Our Apps</Link>
               <a className="hover:text-gray-900 transition-colors" href="#support">Support</a>
               <a className="hover:text-gray-900 transition-colors" href="#contact">Contact Us</a>
             </nav>
@@ -657,7 +658,7 @@ export default function DeepStudyAIPage() {
                   {/* Testimonial Text */}
                   <div className="flex flex-col font-open-sans font-normal justify-center leading-[0] relative shrink-0 text-[#393c41] text-sm sm:text-base md:text-[16px] w-full">
                     <p className="leading-[24px] whitespace-pre-wrap">
-                      Together, these apps enhance my productivity, organization, and overall efficiency. They're perfect for students, professionals, or anyone who wants to get more done in less time. Highly recommended for anyone looking to take their workflow to the next level!
+                      Together, these apps enhance my productivity, organization, and overall efficiency. They&apos;re perfect for students, professionals, or anyone who wants to get more done in less time. Highly recommended for anyone looking to take their workflow to the next level!
                     </p>
                   </div>
                 </div>
@@ -721,7 +722,7 @@ export default function DeepStudyAIPage() {
                       Revolutionize Your Study Routine
                     </h3>
                     <p className="text-sm sm:text-base md:text-[16px] leading-5 sm:leading-6 md:leading-[24px] text-[#393C41] font-open-sans">
-                      In today's fast-paced world, staying organized and efficient with your study materials is crucial for academic success...
+                      In today&apos;s fast-paced world, staying organized and efficient with your study materials is crucial for academic success...
                     </p>
                   </div>
                   
@@ -791,7 +792,7 @@ export default function DeepStudyAIPage() {
                       Maximize Your Study Productivity
                     </h3>
                     <p className="text-sm sm:text-base md:text-[16px] leading-5 sm:leading-6 md:leading-[24px] text-[#393C41] font-open-sans">
-                      As students and professionals, we're constantly looking for ways to improve our study efficiency and retention...
+                      As students and professionals, we&apos;re constantly looking for ways to improve our study efficiency and retention...
                     </p>
                   </div>
                   
@@ -823,7 +824,7 @@ export default function DeepStudyAIPage() {
               
               {/* Subtitle */}
               <p className="w-full max-w-[563px] text-sm sm:text-base md:text-[16px] leading-5 sm:leading-6 md:leading-[24px] text-center text-[#393C41] font-open-sans">
-                We hope this FAQ section has addressed some of your common questions. If you have any further queries, please don't hesitate to reach out to us.
+                We hope this FAQ section has addressed some of your common questions. If you have any further queries, please don&apos;t hesitate to reach out to us.
               </p>
             </div>
 

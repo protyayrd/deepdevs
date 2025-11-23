@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 
 export default function YolerPage() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -21,10 +22,12 @@ export default function YolerPage() {
       <section className="relative w-full h-[700px] overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
-          <img
+          <Image
             src="/figma/yoler/hero-background.jpg"
             alt="Driving background"
-            className="w-full h-full object-cover object-center"
+            fill
+            className="object-cover object-center"
+            priority
           />
           {/* Dark Overlay */}
           <div className="absolute inset-0 bg-[#222222] opacity-60" />
@@ -36,9 +39,11 @@ export default function YolerPage() {
           <header className="flex items-center justify-between pt-10 pb-4">
             {/* Logo */}
             <div className="flex items-center">
-              <img
+              <Image
                 src="/figma/yoler/logo.png"
                 alt="YOLER Logo"
+                width={120}
+                height={56}
                 className="h-14 w-auto"
               />
             </div>
@@ -79,9 +84,11 @@ export default function YolerPage() {
                 href="#"
                 className="bg-black border-[3px] border-white rounded-md h-[50px] w-[182px] flex items-center justify-center hover:opacity-90 transition-opacity"
               >
-                <img
+                <Image
                   src="/figma/yoler/google-play-badge.png"
                   alt="Get it on Google Play"
+                  width={182}
+                  height={50}
                   className="h-full w-full object-contain"
                 />
               </a>
@@ -91,9 +98,11 @@ export default function YolerPage() {
                 href="#"
                 className="bg-black border-[3px] border-white rounded-md h-[50px] w-[180px] flex items-center justify-center hover:opacity-90 transition-opacity"
               >
-                <img
+                <Image
                   src="/figma/yoler/app-store-badge.png"
                   alt="Download on the App Store"
+                  width={180}
+                  height={50}
                   className="h-full w-full object-contain"
                 />
               </a>
@@ -107,11 +116,12 @@ export default function YolerPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-[30px]">
           {/* Car Card */}
           <div className="bg-white rounded-xl p-6 shadow-[0px_10px_20px_0px_rgba(41,41,42,0.07)] flex flex-col items-center text-center gap-6 hover:shadow-[0px_15px_30px_0px_rgba(41,41,42,0.12)] transition-shadow min-w-[200px]">
-            <div className="w-[65px] h-[65px] flex items-center justify-center shrink-0">
-              <img
+            <div className="w-[65px] h-[65px] flex items-center justify-center shrink-0 relative">
+              <Image
                 src="/figma/yoler/car-icon.png"
                 alt="Car icon"
-                className="w-full h-full object-contain"
+                fill
+                className="object-contain"
               />
             </div>
             <div className="flex flex-col gap-3">
@@ -126,11 +136,12 @@ export default function YolerPage() {
 
           {/* Motorcycle Card */}
           <div className="bg-white rounded-xl p-6 shadow-[0px_10px_20px_0px_rgba(41,41,42,0.07)] flex flex-col items-center text-center gap-6 hover:shadow-[0px_15px_30px_0px_rgba(41,41,42,0.12)] transition-shadow min-w-[200px]">
-            <div className="w-[65px] h-[65px] flex items-center justify-center shrink-0">
-              <img
+            <div className="w-[65px] h-[65px] flex items-center justify-center shrink-0 relative">
+              <Image
                 src="/figma/yoler/motorcycle-icon.png"
                 alt="Motorcycle icon"
-                className="w-full h-full object-contain"
+                fill
+                className="object-contain"
               />
             </div>
             <div className="flex flex-col gap-3">
@@ -145,11 +156,12 @@ export default function YolerPage() {
 
           {/* Lorry Card */}
           <div className="bg-white rounded-xl p-6 shadow-[0px_10px_20px_0px_rgba(41,41,42,0.07)] flex flex-col items-center text-center gap-6 hover:shadow-[0px_15px_30px_0px_rgba(41,41,42,0.12)] transition-shadow min-w-[200px]">
-            <div className="w-[65px] h-[65px] flex items-center justify-center shrink-0">
-              <img
+            <div className="w-[65px] h-[65px] flex items-center justify-center shrink-0 relative">
+              <Image
                 src="/figma/yoler/lorry-icon.png"
                 alt="Lorry icon"
-                className="w-full h-full object-contain"
+                fill
+                className="object-contain"
               />
             </div>
             <div className="flex flex-col gap-3">
@@ -164,11 +176,12 @@ export default function YolerPage() {
 
           {/* Bus Card */}
           <div className="bg-white rounded-xl p-6 shadow-[0px_10px_20px_0px_rgba(41,41,42,0.07)] flex flex-col items-center text-center gap-6 hover:shadow-[0px_15px_30px_0px_rgba(41,41,42,0.12)] transition-shadow min-w-[200px]">
-            <div className="w-[65px] h-[65px] flex items-center justify-center shrink-0">
-              <img
+            <div className="w-[65px] h-[65px] flex items-center justify-center shrink-0 relative">
+              <Image
                 src="/figma/yoler/bus-icon.png"
                 alt="Bus icon"
-                className="w-full h-full object-contain"
+                fill
+                className="object-contain"
               />
             </div>
             <div className="flex flex-col gap-3">

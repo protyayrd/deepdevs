@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
   // Featured apps data matching Figma design with correct app images
@@ -113,10 +114,11 @@ export default function Home() {
         <div className="w-[85%] mx-auto px-6 md:px-10 lg:px-16 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img 
+              <Image 
                 src="/logo.png" 
                 alt="DeepDevs Logo" 
+                width={120}
+                height={40}
                 className="h-6 w-auto sm:h-7 md:h-8 lg:h-9 xl:h-10 object-contain" 
               />
             </div>
@@ -174,21 +176,17 @@ export default function Home() {
 
               <div className="flex items-center justify-between mb-4">
                 <div className="flex -space-x-3">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <div className="h-16 w-16 rounded-full border-4 border-white overflow-hidden">
-                    <img src="/figma/avatar-1-191d0a.png" alt="avatar 1" className="h-full w-full object-cover" />
+                  <div className="h-16 w-16 rounded-full border-4 border-white overflow-hidden relative">
+                    <Image src="/figma/avatar-1-191d0a.png" alt="avatar 1" fill className="object-cover" />
                   </div>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <div className="h-16 w-16 rounded-full border-4 border-white overflow-hidden">
-                    <img src="/figma/avatar-2-4b233a.png" alt="avatar 2" className="h-full w-full object-cover" />
+                  <div className="h-16 w-16 rounded-full border-4 border-white overflow-hidden relative">
+                    <Image src="/figma/avatar-2-4b233a.png" alt="avatar 2" fill className="object-cover" />
                   </div>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <div className="h-16 w-16 rounded-full border-4 border-white overflow-hidden">
-                    <img src="/figma/avatar-3-4b233a.png" alt="avatar 3" className="h-full w-full object-cover" />
+                  <div className="h-16 w-16 rounded-full border-4 border-white overflow-hidden relative">
+                    <Image src="/figma/avatar-3-4b233a.png" alt="avatar 3" fill className="object-cover" />
                   </div>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <div className="h-16 w-16 rounded-full border-4 border-white overflow-hidden">
-                    <img src="/figma/avatar-4-4b233a.png" alt="avatar 4" className="h-full w-full object-cover" />
+                  <div className="h-16 w-16 rounded-full border-4 border-white overflow-hidden relative">
+                    <Image src="/figma/avatar-4-4b233a.png" alt="avatar 4" fill className="object-cover" />
                   </div>
                   <div className="h-16 w-16 rounded-full border-4 border-white bg-[#86CAF6] flex items-center justify-center">
                     <svg className="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -361,33 +359,30 @@ export default function Home() {
             <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
               {/* Store badges and screenshot from Figma */}
               <div className="flex items-center flex-wrap justify-center gap-6 md:gap-8">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <picture>
-                  {/* Prefer user's provided PNG; fallback to SVG if PNG missing */}
-                  <source srcSet="/figma/appstore-badge.png" type="image/png" />
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/figma/appstore-vector.svg"
-                    alt="Download on the App Store"
-                    className="h-12 md:h-14 w-auto object-contain"
-                  />
-                </picture>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/figma/googleplay-badge.svg"
-                  alt="Get it on Google Play"
+                <Image
+                  src="/figma/appstore-badge.png"
+                  alt="Download on the App Store"
+                  width={120}
+                  height={40}
                   className="h-12 md:h-14 w-auto object-contain"
                 />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
+                  src="/figma/googleplay-badge.svg"
+                  alt="Get it on Google Play"
+                  width={135}
+                  height={40}
+                  className="h-12 md:h-14 w-auto object-contain"
+                />
+                <Image
                   src="/figma/second-section-screenshot.png"
                   alt="App preview"
                   className="h-12 md:h-14 w-auto object-contain rounded-md border border-gray-300"
                 />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src="/figma/microsoft-badge.svg"
                   alt="Get it from Microsoft"
+                  width={120}
+                  height={40}
                   className="h-12 md:h-14 w-auto object-contain"
                 />
               </div>

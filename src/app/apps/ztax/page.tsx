@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function ZTaxPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,10 +15,11 @@ export default function ZTaxPage() {
         <div className="w-[85%] mx-auto px-6 md:px-10 lg:px-16 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img 
+              <Image 
                 src="/logo.png" 
                 alt="DeepDevs Logo" 
+                width={120}
+                height={40}
                 className="h-6 w-auto sm:h-7 md:h-8 lg:h-9 xl:h-10 object-contain" 
               />
             </div>
@@ -45,10 +47,11 @@ export default function ZTaxPage() {
           <div className="flex flex-row justify-between items-center gap-4 sm:gap-6 lg:gap-[141px]">
             {/* Logo */}
             <div className="flex flex-row items-center gap-2 sm:gap-[10px] flex-shrink-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="/figma/ztax/ztax-logo.png"
                 alt="Z Tax Logo"
+                width={120}
+                height={50}
                 className="h-8 w-auto sm:h-10 md:h-12 lg:h-[41.51px] object-contain"
               />
             </div>
@@ -158,11 +161,11 @@ export default function ZTaxPage() {
                   href="#"
                   className="relative w-[140px] sm:w-[160px] md:w-[182px] h-[40px] sm:h-[46px] md:h-[52px] bg-black rounded-[8px] flex items-center justify-center overflow-hidden hover:opacity-90 transition-opacity"
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src="/figma/google-play-badge.png"
                     alt="Get it on Google Play"
-                    className="w-full h-full object-contain"
+                    fill
+                    className="object-contain"
                   />
                 </a>
 
@@ -171,11 +174,11 @@ export default function ZTaxPage() {
                   href="#"
                   className="relative w-[140px] sm:w-[160px] md:w-[180px] h-[40px] sm:h-[46px] md:h-[52px] flex items-center justify-center hover:opacity-90 transition-opacity"
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src="/figma/appstore-badge.png"
                     alt="Download on the App Store"
-                    className="w-full h-full object-contain"
+                    fill
+                    className="object-contain"
                   />
                 </a>
               </div>
@@ -628,9 +631,11 @@ export default function ZTaxPage() {
                 
                 {/* Phone Image */}
                 <div className="relative w-full max-w-[336px] h-auto lg:w-[336px] lg:h-[672px]">
-                  <img
+                  <Image
                     src="/figma/ztax/phone-mockup.png"
                     alt="Z Tax App Phone Mockup"
+                    width={336}
+                    height={672}
                     className="w-full h-full object-contain"
                   />
                 </div>
@@ -653,10 +658,11 @@ export default function ZTaxPage() {
             <div className="flex flex-col lg:flex-row items-start gap-6 sm:gap-8 lg:gap-8 w-full lg:w-auto flex-1">
               {/* Testimonial Image */}
               <div className="flex-shrink-0 w-full max-w-[367px] h-[365px] relative bg-[#F2F1FF] rounded-lg overflow-hidden">
-                <img
+                <Image
                   src="/figma/ztax/testimonial-image.png"
                   alt="Testimonial"
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
                 />
               </div>
 
@@ -680,11 +686,12 @@ export default function ZTaxPage() {
                 {/* Author Info */}
                 <div className="flex flex-row items-center gap-4 sm:gap-5 w-full">
                   {/* Avatar */}
-                  <div className="flex-shrink-0 w-16 h-16 sm:w-[81px] sm:h-[81px] rounded-full overflow-hidden bg-[#F2F1FF]">
-                    <img
+                  <div className="flex-shrink-0 w-16 h-16 sm:w-[81px] sm:h-[81px] rounded-full overflow-hidden bg-[#F2F1FF] relative">
+                    <Image
                       src="/figma/ztax/testimonial-image.png"
                       alt="Artemisia Udinese"
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
                     />
                   </div>
 
@@ -843,10 +850,11 @@ export default function ZTaxPage() {
               <div className="relative w-full max-w-[352px] h-[432px] rounded-[20px] overflow-hidden group cursor-pointer">
                 {/* Image Background */}
                 <div className="absolute inset-0 w-full h-[248px]">
-                  <img
+                  <Image
                     src="/figma/ztax/blog-1.png"
                     alt="Revolutionize Your Study Routine"
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                 </div>
                 
@@ -879,10 +887,11 @@ export default function ZTaxPage() {
               <div className="relative w-full max-w-[352px] h-[432px] rounded-[20px] overflow-hidden group cursor-pointer">
                 {/* Image Background */}
                 <div className="absolute inset-0 w-full h-[248px]">
-                  <img
+                  <Image
                     src="/figma/ztax/blog-2.png"
                     alt="How AI is Changing Manage Study"
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                 </div>
                 
@@ -915,10 +924,11 @@ export default function ZTaxPage() {
               <div className="relative w-full max-w-[352px] h-[432px] rounded-[20px] overflow-hidden group cursor-pointer">
                 {/* Image Background */}
                 <div className="absolute inset-0 w-full h-[248px]">
-                  <img
+                  <Image
                     src="/figma/ztax/blog-3.png"
                     alt="Maximize Your Productivity"
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                 </div>
                 

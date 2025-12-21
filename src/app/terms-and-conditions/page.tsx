@@ -32,7 +32,7 @@ export default function TermsAndConditionsPage() {
                 Terms & Conditions
               </h1>
               <p className="font-poppins font-normal text-[16px] leading-[28px] text-[#171a20] w-full">
-                We're here to help with any questions or concerns
+                We&apos;re here to help with any questions or concerns
               </p>
             </div>
           </div>
@@ -48,7 +48,7 @@ export default function TermsAndConditionsPage() {
                 <div className="flex flex-col gap-10">
                   <p className="font-inter font-normal leading-[1.5] text-black w-full">
                     <span className="font-inter font-medium text-[#171a20] text-[32px]">Welcome to DeepDevs!</span>
-                    <span className="text-[22px]"> These Terms & Conditions govern your use of our website, apps, and plugins. By accessing or using DeepDevs, you agree to be bound by these Terms. If you do not agree, please do not use our services.</span>
+                    <span className="text-[22px]"> These Terms &amp; Conditions govern your use of our website, apps, and plugins. By accessing or using DeepDevs, you agree to be bound by these Terms. If you do not agree, please do not use our services.</span>
                   </p>
 
                   {/* Accounts and Registration */}
@@ -113,7 +113,7 @@ export default function TermsAndConditionsPage() {
                   </h2>
                   <ul className="font-inter font-normal leading-[1.5] text-[22px] text-black w-full list-disc list-inside space-y-2 ml-4">
                     <li>
-                      <span>DeepDevs provides its services "as is" and makes no warranties, express or implied.</span>
+                      <span>DeepDevs provides its services &quot;as is&quot; and makes no warranties, express or implied.</span>
                     </li>
                     <li>
                       <span>We are not liable for any direct, indirect, incidental, or consequential damages arising from the use of our website, apps, or plugins.</span>

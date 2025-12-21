@@ -1,6 +1,6 @@
 import connectDB from './mongodb';
-import FAQ, { IFAQ } from '@/models/FAQ';
-import Contact, { IContact } from '@/models/Contact';
+import FAQ from '@/models/FAQ';
+import Contact from '@/models/Contact';
 
 export interface FAQ {
   id: string;
@@ -25,10 +25,10 @@ export interface ContactSubmission {
 export async function getFAQs(page?: string): Promise<FAQ[]> {
   try {
     await connectDB();
-    
+
     const query = page ? { page } : {};
     const faqs = await FAQ.find(query).sort({ createdAt: 1 }).lean();
-    
+
     return faqs.map((faq) => ({
       id: faq._id.toString(),
       page: faq.page,
@@ -43,15 +43,15 @@ export async function getFAQs(page?: string): Promise<FAQ[]> {
 
 export async function saveFAQ(faq: Omit<FAQ, 'id'>): Promise<FAQ> {
   await connectDB();
-  
+
   const newFAQ = new FAQ({
     page: faq.page,
     question: faq.question,
     answer: faq.answer,
   });
-  
+
   const savedFAQ = await newFAQ.save();
-  
+
   return {
     id: savedFAQ._id.toString(),
     page: savedFAQ.page,
@@ -62,7 +62,7 @@ export async function saveFAQ(faq: Omit<FAQ, 'id'>): Promise<FAQ> {
 
 export async function updateFAQ(id: string, faq: Omit<FAQ, 'id'>): Promise<FAQ | null> {
   await connectDB();
-  
+
   const updatedFAQ = await FAQ.findByIdAndUpdate(
     id,
     {
@@ -72,11 +72,11 @@ export async function updateFAQ(id: string, faq: Omit<FAQ, 'id'>): Promise<FAQ |
     },
     { new: true }
   );
-  
+
   if (!updatedFAQ) {
     return null;
   }
-  
+
   return {
     id: updatedFAQ._id.toString(),
     page: updatedFAQ.page,
@@ -87,7 +87,7 @@ export async function updateFAQ(id: string, faq: Omit<FAQ, 'id'>): Promise<FAQ |
 
 export async function deleteFAQ(id: string): Promise<boolean> {
   await connectDB();
-  
+
   const result = await FAQ.findByIdAndDelete(id);
   return !!result;
 }
@@ -96,9 +96,9 @@ export async function deleteFAQ(id: string): Promise<boolean> {
 export async function getContacts(): Promise<ContactSubmission[]> {
   try {
     await connectDB();
-    
+
     const contacts = await Contact.find().sort({ submittedAt: -1 }).lean();
-    
+
     return contacts.map((contact) => ({
       id: contact._id.toString(),
       firstName: contact.firstName,
@@ -118,7 +118,7 @@ export async function getContacts(): Promise<ContactSubmission[]> {
 
 export async function saveContact(contact: Omit<ContactSubmission, 'id' | 'submittedAt'>): Promise<ContactSubmission> {
   await connectDB();
-  
+
   const newContact = new Contact({
     firstName: contact.firstName,
     lastName: contact.lastName,
@@ -129,9 +129,9 @@ export async function saveContact(contact: Omit<ContactSubmission, 'id' | 'submi
     isRobot: contact.isRobot,
     submittedAt: new Date(),
   });
-  
+
   const savedContact = await newContact.save();
-  
+
   return {
     id: savedContact._id.toString(),
     firstName: savedContact.firstName,

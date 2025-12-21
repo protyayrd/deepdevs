@@ -180,7 +180,7 @@ export default function PrivacyPolicyPage() {
                 </h2>
                 <div className="font-inter font-normal leading-[1.6] text-[18px] text-[#11271d]">
                   <p>
-                    We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date. You are advised to review this Privacy Policy periodically for any changes.
+                    We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the &quot;Last Updated&quot; date. You are advised to review this Privacy Policy periodically for any changes.
                   </p>
                 </div>
               </div>

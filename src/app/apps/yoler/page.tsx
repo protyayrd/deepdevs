@@ -578,7 +578,7 @@ export default function YolerPage() {
 
           {/* Background Purple Block */}
           {/* Positioned absolute left: 654px (relative to 1240px container) */}
-          <div className="hidden lg:block absolute top-0 left-[654px] w-[685.65px] h-[628px] bg-[#9E8AFB] rounded-[16px] -z-10">
+          <div className="hidden lg:block absolute top-0 left-[654px] w-[685.65px] h-[628px] bg-[#9E8AFB] rounded-[16px]">
             <div className="absolute left-[127px] top-[250px] flex flex-col gap-2 w-[432.78px]">
               <h2 className="font-inter font-semibold text-[48px] leading-[64px] text-white">
                 Happy customers
@@ -589,12 +589,12 @@ export default function YolerPage() {
             </div>
           </div>
           {/* Mobile Purple Background Fallback */}
-          <div className="block lg:hidden absolute top-0 left-0 w-full h-full bg-[#9E8AFB] -z-10 rounded-[16px]"></div>
+          <div className="block lg:hidden absolute top-0 left-0 w-full h-full bg-[#9E8AFB] rounded-[16px]"></div>
 
 
           {/* Testimonial Card */}
           {/* Positioned absolute left: 100px */}
-          <div className="w-full lg:w-[617.57px] h-auto lg:h-[536px] bg-white rounded-[16px] p-10 lg:p-[40px] shadow-[8px_12px_24px_10px_rgba(0,0,0,0.04)] absolute top-[46px] left-0 lg:left-[100px] flex flex-col gap-[24px]">
+          <div className="w-full lg:w-[617.57px] h-auto lg:h-[536px] bg-white rounded-[16px] p-10 lg:p-[40px] shadow-[8px_12px_24px_10px_rgba(0,0,0,0.04)] absolute top-[46px] left-0 lg:left-[100px] flex flex-col gap-[24px] z-10">
 
             {/* Quote Mark (Top Right) */}
             <div className="w-full flex justify-end">

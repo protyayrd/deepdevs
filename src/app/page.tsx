@@ -1,7 +1,158 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import Footer from '@/components/Footer';
+import Logo from '@/components/Logo';
+
+interface FAQ {
+  id: string;
+  question: string;
+  answer: string;
+}
+
+interface SliderMedia {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  className: string;
+}
+
+interface SliderItem {
+  id: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  accentColor: string;
+  media: SliderMedia[];
+}
+
+const sliderItems: SliderItem[] = [
+  {
+    id: 'yoler',
+    eyebrow: 'Yoler',
+    title: 'Pass your Theory Test First Time',
+    description: 'Practice the latest 2025 DVSA theory test questions with smart study modes and real-time scoring.',
+    accentColor: '#E2603A',
+    media: [
+      {
+        src: '/figma/app-slider/yoler-phones.png',
+        alt: 'Yoler driving theory prep screens',
+        width: 540,
+        height: 373,
+        className: 'relative w-[230px] sm:w-[280px] lg:w-[360px] shadow-[0_35px_120px_rgba(0,0,0,0.18)] rounded-[32px]',
+      },
+    ],
+  },
+  {
+    id: 'sesign',
+    eyebrow: 'SeSign',
+    title: 'Secure, Sign, Store All In One Platform',
+    description: 'Digitize paperwork, sign with confidence, and keep every document synced across your workspace.',
+    accentColor: '#1C54FF',
+    media: [
+      {
+        src: '/figma/app-slider/sesign-phones.png',
+        alt: 'SeSign trusted e-signature workflow',
+        width: 399,
+        height: 397,
+        className: 'relative w-[220px] sm:w-[260px] lg:w-[320px] shadow-[0_25px_90px_rgba(12,15,41,0.18)] rounded-[28px]',
+      },
+    ],
+  },
+  {
+    id: 'deep-tattoo',
+    eyebrow: 'Deep Tattoo',
+    title: 'Download The App & Design Your Tattoo Today!',
+    description: 'Turn portraits into custom tattoo art with AI-assisted sketching tools and pro artist templates.',
+    accentColor: '#F26D21',
+    media: [
+      {
+        src: '/figma/app-slider/deep-tattoo-phones.png',
+        alt: 'Deep Tattoo AI concepts',
+        width: 483,
+        height: 338,
+        className: 'relative w-[240px] sm:w-[300px] lg:w-[360px] shadow-[0_40px_120px_rgba(0,0,0,0.25)] rounded-[28px]',
+      },
+    ],
+  },
+  {
+    id: 'plantzify',
+    eyebrow: 'Plantzify',
+    title: 'Download and unlock nature\'s secrets',
+    description: 'Diagnose plant issues, track watering schedules, and revive your garden with AI-powered insights.',
+    accentColor: '#2E8E5A',
+    media: [
+      {
+        src: '/figma/app-slider/plantzify-phones.png',
+        alt: 'Plantzify app screens',
+        width: 540,
+        height: 373,
+        className: 'relative w-[230px] sm:w-[280px] lg:w-[360px] shadow-[0_35px_120px_rgba(0,0,0,0.18)] rounded-[32px]',
+      },
+    ],
+  },
+  {
+    id: 'ztax',
+    eyebrow: 'Ztax',
+    title: 'Manage your finances with confidence',
+    description: 'Track income, send invoices, and automate tax prep with intuitive dashboards built for growth.',
+    accentColor: '#0A84FF',
+    media: [
+      {
+        src: '/figma/app-slider/ztax-phones.png',
+        alt: 'Ztax app screens',
+        width: 540,
+        height: 373,
+        className: 'relative w-[230px] sm:w-[280px] lg:w-[360px] shadow-[0_35px_120px_rgba(0,0,0,0.18)] rounded-[32px]',
+      },
+    ],
+  },
+];
 
 export default function Home() {
+  const [faqs, setFaqs] = useState<FAQ[]>([]);
+  const [faqsLoading, setFaqsLoading] = useState(true);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const totalSlides = sliderItems.length;
+  const activeAccentColor = sliderItems[activeSlide]?.accentColor ?? '#E2603A';
+
+  useEffect(() => {
+    fetchFAQs();
+  }, []);
+
+  useEffect(() => {
+    if (totalSlides === 0) {
+      return;
+    }
+    const interval = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % totalSlides);
+    }, 6000);
+
+    return () => clearInterval(interval);
+  }, [totalSlides]);
+
+  const fetchFAQs = async () => {
+    try {
+      const response = await fetch('/api/faqs?page=homepage');
+      const data = await response.json();
+      setFaqs(data);
+    } catch (error) {
+      console.error('Error fetching FAQs:', error);
+    } finally {
+      setFaqsLoading(false);
+    }
+  };
+
+  const goToPrevSlide = () => {
+    setActiveSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  };
+
+  const goToNextSlide = () => {
+    setActiveSlide((prev) => (prev + 1) % totalSlides);
+  };
   // Featured apps data matching Figma design with correct app images
   const featured = [
     {
@@ -48,44 +199,6 @@ export default function Home() {
     },
   ];
 
-  const faqs = [
-    {
-      id: '1',
-      question: 'What exactly is DeepDevs?',
-      answer:
-        'DeepDevs is a unique and powerful software suite designed to transform the way you work. It brings together modern tools for building, selling, and supporting apps and plugins—made for teams of all sizes and built by a company that values your privacy.',
-    },
-    {
-      id: '2',
-      question: 'Is there a free trial available?',
-      answer:
-        'Yes. You can start with a 14‑day free trial with access to all core features—no credit card required. Upgrade any time, and your projects and settings carry over automatically.',
-    },
-    {
-      id: '3',
-      question: 'Do I need any technical skills to use DeepDevs?',
-      answer:
-        'No technical expertise is required for the essentials. DeepDevs offers an intuitive, no‑code setup for storefronts, billing, and support. For developers, we provide APIs, webhooks, and SDKs for deeper customization when needed.',
-    },
-    {
-      id: '4',
-      question: 'What kind of support do you offer?',
-      answer:
-        'We provide email and in‑app chat support, step‑by‑step docs, and guided onboarding. Pro and Enterprise plans include priority support and a dedicated success channel for faster responses and hands‑on help.',
-    },
-    {
-      id: '5',
-      question: 'What payment gateways do you integrate with?',
-      answer:
-        'DeepDevs integrates with Stripe for global cards, Apple Pay, and Google Pay, plus PayPal. Through Stripe we support many local payment methods (e.g., SEPA, iDEAL, UPI) so you can accept payments in over 135 currencies.',
-    },
-    {
-      id: '6',
-      question: 'What are your pricing plans?',
-      answer:
-        'We offer Starter, Pro, and Enterprise plans billed monthly or annually (with a discount). Starter is great for individuals and small teams, Pro adds advanced features and higher limits, and Enterprise includes custom terms, SLAs, and priority support.',
-    },
-  ];
 
   return (
     <div className="min-h-screen relative overflow-hidden modern-gradient-bg">
@@ -111,18 +224,12 @@ export default function Home() {
 
       {/* Fixed Header with Liquid Glass Effect */}
       <header className="fixed top-0 left-0 right-0 z-50 glass-morphism border-b border-white/20 shadow-lg">
-        <div className="w-[85%] mx-auto px-6 md:px-10 lg:px-16 py-4">
+        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-[0.9rem] sm:py-[1.2rem]">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <Image 
-                src="/logo.png" 
-                alt="DeepDevs Logo" 
-                width={120}
-                height={40}
-                className="h-6 w-auto sm:h-7 md:h-8 lg:h-9 xl:h-10 object-contain" 
-              />
+              <Logo priority />
             </div>
-            <nav className="hidden md:flex items-center gap-8 text-sm text-gray-700">
+            <nav className="hidden md:flex items-center gap-4 lg:gap-6 xl:gap-8 text-xs md:text-sm text-gray-700">
               <a className="hover:text-gray-900 transition-colors" href="#plugins">Our Plugins</a>
               <Link className="text-indigo-600 font-medium" href="/apps">Our Apps</Link>
               <a className="hover:text-gray-900 transition-colors" href="#support">Support</a>
@@ -145,80 +252,80 @@ export default function Home() {
           <div className="absolute top-1/4 right-0 w-1 h-full shimmer opacity-20"></div>
         </div>
 
-        <div className="relative z-10 w-[85%] mx-auto px-6 md:px-10 lg:px-16 py-8 md:py-12 min-h-[calc(100vh-5rem)] flex flex-col justify-center">
+        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-6 sm:py-8 md:py-10 lg:py-12 min-h-[calc(100vh-5rem)] flex flex-col justify-center">
           {/* Modern glass morphism overlay */}
-          <div className="absolute inset-0 glass-morphism rounded-3xl opacity-20 pointer-events-none"></div>
+          <div className="absolute inset-0 glass-morphism rounded-2xl sm:rounded-3xl opacity-20 pointer-events-none"></div>
 
-          <section className="grid md:grid-cols-2 gap-10 lg:gap-16 items-stretch min-h-full rounded-2xl">
+          <section className="grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 xl:gap-16 items-stretch min-h-full rounded-xl sm:rounded-2xl">
           <div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-tight">
               Boost Productivity
               <br />
               with Our Software
               <br />
               Suite
             </h1>
-            <p className="mt-6 text-lg md:text-xl text-gray-700 max-w-xl">
+            <p className="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl text-gray-700 max-w-xl">
               A unique and powerful software suite to transform the way you work. Designed for businesses of all sizes, built by a company that values your privacy
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Link href="/apps" className="inline-flex items-center justify-center rounded-md bg-rose-400 hover:bg-rose-500 text-white px-5 py-3 font-medium shadow-sm transition hover-lift floating-button">Get Our Apps</Link>
-              <a href="#get-plugins" className="inline-flex items-center justify-center rounded-md border border-gray-300 px-5 py-3 font-medium text-gray-900 bg-white hover:bg-gray-50 transition hover-lift">Get Our Plugins</a>
+            <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
+              <Link href="/apps" className="inline-flex items-center justify-center rounded-md bg-rose-400 hover:bg-rose-500 text-white px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base font-medium shadow-sm transition hover-lift floating-button">Get Our Apps</Link>
+              <a href="#get-plugins" className="inline-flex items-center justify-center rounded-md border border-gray-300 px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base font-medium text-gray-900 bg-white hover:bg-gray-50 transition hover-lift">Get Our Plugins</a>
             </div>
 
             {/* Customer card (from Figma) */}
-            <div className="mt-12 w-full max-w-md rounded-2xl border border-gray-200 bg-white shadow-sm p-5 modern-card hover-lift">
-              <div className="flex items-start justify-between mb-4">
-                  <div className="text-gray-900 font-medium text-2xl leading-tight">Our Satisfied<br />Customer</div>
-                <div className="text-gray-900 font-bold text-2xl">64K +</div>
+            <div className="mt-8 sm:mt-10 md:mt-12 w-full max-w-md rounded-xl sm:rounded-2xl border border-gray-200 bg-white shadow-sm p-4 sm:p-5 modern-card hover-lift">
+              <div className="flex items-start justify-between mb-3 sm:mb-4">
+                  <div className="text-gray-900 font-medium text-xl sm:text-2xl leading-tight">Our Satisfied<br />Customer</div>
+                <div className="text-gray-900 font-bold text-xl sm:text-2xl">64K +</div>
               </div>
 
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex -space-x-3">
-                  <div className="h-16 w-16 rounded-full border-4 border-white overflow-hidden relative">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
+                <div className="flex -space-x-2 sm:-space-x-3">
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 rounded-full border-2 sm:border-3 md:border-4 border-white overflow-hidden relative">
                     <Image src="/figma/avatar-1-191d0a.png" alt="avatar 1" fill className="object-cover" />
                   </div>
-                  <div className="h-16 w-16 rounded-full border-4 border-white overflow-hidden relative">
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 rounded-full border-2 sm:border-3 md:border-4 border-white overflow-hidden relative">
                     <Image src="/figma/avatar-2-4b233a.png" alt="avatar 2" fill className="object-cover" />
                   </div>
-                  <div className="h-16 w-16 rounded-full border-4 border-white overflow-hidden relative">
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 rounded-full border-2 sm:border-3 md:border-4 border-white overflow-hidden relative">
                     <Image src="/figma/avatar-3-4b233a.png" alt="avatar 3" fill className="object-cover" />
                   </div>
-                  <div className="h-16 w-16 rounded-full border-4 border-white overflow-hidden relative">
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 rounded-full border-2 sm:border-3 md:border-4 border-white overflow-hidden relative">
                     <Image src="/figma/avatar-4-4b233a.png" alt="avatar 4" fill className="object-cover" />
                   </div>
-                  <div className="h-16 w-16 rounded-full border-4 border-white bg-[#86CAF6] flex items-center justify-center">
-                    <svg className="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 rounded-full border-2 sm:border-3 md:border-4 border-white bg-[#86CAF6] flex items-center justify-center">
+                    <svg className="h-4 w-4 sm:h-5 sm:w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
                 </div>
                 <div className="text-right">
-                    <div className="text-gray-900 text-base leading-tight">See More<br />Reviews</div>
+                    <div className="text-gray-900 text-sm sm:text-base leading-tight">See More<br />Reviews</div>
                 </div>
               </div>
 
-              <div className="mt-6">
-                <div className="flex items-center justify-between text-lg text-gray-900 mb-2">
+              <div className="mt-4 sm:mt-6">
+                <div className="flex items-center justify-between text-base sm:text-lg text-gray-900 mb-2">
                   <span>Satisfaction Rate</span>
                   <span className="font-medium">92%</span>
                 </div>
-                  <div className="h-4 rounded-full bg-gray-200 overflow-hidden">
-                    <div className="h-4 w-[92%] rounded-full bg-blue-500 transition-all duration-500 ease-in-out" />
+                  <div className="h-3 sm:h-4 rounded-full bg-gray-200 overflow-hidden">
+                    <div className="h-3 sm:h-4 w-[92%] rounded-full bg-blue-500 transition-all duration-500 ease-in-out" />
                 </div>
               </div>
             </div>
           </div>
 
           <aside>
-              <div className="h-auto rounded-2xl border border-gray-200 bg-white shadow-sm p-6 modern-card hover-lift">
-                <div className="text-lg font-medium text-gray-900 mb-6">Featured apps</div>
+              <div className="h-auto rounded-xl sm:rounded-2xl border border-gray-200 bg-white shadow-sm p-4 sm:p-5 md:p-6 modern-card hover-lift">
+                <div className="text-base sm:text-lg font-medium text-gray-900 mb-4 sm:mb-5 md:mb-6">Featured apps</div>
                 <ul className="space-y-2 flex-1">
                 {featured.map((app: { id: string; title: string; description: string; link: string; iconUrl: string }) => (
                     <li key={app.id}>
-                      <a href={app.link} className="flex items-center gap-4 group hover:bg-gray-50 p-2 rounded-lg transition-colors">
-                        <div className="w-16 h-20 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0 shadow-sm border border-gray-200">
+                      <a href={app.link} className="flex items-center gap-3 sm:gap-4 group hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                        <div className="w-12 h-16 sm:w-14 sm:h-18 md:w-16 md:h-20 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0 shadow-sm border border-gray-200">
                         {app.iconUrl ? (
                           // eslint-disable-next-line @next/next/no-img-element
                             <img 
@@ -230,18 +337,18 @@ export default function Home() {
                         ) : null}
                       </div>
                       <div className="flex-1 min-w-0">
-                          <div className="font-semibold text-gray-900 text-base mb-1">{app.title}</div>
-                          <div className="text-sm text-gray-600 line-clamp-2 leading-relaxed">{app.description}</div>
+                          <div className="font-semibold text-gray-900 text-sm sm:text-base mb-1">{app.title}</div>
+                          <div className="text-xs sm:text-sm text-gray-600 line-clamp-2 leading-relaxed">{app.description}</div>
                       </div>
-                        <svg className="h-5 w-5 text-gray-400 group-hover:text-gray-600 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" /></svg>
+                        <svg className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400 group-hover:text-gray-600 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" /></svg>
                     </a>
                   </li>
                 ))}
               </ul>
             </div>
               {/* Decorative floral element outside and centered under the card */}
-              <div className="mt-6 w-full text-center">
-                  <svg className="w-96 h-24 inline-block" viewBox="0 0 297 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <div className="mt-4 sm:mt-6 w-full text-center">
+                  <svg className="w-full max-w-sm sm:max-w-md md:w-96 h-16 sm:h-20 md:h-24 inline-block" viewBox="0 0 297 37" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M149.421 12.8871C149.394 10.2045 149.062 7.53402 148.429 4.92914C148.161 3.79378 147.79 2.68608 147.32 1.62032C147.003 0.922255 146.555 0.0566556 145.674 0.224191C144.792 0.391726 144.682 1.78785 144.592 2.53478C144.383 3.73438 144.256 4.94729 144.214 6.16472C144.196 7.39429 144.286 8.62303 144.482 9.83653C144.572 10.3461 144.537 10.8627 144.647 11.3793C144.792 12.0773 144.964 12.7335 145.061 13.4734L146.135 13.1733C145.963 12.5241 145.66 11.9307 145.446 11.2885C145.233 10.6463 145.088 10.0809 144.854 9.4875C144.36 8.39293 143.758 7.35211 143.056 6.38112C142.45 5.489 141.649 4.75082 140.715 4.2241C140.081 3.83318 139.144 3.13512 138.504 3.92393C138.008 4.53125 138.304 5.75984 138.435 6.45092C138.726 7.66899 139.176 8.84261 139.771 9.94124C140.058 10.4954 140.289 11.0778 140.46 11.6794C140.637 12.2015 140.895 12.6917 141.224 13.1314C141.5 13.5712 141.658 14.0808 141.913 14.5275C142.264 15.1418 142.664 15.7212 142.994 16.3425L143.869 15.6444C143.068 14.6891 142.141 13.8504 141.114 13.1523C140.608 12.9131 140.122 12.6329 139.661 12.3147C139.237 11.9447 138.775 11.6218 138.283 11.3513C137.288 10.7272 136.219 10.2324 135.101 9.87842C134.536 9.75276 133.937 9.73182 133.366 9.65504C133.209 9.61147 133.045 9.60391 132.885 9.6329C132.726 9.66188 132.574 9.72669 132.443 9.82257C131.754 10.4438 132.443 11.6306 132.759 12.2658C133.405 13.2295 134.2 14.0806 135.115 14.7858C136.082 15.6547 137.116 16.4437 138.208 17.1453C138.807 17.5432 139.406 17.948 139.991 18.3599C140.109 18.4583 140.238 18.5404 140.377 18.6042C140.556 18.681 140.866 18.6391 141.011 18.7438L141.142 17.7107C140.613 17.798 140.073 17.798 139.544 17.7107C138.963 17.7071 138.383 17.7491 137.808 17.8363C136.753 17.9487 135.71 18.1495 134.688 18.4367C133.652 18.6517 132.646 18.9939 131.692 19.4559C131.378 19.6169 131.114 19.8608 130.926 20.1619C130.738 20.463 130.634 20.81 130.624 21.1661C130.721 22.0247 131.589 22.2132 132.27 22.3598C133.27 22.646 134.284 22.879 135.308 23.0579C136.638 23.1487 137.971 23.1697 139.303 23.1207C140.158 23.1924 141.019 23.1192 141.851 22.9043C141.955 22.8718 142.047 22.8099 142.116 22.7259C142.186 22.6418 142.23 22.5393 142.244 22.4304C142.258 22.3215 142.241 22.2109 142.194 22.1117C142.148 22.0126 142.074 21.9291 141.982 21.8712C141.045 21.3825 140.033 21.9898 139.103 22.2551C137.843 22.6251 136.52 22.7996 135.28 23.2394C134.276 23.6495 133.319 24.1716 132.429 24.796C131.561 25.3475 130.487 25.9618 129.956 26.8902C129.904 26.9749 129.876 27.0729 129.876 27.173C129.876 27.273 129.904 27.371 129.956 27.4557C130.941 28.8518 133.517 28.056 134.84 27.7419C136.01 27.4696 137.147 27.1415 138.332 26.9321C139.432 26.6394 140.515 26.2828 141.576 25.8641L140.949 25.0334C140.694 25.4141 140.393 25.7612 140.053 26.0665C139.704 26.4703 139.332 26.8526 138.938 27.2113C138.132 27.9094 137.285 28.5237 136.479 29.2148C135.138 30.3575 134.19 31.9024 133.772 33.6266C133.51 35.3019 136.32 34.6527 137.071 34.3246C139.03 33.5317 140.749 32.2319 142.058 30.5551C142.499 29.9896 141.713 29.1589 141.273 29.7593C140.203 31.1382 138.843 32.2569 137.291 33.0332C136.867 33.2519 136.418 33.4205 135.955 33.5358C135.659 33.6056 135.267 33.5358 134.984 33.6126C134.702 33.6894 134.984 33.5149 134.888 33.8011C134.943 33.6684 134.984 33.5218 135.039 33.3822C135.145 33.0657 135.274 32.7576 135.425 32.4608C136.278 30.9498 137.455 29.6521 138.869 28.6633C139.516 28.196 140.115 27.6652 140.66 27.0787C141.131 26.6422 141.55 26.1501 141.906 25.6128C141.958 25.5156 141.982 25.4052 141.973 25.2949C141.965 25.1846 141.925 25.0791 141.859 24.9912C141.793 24.9033 141.703 24.8368 141.6 24.7997C141.497 24.7626 141.386 24.7565 141.279 24.7821C140.46 25.0264 139.688 25.4383 138.862 25.6756C137.932 25.9478 136.947 26.0246 136.004 26.2759C135.083 26.5409 134.15 26.7576 133.207 26.9251C132.78 26.9949 131.244 27.351 130.914 26.9251V27.4487C131.382 26.6529 132.477 26.1084 133.228 25.6337C134.004 25.082 134.844 24.6273 135.728 24.2795C136.685 23.9653 137.684 23.7839 138.669 23.5814C139.151 23.4627 139.626 23.3231 140.102 23.1696C140.467 23.0509 141.066 22.7019 141.424 22.8903L141.555 21.8572C140.929 22.0269 140.279 22.086 139.633 22.0317C138.683 22.0317 137.732 22.0317 136.782 22.0317C135.775 22.0716 134.769 21.9515 133.8 21.6757C133.432 21.5407 133.058 21.4288 132.677 21.3406C132.346 21.2778 131.733 21.3057 131.926 20.7822C132.029 20.503 132.381 20.4401 132.615 20.3284C133.043 20.1163 133.491 19.9457 133.951 19.8188C134.805 19.6024 135.673 19.3511 136.541 19.1627C137.415 18.9744 138.306 18.8761 139.199 18.8695C139.964 18.9455 140.735 18.9197 141.493 18.7927C141.596 18.7602 141.688 18.6983 141.758 18.6143C141.828 18.5302 141.872 18.4277 141.886 18.3188C141.9 18.2099 141.882 18.0993 141.836 18.0001C141.789 17.901 141.716 17.8175 141.624 17.7596C141.307 17.5362 140.976 17.606 140.646 17.4105C140.315 17.2151 139.861 16.866 139.475 16.6008C138.488 15.9925 137.54 15.321 136.637 14.5903C135.873 13.9272 135.136 13.1942 134.426 12.4962C134.115 12.1985 133.862 11.843 133.682 11.4491C133.582 11.1914 133.467 10.9397 133.338 10.6952C133.338 10.6602 132.911 10.6952 133.393 10.7929C133.875 10.8906 134.24 10.8697 134.66 10.9325C135.187 11.0231 135.696 11.1974 136.169 11.4491C137.079 11.8475 137.941 12.3511 138.738 12.9499C139.401 13.4269 140.091 13.8651 140.804 14.2623C141.665 14.8893 142.447 15.6207 143.132 16.4402C143.573 16.9149 144.296 16.3076 144.007 15.7422C143.525 14.8417 142.919 14.0249 142.499 13.0895C142.341 12.7524 142.154 12.43 141.941 12.1262C141.716 11.7257 141.553 11.2925 141.458 10.8417C141.118 9.98464 140.724 9.14998 140.281 8.34268C139.818 7.39597 139.528 6.37176 139.427 5.32006C139.427 4.92914 139.296 4.71972 139.709 4.92216C140.102 5.12659 140.479 5.3599 140.839 5.62023C141.6 6.2558 142.238 7.02997 142.719 7.9029C143.309 8.76116 143.773 9.70173 144.096 10.6952C144.399 11.6236 144.785 12.552 145.061 13.4874C145.254 14.1855 146.232 13.8853 146.135 13.1872C145.758 11.2948 145.493 9.38092 145.343 7.45613C145.249 6.38881 145.272 5.31416 145.412 4.25202C145.521 3.84573 145.606 3.43312 145.667 3.01645C145.667 2.7442 145.701 1.70409 145.922 1.49467C146.142 1.28525 146.273 1.95539 146.362 2.19273C146.548 2.66494 146.706 3.14737 146.838 3.63772C147.113 4.53125 147.368 5.39685 147.588 6.31131C148.08 8.48156 148.323 10.7022 148.312 12.929C148.327 13.0672 148.392 13.1949 148.494 13.2876C148.596 13.3804 148.729 13.4317 148.866 13.4317C149.003 13.4317 149.136 13.3804 149.238 13.2876C149.34 13.1949 149.405 13.0672 149.421 12.929V12.8871Z" fill="#898989" />
                     <path d="M143.14 29.3263C143.545 28.9365 143.971 28.5683 144.414 28.2234C144.568 28.0948 144.702 27.9443 144.814 27.7766C144.814 27.7766 145.048 27.274 144.931 27.3159L144.249 26.7505C144.249 27.0995 143.835 27.5253 143.691 27.8395C143.405 28.5173 143.175 29.2177 143.002 29.9336C142.603 31.3298 142.451 32.7259 142.107 34.0801C141.787 35.3063 141.573 36.5582 141.466 37.8218C141.397 38.7642 140.915 39.7973 141.886 40.4465C143.718 41.6681 144.862 37.8776 145.213 36.7398C145.612 35.4484 146.157 34.1639 146.591 32.9004C147.071 31.8152 147.345 30.6474 147.396 29.459C147.355 28.7609 146.267 28.7609 146.281 29.459C146.281 30.6527 146.177 31.7905 146.122 32.9493C146.067 34.1081 145.971 35.4274 145.971 36.6909C145.971 38.6455 145.798 40.7048 146.584 42.5477C146.797 43.0433 147.128 43.6366 147.706 43.7274C148.443 43.8461 148.939 43.1131 149.256 42.5477C149.714 41.6791 150.01 40.7326 150.131 39.7554C150.355 38.6666 150.477 37.5587 150.496 36.4466C150.521 35.8215 150.588 35.1988 150.695 34.5828C150.74 33.953 150.74 33.3208 150.695 32.691C150.64 31.253 150.695 29.808 150.695 28.37C150.695 28.22 150.637 28.0762 150.532 27.9702C150.427 27.8641 150.286 27.8045 150.138 27.8045C149.99 27.8045 149.848 27.8641 149.743 27.9702C149.638 28.0762 149.58 28.22 149.58 28.37C149.58 29.7172 149.58 31.0715 149.58 32.4188C149.58 32.9632 149.635 33.5077 149.58 34.0522C149.525 34.5967 149.359 35.2669 149.332 35.8881C149.344 36.5272 149.312 37.1664 149.235 37.8008C149.139 38.3523 149.098 38.9038 149.015 39.4552C148.938 40.0132 148.809 40.5625 148.629 41.0957C148.498 41.4796 148.223 42.3592 147.83 42.5407C147.748 42.6035 147.755 42.6105 147.83 42.5756C147.768 42.5124 147.717 42.4393 147.679 42.3592C147.624 42.2126 147.534 42.073 147.479 41.9264C147.366 41.6293 147.276 41.3235 147.21 41.0119C146.996 39.7233 146.929 38.4139 147.011 37.1097C147.011 35.7974 147.045 34.5129 147.142 33.2076C147.269 31.9412 147.331 30.669 147.327 29.3961H146.212C146.167 30.357 145.954 31.3023 145.585 32.1884C145.22 33.2355 144.862 34.2826 144.435 35.3087C144.083 36.1813 143.897 37.1097 143.519 37.9684C143.374 38.3034 143.105 38.9945 142.782 39.176L142.63 39.3296C142.341 39.2668 142.238 39.1341 142.32 38.9457C142.345 38.7349 142.389 38.5269 142.451 38.3244C142.582 37.2982 142.692 36.3 142.885 35.2738C143.078 34.2477 143.319 33.068 143.519 31.965C143.729 30.8683 144.031 29.7917 144.421 28.7469C144.662 28.0489 145.268 27.4485 145.275 26.7226C145.273 26.6379 145.252 26.5547 145.215 26.4791C145.177 26.4035 145.124 26.3372 145.058 26.2851C144.992 26.233 144.915 26.1964 144.834 26.1779C144.752 26.1594 144.668 26.1594 144.586 26.1781C144.07 26.3665 144.07 26.6946 143.808 27.1204C143.457 27.6789 142.733 27.9791 142.3 28.4747C141.866 28.9703 142.616 29.822 143.092 29.2775L143.14 29.3263Z" fill="#898989" />
                     <path d="M149.449 12.8868C149.432 10.7101 149.664 8.53878 150.137 6.41571C150.372 5.45238 150.633 4.53791 150.923 3.62345C151.056 3.13298 151.217 2.65055 151.405 2.17846C151.467 2.02097 151.539 1.86716 151.618 1.71774C151.708 1.55718 151.728 1.40361 151.846 1.50832C151.963 1.61303 152.073 2.75087 152.1 3.0301C152.159 3.44651 152.242 3.85908 152.348 4.26567C152.489 5.27632 152.512 6.30012 152.417 7.31621C152.28 9.29321 152.016 11.259 151.625 13.2009C151.529 13.899 152.507 14.227 152.7 13.5011C152.954 12.5587 153.388 11.6302 153.664 10.7088C153.988 9.71549 154.452 8.77496 155.041 7.91654C155.499 7.10413 156.091 6.37699 156.791 5.76651C157.166 5.49506 157.554 5.24342 157.955 5.0126C158.409 4.73337 158.389 4.8311 158.347 5.34069C158.203 7.43488 156.97 8.95666 156.316 10.8763C156.223 11.3267 156.063 11.76 155.84 12.1608C155.625 12.4644 155.436 12.7868 155.276 13.1241C154.862 14.0595 154.249 14.8762 153.774 15.7767C153.485 16.3212 154.201 16.9355 154.649 16.4748C155.305 15.6962 156.044 14.9939 156.853 14.3806C157.609 13.9542 158.342 13.4882 159.05 12.9845C159.8 12.4052 160.611 11.9113 161.467 11.5116C161.921 11.2684 162.402 11.0832 162.9 10.9601C163.389 10.8554 163.885 10.9112 164.367 10.7926L164.56 10.7577C164.746 10.7577 164.698 10.7158 164.429 10.6948C164.298 10.7995 164.195 11.1905 164.126 11.3371C163.965 11.7339 163.731 12.0962 163.437 12.4051C162.7 13.159 161.936 13.892 161.144 14.59C160.265 15.2906 159.345 15.9364 158.389 16.5237C157.975 16.7959 157.569 17.0961 157.149 17.3613C156.729 17.6266 156.46 17.5289 156.116 17.7592C156.024 17.8177 155.951 17.9017 155.905 18.0013C155.859 18.1009 155.842 18.2118 155.856 18.3208C155.871 18.4298 155.916 18.5322 155.986 18.6158C156.057 18.6995 156.15 18.7608 156.254 18.7924C156.96 18.9065 157.678 18.9229 158.389 18.8412C159.274 18.8397 160.158 18.9262 161.027 19.0995C161.888 19.281 162.749 19.5393 163.603 19.7557C164.077 19.871 164.538 20.0348 164.98 20.2444C165.249 20.37 165.669 20.4538 165.807 20.7539C166.013 21.3333 164.477 21.452 164.064 21.5986C163.109 21.8936 162.114 22.0303 161.116 22.0035H158.265C157.571 22.066 156.872 22.007 156.199 21.829L156.329 22.8621C156.674 22.6806 157.307 23.0296 157.645 23.1413C158.12 23.2949 158.595 23.4345 159.084 23.5532C160.062 23.7905 161.068 23.965 162.025 24.2512C162.909 24.6006 163.748 25.0552 164.526 25.6055C165.276 26.0802 166.371 26.6247 166.833 27.4205V26.8899C166.516 27.3367 165.125 27.0086 164.698 26.9458C163.692 26.7922 162.721 26.5199 161.743 26.2477C160.765 25.9755 159.911 25.9196 158.988 25.6823C158.065 25.4449 157.307 24.9842 156.446 24.7538C156.34 24.7264 156.228 24.7312 156.123 24.7676C156.019 24.804 155.928 24.8704 155.861 24.9586C155.794 25.0468 155.753 25.1531 155.745 25.2643C155.736 25.3755 155.76 25.4868 155.813 25.5845C156.141 26.0959 156.53 26.5647 156.97 26.9807C157.504 27.5734 158.095 28.1112 158.733 28.5862C160.201 29.5849 161.422 30.913 162.301 32.4675C162.435 32.7391 162.552 33.0188 162.652 33.3051C162.706 33.4517 162.77 33.5941 162.845 33.731C162.9 33.8287 163.024 33.6402 162.845 33.6053C162.528 33.5215 162.122 33.6053 161.784 33.5425C161.364 33.4453 160.957 33.2976 160.572 33.1027C158.961 32.3416 157.546 31.2112 156.44 29.8008C155.999 29.2284 155.214 30.0312 155.654 30.5966C156.934 32.2338 158.606 33.5122 160.51 34.3103C161.199 34.6105 164.229 35.3784 163.954 33.6123C163.548 31.9351 162.642 30.4259 161.357 29.2913C160.586 28.5932 159.766 27.9719 158.954 27.3367C158.503 26.9449 158.086 26.5152 157.707 26.0522C157.367 25.7469 157.066 25.3999 156.812 25.0191L156.185 25.8498C157.198 26.2562 158.233 26.6057 159.284 26.8969C160.51 27.1133 161.702 27.4414 162.914 27.7276C164.243 28.0417 166.819 28.8236 167.804 27.4414C167.854 27.3559 167.881 27.2582 167.881 27.1587C167.881 27.0591 167.854 26.9614 167.804 26.876C167.184 26.0379 166.383 25.3549 165.462 24.8795C164.531 24.2279 163.531 23.6846 162.48 23.26C161.282 22.8342 160.014 22.6597 158.795 22.3176C157.831 22.0454 156.729 21.3892 155.771 21.8918C155.68 21.9502 155.606 22.0343 155.56 22.1339C155.514 22.2334 155.497 22.3444 155.512 22.4533C155.526 22.5623 155.572 22.6647 155.642 22.7484C155.713 22.832 155.805 22.8933 155.909 22.9249C156.741 23.1401 157.602 23.2133 158.458 23.1413C159.725 23.1413 161.027 23.2181 162.287 23.0994C163.329 22.9205 164.361 22.6875 165.38 22.4014C166.068 22.2618 167.033 22.1012 167.129 21.1937C167.122 20.8484 167.026 20.5108 166.851 20.2145C166.676 19.9182 166.428 19.6734 166.13 19.5044C165.202 19.0336 164.215 18.6909 163.196 18.4852C162.127 18.1837 161.035 17.9713 159.932 17.85C159.354 17.7662 158.772 17.7242 158.189 17.7243C157.662 17.8082 157.125 17.8082 156.598 17.7243L156.729 18.7575C156.873 18.6528 157.183 18.6947 157.356 18.6179C157.498 18.5568 157.63 18.4744 157.748 18.3735C158.334 17.9547 158.926 17.5568 159.525 17.1589C160.618 16.4591 161.652 15.67 162.618 14.7995C163.537 14.0998 164.334 13.2478 164.973 12.2794C165.304 11.6372 165.993 10.4575 165.29 9.83622C165.159 9.74092 165.009 9.67642 164.851 9.64744C164.692 9.61845 164.529 9.62571 164.374 9.66868C163.795 9.75245 163.203 9.76641 162.631 9.89207C161.515 10.2431 160.448 10.7381 159.456 11.365C158.965 11.6354 158.503 11.9584 158.079 12.3283C157.616 12.6451 157.131 12.9252 156.626 13.166C155.594 13.8584 154.666 14.6977 153.871 15.6581L154.738 16.3561C155.076 15.7349 155.475 15.1555 155.827 14.5412C156.081 14.0944 156.247 13.5918 156.515 13.145C156.825 12.7431 157.074 12.2959 157.252 11.8187C157.438 11.175 157.685 10.5508 157.989 9.95489C158.587 8.85651 159.038 7.6829 159.332 6.46457C159.463 5.76651 159.752 4.53791 159.263 3.93758C158.623 3.14877 157.686 3.84683 157.053 4.23775C156.119 4.76447 155.317 5.50264 154.711 6.39476C154.008 7.36509 153.406 8.40602 152.913 9.50115C152.672 10.0945 152.514 10.7018 152.314 11.3022C152.114 11.9025 151.797 12.5377 151.625 13.1869L152.7 13.4871C152.796 12.789 152.975 12.091 153.12 11.3929C153.223 10.8763 153.182 10.3598 153.285 9.85018C153.485 8.63712 153.575 7.40805 153.554 6.17836C153.511 4.96094 153.384 3.74802 153.175 2.54843C153.078 1.79452 153.016 0.45424 152.087 0.23784C151.157 0.0214399 150.737 0.921943 150.447 1.62001C149.981 2.69835 149.612 3.81755 149.345 4.96373C148.707 7.56772 148.372 10.2386 148.347 12.9217C148.347 13.0716 148.405 13.2154 148.51 13.3215C148.615 13.4275 148.757 13.4871 148.905 13.4871C149.053 13.4871 149.194 13.4275 149.299 13.3215C149.404 13.2154 149.462 13.0716 149.462 12.9217L149.449 12.8868Z" fill="#898989" />
@@ -342,7 +449,6 @@ export default function Home() {
               </div>
           </aside>
         </section>
-
         {/* Company Logo Section */}
         <section className="py-20 section-bg-modern mt-8 relative overflow-hidden rounded-2xl">
           {/* Animated background elements for this section */}
@@ -351,39 +457,41 @@ export default function Home() {
             <div className="absolute bottom-10 right-10 w-20 h-20 geometric-shape rounded-lg floating-element-reverse opacity-20"></div>
             <div className="absolute top-1/2 left-1/4 w-16 h-16 geometric-shape rounded-full pulsing-element opacity-10"></div>
           </div>
-            <div className="w-[85%] mx-auto px-6 md:px-10 lg:px-16 text-center relative z-10">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-8 leading-tight">
+            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 text-center relative z-10">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-6 sm:mb-8 leading-tight">
               Our Approach Trustworthiness to Business Integrity
             </h2>
             
-            <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
+            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8">
               {/* Store badges and screenshot from Figma */}
-              <div className="flex items-center flex-wrap justify-center gap-6 md:gap-8">
+              <div className="flex items-center flex-wrap justify-center gap-4 sm:gap-6 md:gap-8">
                 <Image
                   src="/figma/appstore-badge.png"
                   alt="Download on the App Store"
                   width={120}
                   height={40}
-                  className="h-12 md:h-14 w-auto object-contain"
+                  className="h-10 sm:h-12 md:h-14 w-auto object-contain"
                 />
                 <Image
                   src="/figma/googleplay-badge.svg"
                   alt="Get it on Google Play"
                   width={135}
                   height={40}
-                  className="h-12 md:h-14 w-auto object-contain"
+                  className="h-10 sm:h-12 md:h-14 w-auto object-contain"
                 />
                 <Image
                   src="/figma/second-section-screenshot.png"
                   alt="App preview"
-                  className="h-12 md:h-14 w-auto object-contain rounded-md border border-gray-300"
+                  width={120}
+                  height={56}
+                  className="h-10 sm:h-12 md:h-14 w-auto object-contain rounded-md border border-gray-300"
                 />
                 <Image
                   src="/figma/microsoft-badge.svg"
                   alt="Get it from Microsoft"
                   width={120}
                   height={40}
-                  className="h-12 md:h-14 w-auto object-contain"
+                  className="h-10 sm:h-12 md:h-14 w-auto object-contain"
                 />
               </div>
             </div>
@@ -391,12 +499,12 @@ export default function Home() {
         </section>
 
         {/* Award Winning Application Section */}
-        <section className="mt-8 relative overflow-visible">
-          <div className="mx-auto w-full max-w-6xl bg-[#F1F1F1] rounded-[24px] px-6 py-10 sm:px-8 lg:px-14 lg:py-16">
-            <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 isolate">
+        <section className="mt-6 sm:mt-8 relative overflow-visible w-full bg-[#F1F1F1] rounded-2xl sm:rounded-[24px] py-8 sm:py-10 md:py-12 lg:py-16">
+          <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
+            <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-10 lg:gap-16 isolate">
               {/* Left group */}
               <div className="relative w-full max-w-[520px] lg:flex-1">
-                <div className="relative w-full aspect-[465/520] max-h-[520px] mx-auto">
+                <div className="relative w-full aspect-[465/520] max-h-[400px] sm:max-h-[450px] md:max-h-[520px] mx-auto">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/figma/award-wining-apps.png"
@@ -408,18 +516,18 @@ export default function Home() {
 
               {/* Right group */}
               <div className="relative w-full lg:flex-1 flex flex-col items-start justify-center text-left">
-                <h2 className="text-[#171A20] font-bold text-3xl sm:text-4xl lg:text-5xl leading-tight">
+                <h2 className="text-[#171A20] font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight">
                   Award winning
                   <br className="hidden sm:block" />
                   application
                 </h2>
-                <p className="text-[#171A20] text-base sm:text-lg lg:text-xl leading-relaxed mt-6 max-w-xl">
+                <p className="text-[#171A20] text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed mt-4 sm:mt-6 max-w-xl">
                   Go paperless. Back up important to all your devices, & keep the information not the clutter.
                 </p>
-                <div className="mt-8">
+                <div className="mt-6 sm:mt-8">
                   <a
                     href="#"
-                    className="inline-flex items-center px-6 py-3 rounded bg-[#EA8E71] text-white text-base sm:text-lg font-medium"
+                    className="inline-flex items-center px-5 sm:px-6 py-2.5 sm:py-3 rounded bg-[#EA8E71] text-white text-sm sm:text-base md:text-lg font-medium"
                   >
                     Explore All Products
                   </a>
@@ -429,55 +537,130 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Products/Plugins Banner Section */}
+        <section className="mt-6 sm:mt-8 relative overflow-hidden py-3 sm:py-4 w-full">
+          <div className="flex flex-col gap-3 sm:gap-4">
+            {/* Top bar - Deep Plugin */}
+            <div className="relative w-full overflow-hidden">
+              <div className="flex-none rotate-[2.179deg] w-full">
+                <div className="bg-[#e2603a] h-16 sm:h-20 md:h-24 lg:h-28 overflow-hidden relative w-full">
+                  <div className="absolute inset-0 flex items-center whitespace-nowrap">
+                    <div className="flex items-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 animate-scroll-left">
+                      {[...Array(8)].map((_, i) => (
+                        <div key={i} className="flex-none rotate-[0.398deg]">
+                          <p className="text-white font-medium text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-none font-inter">
+                            Deep Plugin
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex items-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 animate-scroll-left" aria-hidden="true">
+                      {[...Array(8)].map((_, i) => (
+                        <div key={`dup-${i}`} className="flex-none rotate-[0.398deg]">
+                          <p className="text-white font-medium text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-none font-inter">
+                            Deep Plugin
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom bar - Apps */}
+            <div className="relative w-full overflow-hidden">
+              <div className="flex-none rotate-[2.179deg] w-full">
+                <div className="bg-[#74c1f8] h-16 sm:h-20 md:h-24 lg:h-28 overflow-hidden relative w-full">
+                  <div className="absolute inset-0 flex items-center whitespace-nowrap">
+                    <div className="flex items-center gap-3 sm:gap-4 md:gap-6 lg:gap-8 animate-scroll-right">
+                      {['Yoler App', 'Plantzify', 'SeSign', 'Deep Tatto', 'Ztax'].map((app, i, arr) => (
+                        <div key={i} className="flex items-center gap-3 sm:gap-4 md:gap-6 lg:gap-8">
+                          <div className="flex-none rotate-[0.398deg]">
+                            <p className="text-white font-medium text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-none font-inter">
+                              {app}
+                            </p>
+                          </div>
+                          {i < arr.length - 1 && (
+                            <div className="flex-none rotate-[357.821deg]">
+                              <span className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">*</span>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex items-center gap-3 sm:gap-4 md:gap-6 lg:gap-8 animate-scroll-right" aria-hidden="true">
+                      {['Yoler App', 'Plantzify', 'SeSign', 'Deep Tatto', 'Ztax'].map((app, i, arr) => (
+                        <div key={`dup-${i}`} className="flex items-center gap-3 sm:gap-4 md:gap-6 lg:gap-8">
+                          <div className="flex-none rotate-[0.398deg]">
+                            <p className="text-white font-medium text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-none font-inter">
+                              {app}
+                            </p>
+                          </div>
+                          {i < arr.length - 1 && (
+                            <div className="flex-none rotate-[357.821deg]">
+                              <span className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">*</span>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Post-Award Two-Column Section */}
-        <section className="mt-8 w-[76vw] mx-auto rounded-2xl">
-          <div className="px-0">
-            <div className="grid gap-8 lg:gap-12 items-start lg:grid-cols-2 place-items-stretch">
+        <section className="mt-6 sm:mt-8 w-full relative">
+          <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 relative z-10">
+            <div className="grid gap-4 sm:gap-6 md:gap-8 lg:gap-10 items-start lg:grid-cols-2 place-items-stretch">
               {/* Left side - Matches Figma node 6657:1079 */}
-              <div className="bg-[#F1F1F1] rounded-2xl shadow-md p-8 md:p-10 space-y-6 w-full">
-                <div className="space-y-4">
-                  <h3 className="text-4xl md:text-5xl font-bold text-[#171A20] leading-tight">
+              <div className="bg-[#F1F1F1] rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 space-y-4 sm:space-y-6 w-full">
+                <div className="space-y-3 sm:space-y-4">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#171A20] leading-tight">
                     Empower Your World:
-                    <br className="hidden md:block" /> Learn, Create, Sign,
+                    <br className="hidden sm:block" /> Learn, Create, Sign,
                     <br className="hidden md:block" /> and Grow
                   </h3>
-                  <p className="text-lg text-[#171A20]/80 leading-relaxed max-w-2xl">
+                  <p className="text-base sm:text-lg text-[#171A20]/80 leading-relaxed">
                     Connect Pike with your favorite tools and keep everything you need in sync.
                   </p>
                 </div>
 
                 {/* Circular thumbnails grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 md:gap-8 items-center">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-8 items-center w-full">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/figma/left-card-img-1.png" alt="thumb 1" className="w-28 h-28 md:w-32 md:h-32 rounded-full object-cover shadow" />
+                  <img src="/figma/left-card-img-1.png" alt="thumb 1" className="w-full max-w-[120px] sm:max-w-[140px] md:max-w-[160px] lg:max-w-[180px] aspect-square rounded-full object-cover shadow" />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/figma/left-card-img-2.png" alt="thumb 2" className="w-28 h-28 md:w-32 md:h-32 rounded-full object-cover shadow" />
+                  <img src="/figma/left-card-img-2.png" alt="thumb 2" className="w-full max-w-[120px] sm:max-w-[140px] md:max-w-[160px] lg:max-w-[180px] aspect-square rounded-full object-cover shadow" />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/figma/left-card-img-3.png" alt="thumb 3" className="w-28 h-28 md:w-32 md:h-32 rounded-full object-cover shadow" />
+                  <img src="/figma/left-card-img-3.png" alt="thumb 3" className="w-full max-w-[120px] sm:max-w-[140px] md:max-w-[160px] lg:max-w-[180px] aspect-square rounded-full object-cover shadow" />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/figma/left-card-img-4.png" alt="thumb 4" className="w-28 h-28 md:w-32 md:h-32 rounded-full object-cover shadow" />
+                  <img src="/figma/left-card-img-4.png" alt="thumb 4" className="w-full max-w-[120px] sm:max-w-[140px] md:max-w-[160px] lg:max-w-[180px] aspect-square rounded-full object-cover shadow" />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/figma/left-card-img-5.png" alt="thumb 5" className="w-28 h-28 md:w-32 md:h-32 rounded-full object-cover shadow" />
+                  <img src="/figma/left-card-img-5.png" alt="thumb 5" className="w-full max-w-[120px] sm:max-w-[140px] md:max-w-[160px] lg:max-w-[180px] aspect-square rounded-full object-cover shadow" />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/figma/left-card-img-2.png" alt="thumb 6" className="w-28 h-28 md:w-32 md:h-32 rounded-full object-cover shadow" />
+                  <img src="/figma/left-card-img-2.png" alt="thumb 6" className="w-full max-w-[120px] sm:max-w-[140px] md:max-w-[160px] lg:max-w-[180px] aspect-square rounded-full object-cover shadow" />
                 </div>
               </div>
 
               {/* Right side - Single gray container including text and image */}
-              <div className="bg-[#F1F1F1] rounded-2xl shadow-md p-8 md:p-10 flex flex-col justify-start h-full w-full">
-                <div className="space-y-4">
-                  <h3 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+              <div className="bg-[#F1F1F1] rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 flex flex-col justify-start h-full w-full">
+                <div className="space-y-3 sm:space-y-4">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
                     Track Your Progress,
-                    <br className="hidden md:block" /> Achieve More Every
+                    <br className="hidden sm:block" /> Achieve More Every
                     <br className="hidden md:block" /> Step Counts
                   </h3>
-                  <p className="text-lg text-gray-700 leading-relaxed">
+                  <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
                     Galleries, tabs, counters, testimonials, and more,
                     each crafted for speed and flexibility.
                   </p>
                 </div>
 
-                <div className="mt-8">
+                <div className="mt-6 sm:mt-8 w-full">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/figma/track-your-progress.png"
@@ -492,7 +675,7 @@ export default function Home() {
 
 
         {/* Apps Section - From Figma */}
-        <section className="py-20 bg-[#F1F1F1] relative overflow-hidden mt-8 wave-bg rounded-2xl">
+        <section className="py-12 sm:py-16 md:py-20 bg-[#F1F1F1] relative overflow-hidden mt-6 sm:mt-8 wave-bg rounded-xl sm:rounded-2xl">
           {/* Animated background elements */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute top-20 right-20 w-32 h-32 geometric-shape rounded-full floating-element opacity-12"></div>
@@ -500,43 +683,43 @@ export default function Home() {
             <div className="absolute top-1/3 left-1/3 w-24 h-24 geometric-shape rounded-full pulsing-element opacity-8"></div>
             <div className="absolute bottom-1/3 right-1/3 w-20 h-20 geometric-shape rounded-lg floating-element-slow opacity-10"></div>
           </div>
-            <div className="w-full px-[5%] relative z-10">
+            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 relative z-10">
             {/* Main Heading */}
-            <div className="text-center mb-14">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0D0D0D] leading-tight">
+            <div className="text-center mb-10 sm:mb-12 md:mb-14">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#0D0D0D] leading-tight">
                 Explore Our Feature-Rich Apps
               </h2>
             </div>
 
             {/* Main Content Grid */}
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
               {/* Left Side - Content */}
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#171A20] leading-tight">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#171A20] leading-tight">
                     Unlock Possibilities: Simplify
                     <br className="hidden md:block" /> <span className="font-bold">All in One Place</span>
                   </h3>
-                  <p className="text-lg text-[#171A20] leading-relaxed">
+                  <p className="text-base sm:text-lg text-[#171A20] leading-relaxed">
                     All your essential tools, from learning and designing to signing documents,
                     are combined in one place, making your daily tasks simpler and more efficient.
                   </p>
                 </div>
 
                 {/* Pill checklist */}
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {[
                     'Seamless Integration',
                     'Maximize Your Potential',
                     'Simplify Your Workflow',
                   ].map((label) => (
-                    <div key={label} className="flex w-max items-center gap-3 bg-white rounded-full shadow-sm px-5 py-3 border border-black/5">
+                    <div key={label} className="flex w-max max-w-full items-center gap-2 sm:gap-3 bg-white rounded-full shadow-sm px-4 sm:px-5 py-2.5 sm:py-3 border border-black/5">
                       {/* inline check icon */}
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#22C55E]">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#22C55E] flex-shrink-0">
                         <circle cx="12" cy="12" r="10" fill="#E6F9EF" />
                         <path d="M8.5 12.5l2.5 2.5 4.5-5.5" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
-                      <span className="text-[#0F172A] text-base font-medium">{label}</span>
+                      <span className="text-[#0F172A] text-sm sm:text-base font-medium whitespace-nowrap">{label}</span>
                     </div>
                   ))}
                 </div>
@@ -568,9 +751,9 @@ export default function Home() {
         </section>
 
         {/* Plugins Hero Section - From Figma */}
-        <section className="py-24 bg-[#F1F1F1] mt-8 relative overflow-hidden rounded-[24px]">
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-[#F1F1F1] mt-6 sm:mt-8 relative overflow-hidden rounded-xl sm:rounded-2xl lg:rounded-[24px]">
           {/* Decorative circle bottom-right */}
-          <div className="absolute -bottom-12 -right-6 w-64 h-64 opacity-60 pointer-events-none">
+          <div className="absolute -bottom-8 sm:-bottom-10 md:-bottom-12 -right-4 sm:-right-6 w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 opacity-60 pointer-events-none">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/figma/plugins-circle-56586a.png"
@@ -580,47 +763,47 @@ export default function Home() {
           </div>
 
           {/* Main Header (full width, centered) */}
-          <div className="w-[85%] mx-auto relative z-10">
-            <h1 className="text-center text-[34px] md:text-[44px] lg:text-[56px] leading-[1.08] font-bold text-[#0F172A] tracking-tight">
+          <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 relative z-10">
+            <h1 className="text-center text-2xl sm:text-3xl md:text-[34px] lg:text-[44px] xl:text-[56px] leading-[1.08] font-bold text-[#0F172A] tracking-tight">
               Experience the Power of Innovation with the BEST & SAFEST Plugins
             </h1>
           </div>
 
-          <div className="w-[85%] mx-auto mt-12 grid lg:grid-cols-2 gap-12 items-center relative z-10">
+          <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 mt-8 sm:mt-10 md:mt-12 grid lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center relative z-10">
             {/* Left: Preview Image */}
             <div className="order-2 lg:order-1 flex justify-center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/figma/plugins-dashboard-41a823.png"
                 alt="Plugins dashboard preview"
-                className="w-full max-w-[560px] h-auto object-contain rounded-xl shadow-xl"
+                className="w-full max-w-[560px] h-auto object-contain rounded-lg sm:rounded-xl shadow-xl"
               />
             </div>
 
             {/* Right: Content */}
             <div className="order-1 lg:order-2">
               <div className="mt-2 lg:mt-0">
-                <h2 className="text-3xl md:text-4xl font-semibold text-[#0F172A] leading-tight">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-[#0F172A] leading-tight">
                   Unlock Seamless Integration with Our Plugins
                 </h2>
-                <p className="mt-4 text-[#525252] text-lg md:text-xl max-w-2xl">
+                <p className="mt-3 sm:mt-4 text-[#525252] text-base sm:text-lg md:text-xl max-w-2xl">
                   Unlock Seamless Integration with Our Plugins: Simplify Your Workflow, Enhance Your
                   Productivity, and Experience Effortless Functionality—All in One Powerful Package
                 </p>
 
-                <div className="mt-10 space-y-5">
+                <div className="mt-8 sm:mt-10 space-y-4 sm:space-y-5">
                   {[
                     'Extended Functionality',
                     'Customization and Flexibility',
                     'Improved Scalability',
                   ].map((text) => (
-                    <div key={text} className="flex items-center gap-4">
-                      <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#22C7FF] text-white">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <div key={text} className="flex items-center gap-3 sm:gap-4">
+                      <span className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#22C7FF] text-white flex-shrink-0">
+                        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="sm:w-5 sm:h-5">
                           <path d="M8.00016 12.7998L4.80016 9.5998L3.86683 10.5331L8.00016 14.6665L17.0002 5.66647L16.0668 4.73314L8.00016 12.7998Z" fill="currentColor"/>
                         </svg>
                       </span>
-                      <span className="inline-flex px-5 py-3 rounded-full bg-white border border-gray-200 shadow-sm text-[#0F172A] font-semibold">
+                      <span className="inline-flex px-4 sm:px-5 py-2.5 sm:py-3 rounded-full bg-white border border-gray-200 shadow-sm text-[#0F172A] text-sm sm:text-base font-semibold">
                         {text}
                       </span>
                     </div>
@@ -632,7 +815,7 @@ export default function Home() {
         </section>
 
         {/* Why Buy From Us Section - From Figma */}
-        <section className="py-16 md:py-20 bg-white mt-8 relative overflow-hidden rounded-2xl">
+        <section className="py-12 sm:py-14 md:py-16 lg:py-20 bg-white mt-6 sm:mt-8 relative overflow-hidden rounded-xl sm:rounded-2xl">
           {/* Animated background elements */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute top-16 left-16 w-24 h-24 geometric-shape rounded-full floating-element opacity-10"></div>
@@ -640,16 +823,16 @@ export default function Home() {
             <div className="absolute top-1/2 left-1/2 w-16 h-16 geometric-shape rounded-full pulsing-element opacity-8"></div>
             <div className="absolute top-1/4 right-1/4 w-18 h-18 geometric-shape rounded-lg floating-element-slow opacity-6"></div>
           </div>
-          <div className="w-full max-w-[1240px] px-6 sm:px-10 mx-auto relative z-10">
+          <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 relative z-10">
             {/* Main Heading */}
-            <div className="text-center mb-12 flex flex-col justify-center items-center">
-              <h2 className="w-full text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-[#171A20] font-inter">
+            <div className="text-center mb-8 sm:mb-10 md:mb-12 flex flex-col justify-center items-center">
+              <h2 className="w-full text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-[#171A20] font-inter">
                 Why Buy From us?
               </h2>
             </div>
 
             {/* Feature Cards Grid */}
-            <div className="grid gap-6 md:gap-8 lg:gap-10 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 sm:gap-8 md:gap-10 sm:grid-cols-2 lg:grid-cols-3">
               {[
                 {
                   title: 'Learn With Love',
@@ -669,7 +852,7 @@ export default function Home() {
               ].map(({ title, description, img }) => (
                 <div
                   key={title}
-                  className="bg-white rounded-[30px] p-8 sm:p-10 lg:p-12 flex flex-col items-center text-center gap-6 shadow-[0_20px_60px_rgba(23,26,32,0.08)]"
+                  className="bg-white rounded-2xl sm:rounded-[24px] lg:rounded-[30px] p-6 sm:p-8 md:p-10 lg:p-12 flex flex-col items-center text-center gap-4 sm:gap-5 md:gap-6 shadow-[0_20px_60px_rgba(23,26,32,0.08)]"
                 >
                   <div className="w-full max-w-xs mx-auto">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -679,9 +862,9 @@ export default function Home() {
                       className="w-full h-auto object-contain"
                     />
                   </div>
-                  <div className="space-y-4">
-                    <h3 className="text-2xl font-bold text-[#141D38]">{title}</h3>
-                    <p className="text-base sm:text-lg leading-relaxed text-[#525252]">
+                  <div className="space-y-3 sm:space-y-4">
+                    <h3 className="text-xl sm:text-2xl font-bold text-[#141D38]">{title}</h3>
+                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-[#525252]">
                       {description}
                     </p>
                   </div>
@@ -691,83 +874,78 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Testimonials Section - Figma (Experiences Shared by Our Clients) */}
-        <section className="relative mt-8 rounded-2xl" style={{ background: '#F7FFED' }}>
-          <div className="mx-auto max-w-[1440px] px-[15px] py-[120px]">
-            <div className="flex flex-col md:flex-row justify-center items-start gap-8">
-              {/* Left Column */}
-              <div className="flex flex-col justify-center items-start gap-10 w-full md:w-[352px]">
-                <div className="flex flex-col justify-center items-start gap-5 w-full">
-                  <div className="flex flex-col justify-center items-start gap-1 w-full">
-                    <span className="text-[14px] leading-5 font-medium text-[#3328BF]">Testimonial</span>
-                    <h2 className="font-inter font-bold text-[48px] leading-[58px] text-[#171A20]">Experiences<br/>Shared by Our<br/>Clients</h2>
-                  </div>
-                  <p className="text-[16px] leading-6 text-[#808080]">
-                    The team at WDK AI ToolKit provided unparalleled support throughout our project.
+        {/* Testimonial Section - From Figma */}
+        <section className="py-12 sm:py-16 md:py-20 bg-white relative overflow-hidden mt-6 sm:mt-8 rounded-xl sm:rounded-2xl">
+          {/* Animated background elements */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-16 left-16 w-24 h-24 geometric-shape rounded-full floating-element opacity-10"></div>
+            <div className="absolute bottom-16 right-16 w-20 h-20 geometric-shape rounded-lg floating-element-reverse opacity-12"></div>
+            <div className="absolute top-1/2 left-1/2 w-16 h-16 geometric-shape rounded-full pulsing-element opacity-8"></div>
+          </div>
+
+          <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 relative z-10">
+            {/* Section Header */}
+            <div className="mb-8 sm:mb-10 md:mb-12">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 mb-6 sm:mb-8">
+                <div className="flex-1">
+                  <p className="text-sm sm:text-base text-[#525252] mb-2 sm:mb-3">Testimonial</p>
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#1C1A1E] leading-tight mb-3 sm:mb-4">
+                    Experiences Shared by Our Clients
+                  </h2>
+                  <p className="text-sm sm:text-base md:text-lg text-[#525252] leading-relaxed max-w-2xl">
+                    The team at WDK AI Toolkit provided unparalleled support throughout our project.
                   </p>
                 </div>
-                <button className="inline-flex items-center gap-1 px-4 py-2.5 h-[44px] rounded-[4px] text-white text-[16px] font-semibold shadow-[0_1px_2px_rgba(16,24,40,0.05)]" style={{ background: '#EA8E71' }}>
-                  View All
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5 12h14M13 5l7 7-7 7" stroke="#FCFCFC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <button className="inline-flex items-center gap-2 sm:gap-3 bg-[#E2603A] hover:bg-[#D1552F] text-white font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl transition-colors duration-200 shadow-lg hover:shadow-xl self-start sm:self-center">
+                  <span className="text-sm sm:text-base">View All</span>
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="sm:w-5 sm:h-5">
+                    <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </button>
               </div>
+            </div>
 
-              {/* Right Columns (Two Cards) */}
-              <div className="flex flex-col lg:flex-row gap-8">
-                {/* Card 1 */}
-                <div className="w-full md:w-[352px] h-auto lg:h-[420px] bg-[#F1F1F1] rounded-[12px] p-8 flex flex-col gap-8">
-                  <div className="flex flex-col gap-5">
-                    {/* Stars */}
-                    <div className="flex gap-2">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <svg key={`s1-${i}`} width="18" height="18" viewBox="0 0 24 24" fill="#F5C74D" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                        </svg>
-                      ))}
-                    </div>
-                    <p className="text-[16px] leading-6 text-[#0D0D0D] font-[450]">
-                      These apps have simplified my life— from passing my driving test with Yoler and designing tattoos with Deep Tattoo to managing plants with Plantzify, signing documents with Deep Study Ai and SeSign, and filing taxes with Ztax. They boost my productivity and keep me organized.
-                    </p>
-                  </div>
-                  <div className="mt-auto flex items-center gap-2 bg-[#F7FFED] rounded-[12px] p-5">
-                    <div className="w-[54px] h-[54px] flex items-center justify-center">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src="/figma/avatar-1-191d0a.png" alt="Author" className="w-[54px] h-[54px] object-cover rounded"/>
-                    </div>
-                    <div className="flex flex-col gap-[3px]">
-                      <span className="text-[#0D0D0D] text-[16px] leading-6 font-medium">Artemisia Udinese</span>
-                      <span className="text-[#808080] text-[12px] leading-[18px]">Marketing Specialist</span>
-                    </div>
-                  </div>
+            {/* Testimonial Cards Grid */}
+            <div className="grid gap-6 sm:gap-8 md:grid-cols-2">
+              {/* Testimonial Card 1 */}
+              <div className="bg-white rounded-2xl sm:rounded-[24px] p-6 sm:p-8 md:p-10 shadow-[0_20px_60px_rgba(23,26,32,0.08)] border border-gray-100">
+                {/* Star Rating */}
+                <div className="flex gap-1 mb-4 sm:mb-5">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="sm:w-5 sm:h-5">
+                      <path d="M10 1L12.2451 7.90983H19.5106L13.6327 12.1803L15.8779 19.0902L10 14.8197L4.12215 19.0902L6.36729 12.1803L0.489435 7.90983H7.75486L10 1Z" fill="#FFD700" stroke="#FFD700" strokeWidth="0.5"/>
+                    </svg>
+                  ))}
                 </div>
+                {/* Testimonial Text */}
+                <p className="text-sm sm:text-base md:text-lg text-[#525252] leading-relaxed mb-6 sm:mb-8">
+                  These apps have simplified my life—from passing my driving test with Yoler and designing tattoos with Deep Tattoo to managing plants with Plantzify, signing documents with Deep Study and Sense Sign, and filing taxes with Ztax. They boost my productivity and keep me organized.
+                </p>
+                {/* Author Info */}
+                <div>
+                  <p className="text-base sm:text-lg font-bold text-[#1C1A1E] mb-1">Artemisia Udinese</p>
+                  <p className="text-sm sm:text-base text-[#525252]">Marketing Specialist</p>
+                </div>
+              </div>
 
-                {/* Card 2 */}
-                <div className="w-full md:w-[352px] h-auto lg:h-[420px] bg-[#F1F1F1] rounded-[12px] p-8 flex flex-col gap-8">
-                  <div className="flex flex-col gap-5">
-                    {/* Stars */}
-                    <div className="flex gap-2">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <svg key={`s2-${i}`} width="18" height="18" viewBox="0 0 24 24" fill="#F5C74D" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                        </svg>
-                      ))}
-                    </div>
-                    <p className="text-[16px] leading-6 text-[#0D0D0D] font-[450]">
-                      These plugins have revolutionized my digital workflow. From enhancing my website’s performance to ensuring top‑notch security, they’ve made every task smoother and more efficient. The latest versions are user‑friendly and incredibly reliable, helping me streamline my processes.
-                    </p>
-                  </div>
-                  <div className="mt-auto flex items-center gap-2 bg-[#F7FFED] rounded-[12px] p-5">
-                    <div className="w-[54px] h-[54px] flex items-center justify-center">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src="/figma/avatar-2-4b233a.png" alt="Author" className="w-[54px] h-[54px] object-cover rounded"/>
-                    </div>
-                    <div className="flex flex-col gap-[3px]">
-                      <span className="text-[#0D0D0D] text-[16px] leading-6 font-medium">Artemisia Udinese</span>
-                      <span className="text-[#808080] text-[12px] leading-[18px]">Marketing Specialist</span>
-                    </div>
-                  </div>
+              {/* Testimonial Card 2 */}
+              <div className="bg-white rounded-2xl sm:rounded-[24px] p-6 sm:p-8 md:p-10 shadow-[0_20px_60px_rgba(23,26,32,0.08)] border border-gray-100">
+                {/* Star Rating */}
+                <div className="flex gap-1 mb-4 sm:mb-5">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="sm:w-5 sm:h-5">
+                      <path d="M10 1L12.2451 7.90983H19.5106L13.6327 12.1803L15.8779 19.0902L10 14.8197L4.12215 19.0902L6.36729 12.1803L0.489435 7.90983H7.75486L10 1Z" fill="#FFD700" stroke="#FFD700" strokeWidth="0.5"/>
+                    </svg>
+                  ))}
+                </div>
+                {/* Testimonial Text */}
+                <p className="text-sm sm:text-base md:text-lg text-[#525252] leading-relaxed mb-6 sm:mb-8">
+                  These plugins have revolutionized my digital workflow. From enhancing my website's performance to ensuring top-notch security, they've made every task smoother and more efficient. The latest versions are user-friendly and incredibly reliable, helping me streamline my processes.
+                </p>
+                {/* Author Info */}
+                <div>
+                  <p className="text-base sm:text-lg font-bold text-[#1C1A1E] mb-1">Artemisia Udinese</p>
+                  <p className="text-sm sm:text-base text-[#525252]">Marketing Specialist</p>
                 </div>
               </div>
             </div>
@@ -775,9 +953,9 @@ export default function Home() {
         </section>
 
         {/* FAQ Section - From Figma */}
-        <section className="py-20 bg-[#FAFAFA] relative overflow-hidden mt-8 wave-bg rounded-2xl">
+        <section className="py-12 sm:py-16 md:py-20 bg-[#FAFAFA] relative overflow-hidden mt-6 sm:mt-8 wave-bg rounded-xl sm:rounded-2xl">
           {/* Background Shapes */}
-          <div className="absolute top-12 left-16 w-25 h-25 opacity-50">
+          <div className="absolute top-8 sm:top-12 left-8 sm:left-16 w-20 h-20 sm:w-25 sm:h-25 opacity-50">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
               src="/figma/faq-bg-shape-1-56586a.webp" 
@@ -785,7 +963,7 @@ export default function Home() {
               className="w-full h-full object-contain"
             />
           </div>
-          <div className="absolute bottom-20 right-20 w-58 h-58 opacity-50">
+          <div className="absolute bottom-12 sm:bottom-20 right-12 sm:right-20 w-48 h-48 sm:w-58 sm:h-58 opacity-50">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
               src="/figma/faq-bg-shape-2-56586a.webp" 
@@ -802,20 +980,24 @@ export default function Home() {
             <div className="absolute bottom-1/3 left-1/3 w-16 h-16 geometric-shape rounded-lg floating-element-slow opacity-10"></div>
           </div>
 
-            <div className="w-[85%] mx-auto px-6 md:px-10 lg:px-16 relative z-10">
+            <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 relative z-10">
             {/* Section Header */}
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1C1A1E] leading-tight mb-3">
+            <div className="text-center mb-10 sm:mb-12 md:mb-16">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#1C1A1E] leading-tight mb-2 sm:mb-3">
                 Frequently Asked Questions
               </h2>
-              <p className="text-lg text-[#525252] leading-relaxed max-w-2xl mx-auto">
+              <p className="text-sm sm:text-base md:text-lg text-[#525252] leading-relaxed max-w-2xl mx-auto px-4">
                 Get quick and easy answers to common inquiries about our eCommerce SaaS platform
               </p>
             </div>
 
             {/* FAQ Accordion */}
-            <div className="space-y-6">
-              {faqs.length > 0 ? (
+            <div className="space-y-4 sm:space-y-5 md:space-y-6">
+              {faqsLoading ? (
+                <div className="text-center py-10 sm:py-12">
+                  <p className="text-base sm:text-lg text-[#525252]">Loading FAQs...</p>
+                </div>
+              ) : faqs.length > 0 ? (
                 faqs.map((faq, index) => (
                   <FAQAccordionItem 
                     key={faq.id} 
@@ -825,8 +1007,8 @@ export default function Home() {
                   />
                 ))
               ) : (
-                <div className="text-center py-12">
-                  <p className="text-lg text-[#525252]">
+                <div className="text-center py-10 sm:py-12">
+                  <p className="text-base sm:text-lg text-[#525252]">
                     No FAQs available at the moment. Please check back later.
                   </p>
                 </div>
@@ -834,8 +1016,137 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* App Download Stories Slider - Final CTA Section */}
+        <section className="relative mt-6 sm:mt-8 rounded-xl sm:rounded-2xl pb-4">
+          <div className="mx-auto max-w-[1440px] w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
+            <div className="relative rounded-2xl bg-white border border-gray-100 overflow-hidden px-6 sm:px-8 md:px-12 lg:px-16 py-12 sm:py-16 md:py-20">
+              <div className="relative">
+                <div className="relative min-h-[400px] sm:min-h-[450px] lg:min-h-[500px]">
+                  {sliderItems.map((slide, index) => (
+                    <article
+                      key={slide.id}
+                      aria-hidden={index !== activeSlide}
+                      className={`absolute inset-0 flex flex-col lg:flex-row items-center gap-8 md:gap-12 lg:gap-16 transition-all duration-700 ease-out ${
+                        index === activeSlide ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-6 pointer-events-none'
+                      }`}
+                    >
+                      <div className="w-full lg:w-1/2 max-w-xl space-y-5 sm:space-y-6">
+                        <span className="inline-block text-xs uppercase tracking-wider text-gray-500 font-medium">
+                          {slide.eyebrow}
+                        </span>
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+                          {slide.title}
+                        </h2>
+                        <p className="text-base sm:text-lg text-gray-600 leading-relaxed max-w-lg">
+                          {slide.description}
+                        </p>
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-2">
+                          <a
+                            href="#"
+                            aria-label="Get it on Google Play"
+                            className="inline-block hover:opacity-90 transition-opacity"
+                          >
+                            <Image
+                              src="/figma/google-play-badge.png"
+                              alt="Get it on Google Play"
+                              width={182}
+                              height={52}
+                              className="h-[50px] w-auto object-contain"
+                            />
+                          </a>
+                          <a
+                            href="#"
+                            aria-label="Download on the App Store"
+                            className="inline-block hover:opacity-90 transition-opacity"
+                          >
+                            <Image
+                              src="/figma/appstore-badge.png"
+                              alt="Download on the App Store"
+                              width={180}
+                              height={52}
+                              className="h-[50px] w-auto object-contain"
+                            />
+                          </a>
+                        </div>
+                      </div>
+
+                      <div className="w-full lg:w-1/2 flex justify-center">
+                        {slide.media.length > 0 ? (
+                          slide.media.map((mediaItem, mediaIndex) => (
+                            <Image
+                              key={mediaIndex}
+                              src={mediaItem.src}
+                              alt={mediaItem.alt}
+                              width={mediaItem.width}
+                              height={mediaItem.height}
+                              className={mediaItem.className}
+                              priority={index === activeSlide && mediaIndex === 0}
+                            />
+                          ))
+                        ) : (
+                          <div className="w-full rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50 flex items-center justify-center min-h-[280px] sm:min-h-[320px] lg:min-h-[380px]">
+                            <div className="text-center px-6">
+                              <p className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-2">
+                                Image Placeholder
+                              </p>
+                              <p className="text-lg font-semibold text-gray-700">
+                                {slide.eyebrow}
+                              </p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </article>
+                  ))}
+                </div>
+
+                <div className="mt-10 sm:mt-12 flex flex-col gap-4 items-center">
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      aria-label="Previous slide"
+                      onClick={goToPrevSlide}
+                      className="size-9 rounded-full border border-gray-200 bg-white hover:bg-gray-50 flex items-center justify-center transition-colors shadow-sm"
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 6l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-700"/>
+                      </svg>
+                    </button>
+                    <div className="flex items-center gap-2">
+                      {sliderItems.map((slide, index) => (
+                        <button
+                          key={slide.id}
+                          type="button"
+                          aria-label={`Go to ${slide.eyebrow} slide`}
+                          onClick={() => setActiveSlide(index)}
+                          className={`h-2 rounded-full transition-all duration-300 ${
+                            index === activeSlide ? 'w-8' : 'w-2'
+                          }`}
+                          style={index === activeSlide ? { backgroundColor: activeAccentColor } : { backgroundColor: '#E5E7EB' }}
+                        />
+                      ))}
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="Next slide"
+                      onClick={goToNextSlide}
+                      className="size-9 rounded-full border border-gray-200 bg-white hover:bg-gray-50 flex items-center justify-center transition-colors shadow-sm"
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-700"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
@@ -845,13 +1156,13 @@ function FAQAccordionItem({ question, answer, isFirst }: { question: string; ans
   return (
     <div className={`border rounded-lg ${isFirst ? 'bg-[#F3F3F3] border-[#054CFF]' : 'bg-white border-[#E5E7EB]'}`}>
       <details className="group">
-        <summary className="flex justify-between items-center p-6 md:p-8 cursor-pointer list-none">
-          <h3 className="text-lg font-bold text-[#1C1A1E] pr-4 leading-tight">
+        <summary className="flex justify-between items-center p-4 sm:p-5 md:p-6 lg:p-8 cursor-pointer list-none">
+          <h3 className="text-base sm:text-lg font-bold text-[#1C1A1E] pr-3 sm:pr-4 leading-tight">
             {question}
           </h3>
-          <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center">
+          <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
             <svg 
-              className="w-5 h-5 text-[#A0AEC0] group-open:text-[#054CFF] transition-colors duration-200" 
+              className="w-4 h-4 sm:w-5 sm:h-5 text-[#A0AEC0] group-open:text-[#054CFF] transition-colors duration-200" 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
@@ -865,9 +1176,9 @@ function FAQAccordionItem({ question, answer, isFirst }: { question: string; ans
             </svg>
           </div>
         </summary>
-        <div className="px-6 md:px-8 pb-6 md:pb-8 pt-0">
-          <div className="border-t border-[#E5E7EB] pt-5">
-            <p className="text-lg text-[#525252] leading-relaxed">
+        <div className="px-4 sm:px-5 md:px-6 lg:px-8 pb-4 sm:pb-5 md:pb-6 lg:pb-8 pt-0">
+          <div className="border-t border-[#E5E7EB] pt-4 sm:pt-5">
+            <p className="text-sm sm:text-base md:text-lg text-[#525252] leading-relaxed">
               {answer}
             </p>
           </div>

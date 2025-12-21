@@ -2,21 +2,17 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import Logo from '@/components/Logo';
 
 export default function PlantzifyPage() {
   return (
     <>
       {/* Fixed Header with Liquid Glass Effect */}
       <header className="fixed top-0 left-0 right-0 z-50 glass-morphism border-b border-white/20 shadow-lg">
-        <div className="w-[85%] mx-auto px-6 md:px-10 lg:px-16 py-4">
+        <div className="w-[85%] mx-auto px-6 md:px-10 lg:px-16 py-[1.2rem]">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img 
-                src="/logo.png" 
-                alt="DeepDevs Logo" 
-                className="h-6 w-auto sm:h-7 md:h-8 lg:h-9 xl:h-10 object-contain" 
-              />
+              <Logo />
             </div>
             <nav className="hidden md:flex items-center gap-8 text-sm text-gray-700">
               <a className="hover:text-gray-900 transition-colors" href="#plugins">Our Plugins</a>

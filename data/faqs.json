@@ -1,0 +1,105 @@
+[
+  {
+    "id": "1",
+    "page": "homepage",
+    "question": "What exactly is DeepDevs?",
+    "answer": "DeepDevs is a unique and powerful software suite designed to transform the way you work. It brings together modern tools for building, selling, and supporting apps and plugins—made for teams of all sizes and built by a company that values your privacy."
+  },
+  {
+    "id": "2",
+    "page": "homepage",
+    "question": "Is there a free trial available?",
+    "answer": "Yes. You can start with a 14‑day free trial with access to all core features—no credit card required. Upgrade any time, and your projects and settings carry over automatically."
+  },
+  {
+    "id": "3",
+    "page": "homepage",
+    "question": "Do I need any technical skills to use DeepDevs?",
+    "answer": "No technical expertise is required for the essentials. DeepDevs offers an intuitive, no‑code setup for storefronts, billing, and support. For developers, we provide APIs, webhooks, and SDKs for deeper customization when needed."
+  },
+  {
+    "id": "4",
+    "page": "homepage",
+    "question": "What kind of support do you offer?",
+    "answer": "We provide email and in‑app chat support, step‑by‑step docs, and guided onboarding. Pro and Enterprise plans include priority support and a dedicated success channel for faster responses and hands‑on help."
+  },
+  {
+    "id": "5",
+    "page": "homepage",
+    "question": "What payment gateways do you integrate with?",
+    "answer": "DeepDevs integrates with Stripe for global cards, Apple Pay, and Google Pay, plus PayPal. Through Stripe we support many local payment methods (e.g., SEPA, iDEAL, UPI) so you can accept payments in over 135 currencies."
+  },
+  {
+    "id": "6",
+    "page": "homepage",
+    "question": "What are your pricing plans?",
+    "answer": "We offer Starter, Pro, and Enterprise plans billed monthly or annually (with a discount). Starter is great for individuals and small teams, Pro adds advanced features and higher limits, and Enterprise includes custom terms, SLAs, and priority support."
+  },
+  {
+    "id": "7",
+    "page": "yoler",
+    "question": "How much time do I have to take the test?",
+    "answer": "You must complete the theory test in 50 minutes. A reminder will be shown on the screen when 10 minutes remain."
+  },
+  {
+    "id": "8",
+    "page": "yoler",
+    "question": "How much does it cost?",
+    "answer": "The theory test costs vary by location. Please check the official DVSA website for current pricing in your area."
+  },
+  {
+    "id": "9",
+    "page": "yoler",
+    "question": "How many questions are asked?",
+    "answer": "The theory test consists of 50 multiple-choice questions covering various topics from the Highway Code."
+  },
+  {
+    "id": "10",
+    "page": "yoler",
+    "question": "What aids can I bring to the test?",
+    "answer": "You cannot bring any aids, books, or notes into the test. Only your identification documents are permitted."
+  },
+  {
+    "id": "11",
+    "page": "yoler",
+    "question": "Can I take another language than Swedish?",
+    "answer": "Yes, the theory test is available in multiple languages including English, Welsh, and other common languages. Please check availability at your test center."
+  },
+  {
+    "id": "12",
+    "page": "ztax",
+    "question": "How accurate is the Notes Scan feature?",
+    "answer": "Our Notes Scan feature uses advanced AI-powered OCR technology to recognize and extract text from handwritten and printed notes with high accuracy. The accuracy rate typically exceeds 95% for clear, well-lit images with standard handwriting or print."
+  },
+  {
+    "id": "13",
+    "page": "ztax",
+    "question": "Can I extract text from any PDF file?",
+    "answer": "Yes, you can quickly extract and copy text from most PDF files using the PDF to Text feature. Whether the PDF is a research paper, textbook, or report, the tool allows you to extract the content for easy reference or editing. However, please note that some PDFs with heavily encrypted content or scanned images may require additional processing."
+  },
+  {
+    "id": "14",
+    "page": "ztax",
+    "question": "How does Ask AI help with my study?",
+    "answer": "Ask AI is your intelligent study companion that provides instant help with understanding concepts, solving problems, and answering questions related to your study materials. Simply ask a question about your notes or any topic, and the AI will provide clear, detailed explanations to enhance your learning experience."
+  },
+  {
+    "id": "15",
+    "page": "deep-study-ai",
+    "question": "How accurate is the Notes Scan feature?",
+    "answer": "Our Notes Scan feature uses advanced AI-powered OCR technology to recognize and extract text from handwritten and printed notes with high accuracy. The accuracy rate typically exceeds 95% for clear, well-lit images with standard handwriting or print."
+  },
+  {
+    "id": "16",
+    "page": "deep-study-ai",
+    "question": "Can I extract text from any PDF file?",
+    "answer": "Yes, you can quickly extract and copy text from most PDF files using the PDF to Text feature. Whether the PDF is a research paper, textbook, or report, the tool allows you to extract the content for easy reference or editing. However, please note that some PDFs with heavily encrypted content or scanned images may require additional processing."
+  },
+  {
+    "id": "17",
+    "page": "deep-study-ai",
+    "question": "How does Ask AI help with my study?",
+    "answer": "Ask AI is your intelligent study companion that provides instant help with understanding concepts, solving problems, and answering questions related to your study materials. Simply ask a question about your notes or any topic, and the AI will provide clear, detailed explanations to enhance your learning experience."
+  }
+]
+

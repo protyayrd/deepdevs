@@ -1,11 +1,36 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
+
+interface FAQ {
+  id: string;
+  page: string;
+  question: string;
+  answer: string;
+}
 
 export default function YolerPage() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+  const [faqs, setFaqs] = useState<FAQ[]>([]);
+  const [faqsLoading, setFaqsLoading] = useState(true);
+
+  useEffect(() => {
+    fetchFAQs();
+  }, []);
+
+  const fetchFAQs = async () => {
+    try {
+      const response = await fetch('/api/faqs?page=yoler');
+      const data = await response.json();
+      setFaqs(data);
+    } catch (error) {
+      console.error('Error fetching FAQs:', error);
+    } finally {
+      setFaqsLoading(false);
+    }
+  };
 
   const testimonials = [
     {
@@ -82,28 +107,28 @@ export default function YolerPage() {
               {/* Google Play Button */}
               <a
                 href="#"
-                className="bg-black border-[3px] border-white rounded-md h-[50px] w-[182px] flex items-center justify-center hover:opacity-90 transition-opacity"
+                className="hover:opacity-90 transition-opacity"
               >
                 <Image
-                  src="/figma/yoler/google-play-badge.png"
+                  src="/figma/yoler/google-play-badge-official.svg"
                   alt="Get it on Google Play"
                   width={182}
                   height={50}
-                  className="h-full w-full object-contain"
+                  className="h-[50px] w-auto object-contain"
                 />
               </a>
 
               {/* App Store Button */}
               <a
                 href="#"
-                className="bg-black border-[3px] border-white rounded-md h-[50px] w-[180px] flex items-center justify-center hover:opacity-90 transition-opacity"
+                className="hover:opacity-90 transition-opacity"
               >
                 <Image
-                  src="/figma/yoler/app-store-badge.png"
+                  src="/figma/yoler/app-store-badge-official.svg"
                   alt="Download on the App Store"
                   width={180}
                   height={50}
-                  className="h-full w-full object-contain"
+                  className="h-[50px] w-auto object-contain"
                 />
               </a>
             </div>
@@ -118,7 +143,7 @@ export default function YolerPage() {
           <div className="bg-white rounded-xl p-6 shadow-[0px_10px_20px_0px_rgba(41,41,42,0.07)] flex flex-col items-center text-center gap-6 hover:shadow-[0px_15px_30px_0px_rgba(41,41,42,0.12)] transition-shadow min-w-[200px]">
             <div className="w-[65px] h-[65px] flex items-center justify-center shrink-0 relative">
               <Image
-                src="/figma/yoler/car-icon.png"
+                src="/figma/yoler/car-icon.svg"
                 alt="Car icon"
                 fill
                 className="object-contain"
@@ -138,7 +163,7 @@ export default function YolerPage() {
           <div className="bg-white rounded-xl p-6 shadow-[0px_10px_20px_0px_rgba(41,41,42,0.07)] flex flex-col items-center text-center gap-6 hover:shadow-[0px_15px_30px_0px_rgba(41,41,42,0.12)] transition-shadow min-w-[200px]">
             <div className="w-[65px] h-[65px] flex items-center justify-center shrink-0 relative">
               <Image
-                src="/figma/yoler/motorcycle-icon.png"
+                src="/figma/yoler/motorcycle-icon.svg"
                 alt="Motorcycle icon"
                 fill
                 className="object-contain"
@@ -158,7 +183,7 @@ export default function YolerPage() {
           <div className="bg-white rounded-xl p-6 shadow-[0px_10px_20px_0px_rgba(41,41,42,0.07)] flex flex-col items-center text-center gap-6 hover:shadow-[0px_15px_30px_0px_rgba(41,41,42,0.12)] transition-shadow min-w-[200px]">
             <div className="w-[65px] h-[65px] flex items-center justify-center shrink-0 relative">
               <Image
-                src="/figma/yoler/lorry-icon.png"
+                src="/figma/yoler/lorry-icon.svg"
                 alt="Lorry icon"
                 fill
                 className="object-contain"
@@ -178,7 +203,7 @@ export default function YolerPage() {
           <div className="bg-white rounded-xl p-6 shadow-[0px_10px_20px_0px_rgba(41,41,42,0.07)] flex flex-col items-center text-center gap-6 hover:shadow-[0px_15px_30px_0px_rgba(41,41,42,0.12)] transition-shadow min-w-[200px]">
             <div className="w-[65px] h-[65px] flex items-center justify-center shrink-0 relative">
               <Image
-                src="/figma/yoler/bus-icon.png"
+                src="/figma/yoler/bus-icon.svg"
                 alt="Bus icon"
                 fill
                 className="object-contain"
@@ -281,9 +306,9 @@ export default function YolerPage() {
       {/* Theory Test App Section */}
       <section className="w-full py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-[1440px] mx-auto">
-          <div className="relative bg-[#9e8afb] rounded-2xl overflow-hidden p-4 sm:p-6 lg:p-8">
+          <div className="relative bg-[#9e8afb] rounded-2xl overflow-hidden p-6 max-w-[1240px] mx-auto h-[691px] flex items-center justify-center">
             {/* White Content Area */}
-            <div className="relative bg-[#f6f4ff] rounded-2xl mx-auto max-w-[1192px] min-h-[643px] flex flex-col lg:flex-row items-center justify-between px-6 sm:px-12 lg:px-[95px] py-12 lg:py-0">
+            <div className="relative bg-[#f6f4ff] rounded-2xl w-full max-w-[1192px] h-[643px] flex flex-col lg:flex-row items-center justify-between px-6 sm:px-12 lg:px-[95px] py-12 lg:py-0">
               {/* Left Content */}
               <div className="flex flex-col gap-8 w-full lg:w-[534px] z-10 lg:mt-0">
                 {/* Heading and Description */}
@@ -315,9 +340,9 @@ export default function YolerPage() {
                   {/* Phone Mockup */}
                   <div className="relative z-10">
                     <img
-                      src="/figma/yoler/phone-mockup.png"
+                      src="/figma/yoler/yoler-test-app.png"
                       alt="YOLER App on Phone"
-                      className="w-full h-auto max-w-[300px] lg:max-w-[400px] rounded-lg shadow-2xl"
+                      className="w-full h-auto max-w-[375px] lg:max-w-[517px]"
                     />
                   </div>
 
@@ -344,14 +369,9 @@ export default function YolerPage() {
               {/* City Skyline at Bottom */}
               <div className="absolute bottom-0 left-0 w-full max-w-[705px] h-[106px] overflow-hidden pointer-events-none">
                 <img
-                  src="/figma/yoler/city-skyline.svg"
-                  alt=""
-                  className="absolute bottom-0 left-0 w-full h-full object-cover"
-                />
-                <img
-                  src="/figma/yoler/city-skyline-bg.svg"
-                  alt=""
-                  className="absolute bottom-0 left-0 w-full h-full object-cover"
+                  src="/figma/yoler/city-skyline-new.png"
+                  alt="City skyline"
+                  className="absolute bottom-0 left-0 w-full h-full object-contain object-bottom"
                 />
               </div>
             </div>
@@ -483,16 +503,29 @@ export default function YolerPage() {
         </div>
       </section>
 
-      {/* Example Questions Section */}
+
+
+      {/* Example Questions & Quick Tips Wrapper */}
       <section className="w-full py-16 px-4 sm:px-6 lg:px-[100px] bg-white">
-        <div className="max-w-[1240px] mx-auto">
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
-            {/* Left Content */}
-            <div className="flex flex-col gap-6 w-full lg:w-[50%]">
-              <h2 className="text-4xl sm:text-5xl lg:text-[56px] font-bold text-[#171a20] font-inter leading-tight">
+        <div className="max-w-[1240px] mx-auto flex flex-col gap-[120px]">
+
+          {/* Section 1: Example Questions (Image Left, Text Right) */}
+          <div className="flex flex-col lg:flex-row gap-14 items-center">
+            {/* Image (Left) */}
+            <div className="relative w-full lg:w-[50%] flex justify-start">
+              <img
+                src="/figma/yoler/example-questions.png"
+                alt="Example Questions"
+                className="w-full max-w-[620px] h-auto object-contain"
+              />
+            </div>
+
+            {/* Text (Right) */}
+            <div className="flex flex-col gap-8 w-full lg:w-[50%]">
+              <h2 className="text-4xl sm:text-5xl lg:text-[56px] font-medium text-[#171a20] font-inter leading-tight">
                 Example Of Questions On The Theory Test
               </h2>
-              <div className="flex flex-col gap-4 text-lg text-[#444444] font-inter leading-[1.6]">
+              <div className="flex flex-col gap-4 text-[18px] text-[#444444] font-inter leading-[1.6]">
                 <p>
                   What type of questions can one expect on the theory test? A theory test is divided into five categories. To pass the test and become a safe driver you must be knowledgeable in every category
                 </p>
@@ -500,35 +533,20 @@ export default function YolerPage() {
                   It&apos;s impossible to say which questions you will get on your specific test, but we can give examples of typical questions from each category
                 </p>
               </div>
-              <button className="bg-[#009661] text-white px-8 py-3 rounded-lg font-inter font-bold text-base leading-normal hover:bg-[#007a4d] transition-colors w-fit">
+              <button className="bg-[#009661] text-white px-[35px] py-[15px] rounded-lg font-inter font-bold text-base leading-normal hover:bg-[#007a4d] transition-colors w-fit">
                 Download App
               </button>
             </div>
-
-            {/* Right Content - Phone Illustration */}
-            <div className="relative flex items-center justify-center w-full lg:w-[50%]">
-              <div className="relative w-full max-w-[500px] aspect-[4/5]">
-                <img
-                  src="/figma/yoler/phone-checkmarks.png"
-                  alt="Theory Test App Questions"
-                  className="w-full h-full object-contain"
-                />
-              </div>
-            </div>
           </div>
-        </div>
-      </section>
 
-      {/* Quick Tips Section */}
-      <section className="w-full py-16 px-4 sm:px-6 lg:px-[100px] bg-white">
-        <div className="max-w-[1240px] mx-auto">
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
-            {/* Left Content */}
-            <div className="flex flex-col gap-6 w-full lg:w-[50%]">
-              <h2 className="text-4xl sm:text-5xl lg:text-[56px] font-bold text-[#171a20] font-inter leading-tight">
+          {/* Section 2: Quick Tips (Text Left, Image Right) */}
+          <div className="flex flex-col-reverse lg:flex-row gap-14 items-center">
+            {/* Text (Left) */}
+            <div className="flex flex-col gap-8 w-full lg:w-[50%]">
+              <h2 className="text-4xl sm:text-5xl lg:text-[56px] font-medium text-[#171a20] font-inter leading-tight">
                 Quick tips to pass your theory test
               </h2>
-              <div className="flex flex-col gap-4 text-lg text-[#444444] font-inter leading-[1.6]">
+              <div className="flex flex-col gap-4 text-[18px] text-[#444444] font-inter leading-[1.6]">
                 <p>
                   Try to get a good night&apos;s sleep and have a steady breakfast before your test. It can also be a good idea to bring fruit or some snacks to the test
                 </p>
@@ -536,110 +554,106 @@ export default function YolerPage() {
                   Don&apos;t stress and try to stay focused. After all - 50 minutes is a fairly long time. If a question takes too long, mark it and move on - you can always return to the question later on.
                 </p>
               </div>
-              <button className="bg-[#009661] text-white px-8 py-3 rounded-lg font-inter font-bold text-base leading-normal hover:bg-[#007a4d] transition-colors w-fit">
+              <button className="bg-[#009661] text-white px-[35px] py-[15px] rounded-lg font-inter font-bold text-base leading-normal hover:bg-[#007a4d] transition-colors w-fit">
                 Download App
               </button>
             </div>
 
-            {/* Right Content - Car Illustration */}
-            <div className="relative flex items-center justify-center w-full lg:w-[50%]">
-              <div className="relative w-full max-w-[600px] aspect-[4/3]">
-                <img
-                  src="/figma/yoler/illustration-questions.png"
-                  alt="Driving test tips illustration"
-                  className="w-full h-full object-contain"
-                />
-              </div>
+            {/* Image (Right) */}
+            <div className="relative w-full lg:w-[50%] flex justify-end">
+              <img
+                src="/figma/yoler/quick-tips.png"
+                alt="Quick Tips"
+                className="w-full max-w-[620px] h-auto object-contain"
+              />
             </div>
           </div>
+
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section className="w-full py-16 px-4 sm:px-6 lg:px-[100px] bg-white">
-        <div className="max-w-[1240px] mx-auto">
-          <div className="relative flex flex-col lg:flex-row gap-8 items-start">
-            {/* Left Side - Testimonial Card */}
-            <div className="w-full lg:w-[617.569px] bg-white rounded-2xl p-10 shadow-[8px_12px_24px_10px_rgba(0,0,0,0.04)] z-10 relative">
-              <div className="flex flex-col gap-6 items-end">
-                {/* Quote Mark */}
-                <div className="flex items-center justify-center w-[80px] h-[68px] rotate-180">
-                  <img
-                    src="/figma/yoler/quote-mark.svg"
-                    alt="Quote mark"
-                    className="w-full h-full object-contain"
-                  />
-                </div>
+      <section className="w-full py-20 px-4 sm:px-6 lg:px-0 overflow-visible">
+        <div className="max-w-[1240px] mx-auto relative h-[628px]">
 
-                {/* Testimonial Content */}
-                <div className="flex flex-col gap-5 items-end w-full">
-                  <div className="flex flex-col gap-6 items-start w-full">
-                    {/* Customer Info */}
-                    <div className="flex gap-4 items-center w-full">
-                      <div className="w-14 h-14 rounded-full overflow-hidden shrink-0">
-                        <img
-                          src={testimonials[currentTestimonial].avatar}
-                          alt={testimonials[currentTestimonial].name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="flex flex-col flex-1">
-                        <p className="text-xl text-[#222222] font-inter leading-[1.5] font-normal">
-                          {testimonials[currentTestimonial].name}
-                        </p>
-                        <p className="text-sm text-[#666666] font-inter leading-[1.7]">
-                          {testimonials[currentTestimonial].location}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Testimonial Text */}
-                    <div className="text-lg text-[#222222] font-inter leading-[28px] whitespace-pre-wrap">
-                      {testimonials[currentTestimonial].text}
-                    </div>
-                  </div>
-
-                  {/* Navigation Arrows */}
-                  <div className="flex gap-2 items-center">
-                    <button
-                      onClick={() => setCurrentTestimonial((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1))}
-                      className="p-2 hover:opacity-70 transition-opacity"
-                      aria-label="Previous testimonial"
-                    >
-                      <img
-                        src="/figma/yoler/chevron-left.svg"
-                        alt="Previous"
-                        className="w-6 h-6"
-                      />
-                    </button>
-                    <button
-                      onClick={() => setCurrentTestimonial((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1))}
-                      className="p-2 hover:opacity-70 transition-opacity"
-                      aria-label="Next testimonial"
-                    >
-                      <img
-                        src="/figma/yoler/chevron-right.svg"
-                        alt="Next"
-                        className="w-6 h-6"
-                      />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Side - Purple Background Section */}
-            <div className="w-full lg:w-[685.647px] lg:absolute lg:right-0 lg:top-0 h-[628px] bg-[#9e8afb] rounded-2xl flex flex-col justify-center px-12 lg:px-16 py-12 lg:py-16">
-              <div className="flex flex-col gap-2 max-w-[432.784px]">
-                <h2 className="text-4xl sm:text-5xl lg:text-[48px] font-semibold text-white font-inter leading-[64px] whitespace-pre-wrap">
-                  Happy customers
-                </h2>
-                <p className="text-lg text-white font-inter leading-[28px] whitespace-pre-wrap">
-                  Feedback from these happy customers helps us in reaching the heights
-                </p>
-              </div>
+          {/* Background Purple Block */}
+          {/* Positioned absolute left: 654px (relative to 1240px container) */}
+          <div className="hidden lg:block absolute top-0 left-[654px] w-[685.65px] h-[628px] bg-[#9E8AFB] rounded-[16px] -z-10">
+            <div className="absolute left-[127px] top-[250px] flex flex-col gap-2 w-[432.78px]">
+              <h2 className="font-inter font-semibold text-[48px] leading-[64px] text-white">
+                Happy customers
+              </h2>
+              <p className="font-inter font-normal text-[18px] leading-[28px] text-white">
+                Feedback from these happy customers helps us in reaching the heights
+              </p>
             </div>
           </div>
+          {/* Mobile Purple Background Fallback */}
+          <div className="block lg:hidden absolute top-0 left-0 w-full h-full bg-[#9E8AFB] -z-10 rounded-[16px]"></div>
+
+
+          {/* Testimonial Card */}
+          {/* Positioned absolute left: 100px */}
+          <div className="w-full lg:w-[617.57px] h-auto lg:h-[536px] bg-white rounded-[16px] p-10 lg:p-[40px] shadow-[8px_12px_24px_10px_rgba(0,0,0,0.04)] absolute top-[46px] left-0 lg:left-[100px] flex flex-col gap-[24px]">
+
+            {/* Quote Mark (Top Right) */}
+            <div className="w-full flex justify-end">
+              <div className="w-[80px] h-[68px] opacity-30 rotate-180">
+                <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 7.55228 14.017 7V3H19.017C20.6739 3 22.017 4.34315 22.017 6V15C22.017 16.6569 20.6739 18 19.017 18H16.017V21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 7.55228 5.0166 7V3H10.0166C11.6735 3 13.0166 4.34315 13.0166 6V15C13.0166 16.6569 11.6735 18 10.0166 18H7.0166V21H5.0166Z" fill="#FF4A52" />
+                </svg>
+              </div>
+            </div>
+
+            {/* Content Wrapper */}
+            <div className="flex flex-col gap-[20px] w-full">
+
+              {/* Profile & Text */}
+              <div className="flex flex-col gap-[24px]">
+                {/* Profile */}
+                <div className="flex items-center gap-[16px]">
+                  <div className="w-[56px] h-[56px] rounded-full overflow-hidden shrink-0">
+                    <img
+                      src={testimonials[currentTestimonial].avatar}
+                      alt={testimonials[currentTestimonial].name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <h4 className="font-inter font-normal text-[20px] leading-[30px] text-[#222222]">
+                      {testimonials[currentTestimonial].name}
+                    </h4>
+                    <p className="font-inter font-normal text-[14px] leading-[24px] text-[#666666]">
+                      {testimonials[currentTestimonial].location}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Testimonial Text */}
+                <div className="font-inter font-normal text-[18px] leading-[28px] text-[#222222]">
+                  &quot;{testimonials[currentTestimonial].text}&quot;
+                </div>
+              </div>
+
+              {/* Arrows */}
+              <div className="flex justify-end gap-[8px]">
+                <button
+                  onClick={() => setCurrentTestimonial((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1))}
+                  className="w-[40px] h-[40px] flex items-center justify-center hover:opacity-70 transition-opacity"
+                >
+                  <img src="/figma/yoler/chevron-left.svg" alt="Previous" className="w-[24px] h-[24px]" />
+                </button>
+                <button
+                  onClick={() => setCurrentTestimonial((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1))}
+                  className="w-[40px] h-[40px] flex items-center justify-center hover:opacity-70 transition-opacity"
+                >
+                  <img src="/figma/yoler/chevron-right.svg" alt="Next" className="w-[24px] h-[24px]" />
+                </button>
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -675,130 +689,42 @@ export default function YolerPage() {
               {/* Right Side - FAQ Accordion */}
               <div className="flex-1 w-full bg-white rounded-2xl overflow-hidden">
                 <div className="flex flex-col gap-4 p-6 h-[562px] overflow-y-auto">
-                  {/* FAQ Item 1 - Expanded by default */}
-                  <div className="bg-[#9e8afb] rounded-2xl p-6">
-                    <div className="flex gap-2.5 items-center justify-center w-full mb-4">
-                      <p className="flex-1 font-medium text-2xl text-white font-inter leading-normal whitespace-pre-wrap">
-                        How much time do I have to take the test?
-                      </p>
-                      <button
-                        onClick={() => setOpenFaqIndex(openFaqIndex === 0 ? null : 0)}
-                        className="w-8 h-8 shrink-0 flex items-center justify-center"
-                        aria-label="Toggle FAQ"
+                  {faqsLoading ? (
+                    <div className="text-center py-8 text-gray-500">Loading FAQs...</div>
+                  ) : faqs.length === 0 ? (
+                    <div className="text-center py-8 text-gray-500">No FAQs available.</div>
+                  ) : (
+                    faqs.map((faq, index) => (
+                      <div
+                        key={faq.id}
+                        className={index === 0 ? "bg-[#9e8afb] rounded-2xl p-6" : "bg-white rounded-lg p-6"}
                       >
-                        <img
-                          src="/figma/yoler/icon-minus.svg"
-                          alt="Minus"
-                          className="w-full h-full"
-                        />
-                      </button>
-                    </div>
-                    {openFaqIndex === 0 && (
-                      <p className="text-base text-white font-inter leading-[1.6] whitespace-pre-wrap">
-                        You must complete the theory test in 50 minutes. A reminder will be shown on the screen when 10 minutes remain.
-                      </p>
-                    )}
-                  </div>
-
-                  {/* FAQ Item 2 */}
-                  <div className="bg-white rounded-lg p-6">
-                    <div className="flex gap-2.5 items-center justify-center w-full">
-                      <p className="flex-1 font-medium text-2xl text-black font-inter leading-normal whitespace-pre-wrap">
-                        How much does it cost?
-                      </p>
-                      <button
-                        onClick={() => setOpenFaqIndex(openFaqIndex === 1 ? null : 1)}
-                        className="w-8 h-8 shrink-0 flex items-center justify-center"
-                        aria-label="Toggle FAQ"
-                      >
-                        <img
-                          src={openFaqIndex === 1 ? "/figma/yoler/icon-minus.svg" : "/figma/yoler/icon-plus.svg"}
-                          alt={openFaqIndex === 1 ? "Minus" : "Plus"}
-                          className="w-full h-full"
-                        />
-                      </button>
-                    </div>
-                    {openFaqIndex === 1 && (
-                      <p className="text-base text-black font-inter leading-[1.6] mt-4 whitespace-pre-wrap">
-                        The theory test costs vary by location. Please check the official DVSA website for current pricing in your area.
-                      </p>
-                    )}
-                  </div>
-
-                  {/* FAQ Item 3 */}
-                  <div className="bg-white rounded-lg p-6">
-                    <div className="flex gap-2.5 items-center justify-center w-full">
-                      <p className="flex-1 font-medium text-2xl text-black font-inter leading-normal whitespace-pre-wrap">
-                        How many questions are asked?
-                      </p>
-                      <button
-                        onClick={() => setOpenFaqIndex(openFaqIndex === 2 ? null : 2)}
-                        className="w-8 h-8 shrink-0 flex items-center justify-center"
-                        aria-label="Toggle FAQ"
-                      >
-                        <img
-                          src={openFaqIndex === 2 ? "/figma/yoler/icon-minus.svg" : "/figma/yoler/icon-plus.svg"}
-                          alt={openFaqIndex === 2 ? "Minus" : "Plus"}
-                          className="w-full h-full"
-                        />
-                      </button>
-                    </div>
-                    {openFaqIndex === 2 && (
-                      <p className="text-base text-black font-inter leading-[1.6] mt-4 whitespace-pre-wrap">
-                        The theory test consists of 50 multiple-choice questions covering various topics from the Highway Code.
-                      </p>
-                    )}
-                  </div>
-
-                  {/* FAQ Item 4 */}
-                  <div className="bg-white rounded-lg p-6">
-                    <div className="flex gap-2.5 items-center justify-center w-full">
-                      <p className="flex-1 font-medium text-2xl text-black font-inter leading-normal whitespace-pre-wrap">
-                        What aids can I bring to the test?
-                      </p>
-                      <button
-                        onClick={() => setOpenFaqIndex(openFaqIndex === 3 ? null : 3)}
-                        className="w-8 h-8 shrink-0 flex items-center justify-center"
-                        aria-label="Toggle FAQ"
-                      >
-                        <img
-                          src={openFaqIndex === 3 ? "/figma/yoler/icon-minus.svg" : "/figma/yoler/icon-plus.svg"}
-                          alt={openFaqIndex === 3 ? "Minus" : "Plus"}
-                          className="w-full h-full"
-                        />
-                      </button>
-                    </div>
-                    {openFaqIndex === 3 && (
-                      <p className="text-base text-black font-inter leading-[1.6] mt-4 whitespace-pre-wrap">
-                        You cannot bring any aids, books, or notes into the test. Only your identification documents are permitted.
-                      </p>
-                    )}
-                  </div>
-
-                  {/* FAQ Item 5 */}
-                  <div className="bg-white rounded-lg p-6">
-                    <div className="flex gap-2.5 items-center justify-center w-full">
-                      <p className="flex-1 font-medium text-2xl text-black font-inter leading-normal whitespace-pre-wrap">
-                        Can I take another language than Swedish?
-                      </p>
-                      <button
-                        onClick={() => setOpenFaqIndex(openFaqIndex === 4 ? null : 4)}
-                        className="w-8 h-8 shrink-0 flex items-center justify-center"
-                        aria-label="Toggle FAQ"
-                      >
-                        <img
-                          src={openFaqIndex === 4 ? "/figma/yoler/icon-minus.svg" : "/figma/yoler/icon-plus.svg"}
-                          alt={openFaqIndex === 4 ? "Minus" : "Plus"}
-                          className="w-full h-full"
-                        />
-                      </button>
-                    </div>
-                    {openFaqIndex === 4 && (
-                      <p className="text-base text-black font-inter leading-[1.6] mt-4 whitespace-pre-wrap">
-                        Yes, the theory test is available in multiple languages including English, Welsh, and other common languages. Please check availability at your test center.
-                      </p>
-                    )}
-                  </div>
+                        <div className="flex gap-2.5 items-center justify-center w-full mb-4">
+                          <div className={`flex-1 font-medium text-2xl font-inter leading-normal whitespace-pre-wrap ${index === 0 ? 'text-white' : 'text-black'
+                            }`}>
+                            {faq.question}
+                          </div>
+                          <button
+                            onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}
+                            className="w-8 h-8 shrink-0 flex items-center justify-center"
+                            aria-label="Toggle FAQ"
+                          >
+                            <img
+                              src={openFaqIndex === index ? "/figma/yoler/icon-minus.svg" : "/figma/yoler/icon-plus.svg"}
+                              alt={openFaqIndex === index ? "Minus" : "Plus"}
+                              className="w-full h-full"
+                            />
+                          </button>
+                        </div>
+                        {openFaqIndex === index && (
+                          <div className={`text-base font-inter leading-[1.6] whitespace-pre-wrap ${index === 0 ? 'text-white' : 'text-black mt-4'
+                            }`}>
+                            {faq.answer}
+                          </div>
+                        )}
+                      </div>
+                    ))
+                  )}
                 </div>
               </div>
             </div>
@@ -818,30 +744,30 @@ export default function YolerPage() {
                   <h2 className="text-4xl sm:text-5xl lg:text-[56px] font-bold text-white font-inter leading-normal whitespace-pre-wrap">
                     Download and unlock the road to success
                   </h2>
-                  
+
                   {/* App Store Buttons */}
                   <div className="flex flex-col sm:flex-row gap-6 items-start">
                     {/* Google Play Button */}
                     <a
                       href="#"
-                      className="bg-black border-[3px] border-white rounded-md h-[50px] w-[182px] flex items-center justify-center hover:opacity-90 transition-opacity"
+                      className="hover:opacity-90 transition-opacity"
                     >
                       <img
-                        src="/figma/yoler/google-play-badge.png"
+                        src="/figma/yoler/google-play-badge-official.svg"
                         alt="Get it on Google Play"
-                        className="h-full w-full object-contain"
+                        className="h-[50px] w-auto object-contain"
                       />
                     </a>
 
                     {/* App Store Button */}
                     <a
                       href="#"
-                      className="bg-black border-[3px] border-white rounded-md h-[50px] w-[180px] flex items-center justify-center hover:opacity-90 transition-opacity"
+                      className="hover:opacity-90 transition-opacity"
                     >
                       <img
-                        src="/figma/yoler/app-store-badge.png"
+                        src="/figma/yoler/app-store-badge-official.svg"
                         alt="Download on the App Store"
-                        className="h-full w-full object-contain"
+                        className="h-[50px] w-auto object-contain"
                       />
                     </a>
                   </div>

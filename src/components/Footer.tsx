@@ -1,129 +1,211 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="relative w-full bg-[#F1F1F1]">
+    <footer className="bg-[#f1f1f1] w-full">
       {/* Main Container */}
-      <div className="relative w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[100px]">
-        {/* Footer Content */}
-        <div className="flex flex-col lg:flex-row items-start justify-stretch gap-8 sm:gap-10 md:gap-12 lg:gap-[50px] pt-16 sm:pt-20 md:pt-24 lg:pt-[110px] pb-16 sm:pb-20 md:pb-24 lg:pb-[110px]">
-          {/* Left Column - Brand Info */}
-          <div className="flex flex-col gap-6 sm:gap-8 md:gap-10 lg:gap-8 w-full lg:w-auto lg:flex-1">
-            {/* Logo Section */}
-            <div className="flex flex-col gap-4 sm:gap-6 md:gap-8 lg:gap-4 pb-6 sm:pb-8 md:pb-10 lg:pb-6">
-              {/* Logo with Z Tax */}
-              <div className="flex flex-row items-center gap-2 sm:gap-[10px]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/figma/ztax/ztax-logo.png"
-                  alt="Z Tax Logo"
-                  className="h-8 w-auto sm:h-10 md:h-12 lg:h-[41.51px] object-contain"
+      <div className="max-w-[1267px] mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Top Section */}
+        <div className="flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-0 pt-[72px] pb-[30px]">
+          {/* Left Column - Logo and Description */}
+          <div className="flex flex-col items-start w-full lg:w-[416px]">
+            {/* Logo */}
+            <div className="h-[72px] w-[320px] mb-4 relative">
+              <Image
+                src="/logo.png"
+                alt="DeepDevs Logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            
+            {/* Description */}
+            <div className="pl-3 mb-10">
+              <p className="font-inter font-normal text-[18px] leading-normal text-[#24222e]">
+                Dictum curae mollis eu lectus leo non integer<br />
+                tempus torquent sociis, sagittis tempor<br />
+                imperdiet luctus.
+              </p>
+            </div>
+            
+            {/* Social Media Icons */}
+            <div className="flex gap-3 pl-3">
+              <a 
+                href="#" 
+                className="w-10 h-10 relative hover:opacity-70 transition-opacity"
+                aria-label="Facebook"
+              >
+                <Image
+                  src="/facebook-icon.png"
+                  alt="Facebook"
+                  fill
+                  className="object-contain"
+                  unoptimized
                 />
-              </div>
-
-              {/* Contact Information */}
-              <div className="flex flex-col gap-4 w-full">
-                {/* Phone and Email */}
-                <div className="flex flex-col gap-1">
-                  <p className="font-poppins font-normal text-sm sm:text-base text-[14px] leading-[22.4px] text-black">
-                    T: + (44) 9055 0269
-                  </p>
-                  <p className="font-poppins font-normal text-sm sm:text-base text-[14px] leading-[22.4px] text-black">
-                    E: example@example.com
-                  </p>
-                </div>
-
-                {/* Address */}
-                <p className="font-poppins font-normal text-sm sm:text-base text-[14px] leading-[22.4px] text-black">
-                  50 London Place, West Portal,<br />Western London, uk.
-                </p>
-              </div>
-
-              {/* Social Icons */}
-              <div className="flex flex-row items-center gap-3 sm:gap-4 md:gap-6 lg:gap-3">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/figma/ztax/footer/social-icons.png"
-                  alt="Social Media Icons"
-                  className="w-auto h-8 sm:h-10 md:h-12 lg:h-10 object-contain"
+              </a>
+              <a 
+                href="#" 
+                className="w-10 h-10 relative hover:opacity-70 transition-opacity"
+                aria-label="Instagram"
+              >
+                <Image
+                  src="/instagram-icon.png"
+                  alt="Instagram"
+                  fill
+                  className="object-contain"
+                  unoptimized
                 />
-              </div>
+              </a>
             </div>
           </div>
 
-          {/* Right Columns Container */}
-          <div className="flex flex-col sm:flex-row items-start justify-start gap-8 sm:gap-10 md:gap-12 lg:gap-[70px] w-full lg:w-auto lg:flex-1">
-            {/* Services Column */}
-            <div className="flex flex-col gap-4 sm:gap-6 md:gap-8 lg:gap-4 w-full sm:w-auto">
-              <div className="flex flex-col gap-3 sm:gap-4 md:gap-6 lg:gap-[14px]">
-                {/* Services Heading */}
-                <h4 className="font-poppins font-medium text-lg sm:text-xl md:text-2xl lg:text-[24px] leading-[38.4px] text-black">
-                  Services
-                </h4>
-                {/* Services Links */}
-                <div className="flex flex-col gap-2 sm:gap-3 md:gap-4 lg:gap-2">
-                  <Link href="#" className="font-poppins font-normal text-sm sm:text-base text-[14px] leading-[22.4px] text-black hover:text-[#00A5BB] transition-colors">
-                    Create with AI
+          {/* Right Columns */}
+          <div className="flex flex-col sm:flex-row gap-8 lg:gap-[26px] w-full lg:w-auto">
+            {/* Our Apps Column */}
+            <div className="flex flex-col gap-[30px] w-full sm:w-[235px]">
+              <div className="relative pb-[17px]">
+                <h3 className="font-inter font-medium text-[24px] leading-normal text-[#24222e] mb-0">
+                  Our Apps
+                </h3>
+                <div className="absolute bottom-0 left-0 h-[2px] w-[100px] bg-[#3e66f3]"></div>
+                <div className="absolute bottom-[-4px] left-[96px] w-[10px] h-[10px] rounded-full bg-white border-2 border-[#3e66f3]"></div>
+              </div>
+              
+              <div className="flex flex-col gap-[21px]">
+                {[
+                  { name: "Yoler", link: "/apps/yoler" },
+                  { name: "Deep tattoo", link: "/apps/deep-tattoo" },
+                  { name: "Plantzify", link: "/apps/plantzify" },
+                  { name: "SeSign", link: "/apps/sesign" },
+                  { name: "Deep Study Ai", link: "/apps/deep-study-ai" },
+                  { name: "Ztax", link: "/apps/ztax" },
+                ].map((app, index) => (
+                  <Link
+                    key={index}
+                    href={app.link}
+                    className="flex items-center gap-2 pl-5 relative group hover:text-[#3e66f3] transition-colors"
+                  >
+                    <span className="absolute left-0 text-[#24222e] group-hover:text-[#3e66f3] transition-colors text-[14.4px]">›</span>
+                    <span className="font-inter font-medium text-[16px] leading-[1.6] text-[#24222e] group-hover:text-[#3e66f3] transition-colors">
+                      {app.name}
+                    </span>
                   </Link>
-                  <Link href="#" className="font-poppins font-normal text-sm sm:text-base text-[14px] leading-[22.4px] text-black hover:text-[#00A5BB] transition-colors">
-                    Customize
-                  </Link>
-                  <Link href="#" className="font-poppins font-normal text-sm sm:text-base text-[14px] leading-[22.4px] text-black hover:text-[#00A5BB] transition-colors">
-                    Blog
-                  </Link>
-                  <Link href="#" className="font-poppins font-normal text-sm sm:text-base text-[14px] leading-[22.4px] text-black hover:text-[#00A5BB] transition-colors">
-                    Gallery
-                  </Link>
-                </div>
+                ))}
               </div>
             </div>
 
-            {/* Information Column */}
-            <div className="flex flex-col gap-4 sm:gap-6 md:gap-8 lg:gap-4 w-full sm:w-auto">
-              <div className="flex flex-col gap-3 sm:gap-4 md:gap-6 lg:gap-[14px]">
-                {/* Information Heading */}
-                <h4 className="font-poppins font-medium text-lg sm:text-xl md:text-2xl lg:text-[24px] leading-[38.4px] text-black">
-                  Information
-                </h4>
-                {/* Information Links */}
-                <div className="flex flex-col gap-2 sm:gap-3 md:gap-4 lg:gap-2">
-                  <Link href="#" className="font-poppins font-normal text-sm sm:text-base text-[14px] leading-[22.4px] text-black hover:text-[#00A5BB] transition-colors">
-                    About Us
+            {/* Our Plugins Column */}
+            <div className="flex flex-col gap-[30px] w-full sm:w-[261px]">
+              <div className="relative pb-[17px]">
+                <h3 className="font-inter font-medium text-[24px] leading-normal text-[#141d38] mb-0">
+                  Our Plugins
+                </h3>
+                <div className="absolute bottom-0 left-0 h-[2px] w-[100px] bg-[#3e66f3]"></div>
+                <div className="absolute bottom-[-4px] left-[96px] w-[10px] h-[10px] rounded-full bg-white border-2 border-[#3e66f3]"></div>
+              </div>
+              
+              <div className="flex flex-col gap-[21px]">
+                {[
+                  "Deep Plugin",
+                  "Deep Plugin",
+                  "Deep Plugin",
+                  "Deep Plugin",
+                  "Deep Plugin",
+                ].map((plugin, index) => (
+                  <Link
+                    key={index}
+                    href="#"
+                    className="flex items-center gap-2 pl-5 relative group hover:text-[#3e66f3] transition-colors"
+                  >
+                    <span className="absolute left-0 text-[#24222e] group-hover:text-[#3e66f3] transition-colors text-[14.4px]">›</span>
+                    <span className="font-inter font-medium text-[16px] leading-[1.6] text-[#24222e] group-hover:text-[#3e66f3] transition-colors">
+                      {plugin}
+                    </span>
                   </Link>
-                  <Link href="#" className="font-poppins font-normal text-sm sm:text-base text-[14px] leading-[22.4px] text-black hover:text-[#00A5BB] transition-colors">
-                    Privacy Policy
-                  </Link>
-                  <Link href="#" className="font-poppins font-normal text-sm sm:text-base text-[14px] leading-[22.4px] text-black hover:text-[#00A5BB] transition-colors">
-                    Returns Policy
-                  </Link>
-                  <Link href="#" className="font-poppins font-normal text-sm sm:text-base text-[14px] leading-[22.4px] text-black hover:text-[#00A5BB] transition-colors">
-                    Terms and Conditions
-                  </Link>
-                </div>
+                ))}
               </div>
             </div>
 
             {/* Quick Links Column */}
-            <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 lg:gap-[15px] w-full sm:w-auto">
-              <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 lg:gap-4">
-                {/* Quick Links Heading */}
-                <h4 className="font-poppins font-medium text-lg sm:text-xl md:text-2xl lg:text-[24px] leading-[38.4px] text-black">
-                  Quick links
-                </h4>
-                {/* Quick Links */}
-                <div className="flex flex-col gap-2 sm:gap-3 md:gap-4 lg:gap-2">
-                  <Link href="#" className="font-poppins font-normal text-sm sm:text-base text-[14px] leading-[22.4px] text-black hover:text-[#00A5BB] transition-colors">
-                    My account
-                  </Link>
-                  <Link href="#" className="font-poppins font-normal text-sm sm:text-base text-[14px] leading-[22.4px] text-black hover:text-[#00A5BB] transition-colors">
-                    My Work
-                  </Link>
-                  <Link href="#" className="font-poppins font-normal text-sm sm:text-base text-[14px] leading-[22.4px] text-black hover:text-[#00A5BB] transition-colors">
-                    Inform.
-                  </Link>
-                </div>
+            <div className="flex flex-col gap-[30px] w-full sm:w-[173px]">
+              <div className="relative pb-[17px]">
+                <h3 className="font-inter font-medium text-[24px] leading-normal text-[#141d38] mb-0">
+                  Quick Links
+                </h3>
+                <div className="absolute bottom-0 left-0 h-[2px] w-[100px] bg-[#3e66f3]"></div>
+                <div className="absolute bottom-[-4px] left-[96px] w-[10px] h-[10px] rounded-full bg-white border-2 border-[#3e66f3]"></div>
               </div>
+              
+              <div className="flex flex-col gap-[21px]">
+                {[
+                  { name: "About Us", link: "/about-us" },
+                  { name: "Faq", link: "#" },
+                  { name: "Contact us", link: "/contact-us" },
+                  { name: "Support", link: "#" },
+                  { name: "More inf.", link: "#" },
+                ].map((link, index) => (
+                  <Link
+                    key={index}
+                    href={link.link}
+                    className="flex items-center gap-2 pl-5 relative group hover:text-[#3e66f3] transition-colors"
+                  >
+                    <span className="absolute left-0 text-[#24222e] group-hover:text-[#3e66f3] transition-colors text-[14.4px]">›</span>
+                    <span className="font-inter font-medium text-[16px] leading-[1.6] text-[#24222e] group-hover:text-[#3e66f3] transition-colors">
+                      {link.name}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Section - Copyright and Legal Links */}
+        <div className="border-t border-[rgba(121,129,150,0.35)] pt-[36.5px] pb-[35.5px]">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            {/* Copyright */}
+            <div className="flex items-center gap-1 text-[16px] leading-[28px] text-[#24222e] font-roboto">
+              <span>Copyright</span>
+              <span className="inline-block w-4 h-4 relative">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/copyright-icon.png"
+                  alt="Copyright"
+                  className="w-full h-full object-contain scale-y-[-1]"
+                />
+              </span>
+              <span>2025</span>
+              <Link href="#" className="text-[#3e66f3] hover:underline">
+                DeepDevs
+              </Link>
+              <span>. All Rights Reserved.</span>
+            </div>
+
+            {/* Legal Links */}
+            <div className="flex items-center gap-0">
+              <Link
+                href="/terms-and-conditions"
+                className="pr-[15px] relative text-[16px] leading-[26px] text-[#24222e] font-roboto hover:text-[#3e66f3] transition-colors"
+              >
+                Terms & Condition
+                <span className="absolute right-0 top-1/2 -translate-y-1/2 h-5 w-px bg-[#24222e]"></span>
+              </Link>
+              <Link
+                href="#"
+                className="px-[15px] relative text-[16px] leading-[26px] text-[#24222e] font-roboto hover:text-[#3e66f3] transition-colors"
+              >
+                Careers
+                <span className="absolute right-0 top-1/2 -translate-y-1/2 h-5 w-px bg-[#24222e]"></span>
+              </Link>
+              <Link
+                href="/privacy-policy"
+                className="pl-[15px] text-[16px] leading-[26px] text-[#24222e] font-roboto hover:text-[#3e66f3] transition-colors"
+              >
+                Privacy Policy
+              </Link>
             </div>
           </div>
         </div>

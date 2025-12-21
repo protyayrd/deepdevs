@@ -1,27 +1,53 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import Logo from '@/components/Logo';
+
+interface FAQ {
+  id: string;
+  page: string;
+  question: string;
+  answer: string;
+}
 
 export default function ZTaxPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(1); // Default second FAQ open
+  const [faqs, setFaqs] = useState<FAQ[]>([]);
+  const [faqsLoading, setFaqsLoading] = useState(true);
+
+  useEffect(() => {
+    fetchFAQs();
+  }, []);
+
+  const fetchFAQs = async () => {
+    try {
+      const response = await fetch('/api/faqs?page=ztax');
+      const data = await response.json();
+      setFaqs(data);
+      // Set default open index to 1 if we have at least 2 FAQs
+      if (data.length >= 2) {
+        setOpenFaqIndex(1);
+      } else if (data.length > 0) {
+        setOpenFaqIndex(0);
+      }
+    } catch (error) {
+      console.error('Error fetching FAQs:', error);
+    } finally {
+      setFaqsLoading(false);
+    }
+  };
 
   return (
     <main className="min-h-screen w-full relative bg-white">
       {/* Global Header from Homepage */}
       <header className="fixed top-0 left-0 right-0 z-50 glass-morphism border-b border-white/20 shadow-lg">
-        <div className="w-[85%] mx-auto px-6 md:px-10 lg:px-16 py-4">
+        <div className="w-[85%] mx-auto px-6 md:px-10 lg:px-16 py-[1.2rem]">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <Image 
-                src="/logo.png" 
-                alt="DeepDevs Logo" 
-                width={120}
-                height={40}
-                className="h-6 w-auto sm:h-7 md:h-8 lg:h-9 xl:h-10 object-contain" 
-              />
+              <Logo />
             </div>
             <nav className="hidden md:flex items-center gap-8 text-sm text-gray-700">
               <a className="hover:text-gray-900 transition-colors" href="#plugins">Our Plugins</a>
@@ -989,101 +1015,44 @@ export default function ZTaxPage() {
 
               {/* Right Side - FAQ Items */}
               <div className="flex flex-col gap-4 sm:gap-6 lg:gap-6 w-full max-w-[596px]">
-                {/* FAQ Item 1 */}
-                <div className="w-full bg-white border border-[#D6D6D6] rounded-[10px] overflow-hidden">
-                  <button
-                    onClick={() => setOpenFaqIndex(openFaqIndex === 0 ? null : 0)}
-                    className="w-full flex flex-row justify-between items-center gap-4 sm:gap-8 md:gap-[68px] px-6 sm:px-8 md:px-[30px] py-6 sm:py-7 md:py-[26px] hover:bg-gray-50 transition-colors"
-                  >
-                    <h3 className="text-lg sm:text-xl md:text-[24px] leading-tight sm:leading-[1.3] md:leading-[33px] text-black font-open-sans font-semibold text-left flex-1">
-                      1. How accurate is the Notes Scan feature?
-                    </h3>
-                    {/* Plus/Minus Icon */}
-                    <div className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8">
-                      {openFaqIndex === 0 ? (
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect x="6" y="15" width="20" height="2" fill="#0D0D0D"/>
-                        </svg>
-                      ) : (
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect x="15" y="6" width="2" height="20" fill="#0D0D0D"/>
-                          <rect x="6" y="15" width="20" height="2" fill="#0D0D0D"/>
-                        </svg>
+                {faqsLoading ? (
+                  <div className="text-center py-8 text-gray-500">Loading FAQs...</div>
+                ) : faqs.length === 0 ? (
+                  <div className="text-center py-8 text-gray-500">No FAQs available.</div>
+                ) : (
+                  faqs.map((faq, index) => (
+                    <div key={faq.id} className="w-full bg-white border border-[#D6D6D6] rounded-[10px] overflow-hidden">
+                      <button
+                        onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}
+                        className="w-full flex flex-row justify-between items-center gap-4 sm:gap-8 md:gap-[68px] px-6 sm:px-8 md:px-[30px] py-6 sm:py-7 md:py-[26px] hover:bg-gray-50 transition-colors"
+                      >
+                        <h3 className="text-lg sm:text-xl md:text-[24px] leading-tight sm:leading-[1.3] md:leading-[33px] text-black font-open-sans font-semibold text-left flex-1">
+                          {index + 1}. {faq.question}
+                        </h3>
+                        {/* Plus/Minus Icon */}
+                        <div className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8">
+                          {openFaqIndex === index ? (
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <rect x="6" y="15" width="20" height="2" fill="#0D0D0D"/>
+                            </svg>
+                          ) : (
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <rect x="15" y="6" width="2" height="20" fill="#0D0D0D"/>
+                              <rect x="6" y="15" width="20" height="2" fill="#0D0D0D"/>
+                            </svg>
+                          )}
+                        </div>
+                      </button>
+                      {openFaqIndex === index && (
+                        <div className="px-6 sm:px-8 md:px-[30px] pb-6 sm:pb-7 md:pb-[26px]">
+                          <p className="text-sm sm:text-base md:text-[16px] leading-5 sm:leading-6 md:leading-[24px] text-[#393C41] font-open-sans">
+                            {faq.answer}
+                          </p>
+                        </div>
                       )}
                     </div>
-                  </button>
-                  {openFaqIndex === 0 && (
-                    <div className="px-6 sm:px-8 md:px-[30px] pb-6 sm:pb-7 md:pb-[26px]">
-                      <p className="text-sm sm:text-base md:text-[16px] leading-5 sm:leading-6 md:leading-[24px] text-[#393C41] font-open-sans">
-                        {/* Answer content here - not specified in Figma */}
-                      </p>
-                    </div>
-                  )}
-                </div>
-
-                {/* FAQ Item 2 - Expanded by default */}
-                <div className="w-full bg-white border border-[#D6D6D6] rounded-[10px] overflow-hidden">
-                  <button
-                    onClick={() => setOpenFaqIndex(openFaqIndex === 1 ? null : 1)}
-                    className="w-full flex flex-row justify-between items-center gap-4 sm:gap-8 md:gap-[68px] px-6 sm:px-8 md:px-[30px] py-6 sm:py-7 md:py-[26px] hover:bg-gray-50 transition-colors"
-                  >
-                    <h3 className="text-lg sm:text-xl md:text-[24px] leading-tight sm:leading-[1.3] md:leading-[33px] text-black font-open-sans font-semibold text-left flex-1">
-                      2. Can I extract text from any PDF file?
-                    </h3>
-                    {/* Plus/Minus Icon */}
-                    <div className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8">
-                      {openFaqIndex === 1 ? (
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect x="6" y="15" width="20" height="2" fill="#0D0D0D"/>
-                        </svg>
-                      ) : (
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect x="15" y="6" width="2" height="20" fill="#0D0D0D"/>
-                          <rect x="6" y="15" width="20" height="2" fill="#0D0D0D"/>
-                        </svg>
-                      )}
-                    </div>
-                  </button>
-                  {openFaqIndex === 1 && (
-                    <div className="px-6 sm:px-8 md:px-[30px] pb-6 sm:pb-7 md:pb-[26px]">
-                      <p className="text-sm sm:text-base md:text-[16px] leading-5 sm:leading-6 md:leading-[24px] text-[#393C41] font-open-sans">
-                        Yes, you can quickly extract and copy text from most PDF files using the PDF to Text feature Whether the PDF is a research paper, textbook, or report, the tool allows you to extract the content for easy reference or editing. However, please note that some PDFs with heavily encrypted...
-                      </p>
-                    </div>
-                  )}
-                </div>
-
-                {/* FAQ Item 3 */}
-                <div className="w-full bg-white border border-[#D6D6D6] rounded-[10px] overflow-hidden">
-                  <button
-                    onClick={() => setOpenFaqIndex(openFaqIndex === 2 ? null : 2)}
-                    className="w-full flex flex-row justify-between items-center gap-4 sm:gap-8 md:gap-[68px] px-6 sm:px-8 md:px-[30px] py-6 sm:py-7 md:py-[26px] hover:bg-gray-50 transition-colors"
-                  >
-                    <h3 className="text-lg sm:text-xl md:text-[24px] leading-tight sm:leading-[1.3] md:leading-[33px] text-black font-open-sans font-semibold text-left flex-1">
-                      3. How does Ask AI help with my study?
-                    </h3>
-                    {/* Plus/Minus Icon */}
-                    <div className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8">
-                      {openFaqIndex === 2 ? (
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect x="6" y="15" width="20" height="2" fill="#0D0D0D"/>
-                        </svg>
-                      ) : (
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect x="15" y="6" width="2" height="20" fill="#0D0D0D"/>
-                          <rect x="6" y="15" width="20" height="2" fill="#0D0D0D"/>
-                        </svg>
-                      )}
-                    </div>
-                  </button>
-                  {openFaqIndex === 2 && (
-                    <div className="px-6 sm:px-8 md:px-[30px] pb-6 sm:pb-7 md:pb-[26px]">
-                      <p className="text-sm sm:text-base md:text-[16px] leading-5 sm:leading-6 md:leading-[24px] text-[#393C41] font-open-sans">
-                        {/* Answer content here - not specified in Figma */}
-                      </p>
-                    </div>
-                  )}
-                </div>
+                  ))
+                )}
               </div>
             </div>
           </div>

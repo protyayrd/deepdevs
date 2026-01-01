@@ -304,23 +304,23 @@ export default function YolerPage() {
       </section>
 
       {/* Theory Test App Section */}
-      <section className="w-full py-16 px-4 sm:px-6 lg:px-8 bg-white">
+      <section className="w-full py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-[1440px] mx-auto">
-          <div className="relative bg-[#9e8afb] rounded-2xl overflow-hidden p-6 max-w-[1240px] mx-auto h-[691px] flex items-center justify-center">
+          <div className="relative bg-[#9e8afb] rounded-2xl overflow-hidden p-4 sm:p-6 max-w-[1240px] mx-auto">
             {/* White Content Area */}
-            <div className="relative bg-[#f6f4ff] rounded-2xl w-full max-w-[1192px] h-[643px] flex flex-col lg:flex-row items-center justify-between px-6 sm:px-12 lg:px-[95px] py-12 lg:py-0">
+            <div className="relative bg-[#f6f4ff] rounded-2xl w-full flex flex-col lg:flex-row items-center justify-between px-4 sm:px-8 lg:px-[95px] py-8 sm:py-10 lg:py-12 gap-8 lg:gap-0 overflow-hidden">
               {/* Left Content */}
-              <div className="flex flex-col gap-8 w-full lg:w-[534px] z-10 lg:mt-0">
+              <div className="flex flex-col gap-6 sm:gap-8 w-full lg:w-[534px] z-10">
                 {/* Heading and Description */}
                 <div className="flex flex-col gap-4">
-                  <h2 className="text-4xl sm:text-5xl lg:text-[56px] font-medium text-[#171a20] font-inter leading-normal">
+                  <h2 className="text-3xl sm:text-4xl lg:text-[56px] font-medium text-[#171a20] font-inter leading-tight lg:leading-normal">
                     Theory Test App
                   </h2>
                   <div className="flex flex-col gap-2 max-w-[534px]">
-                    <p className="text-lg text-[#555555] font-inter leading-[28px]">
+                    <p className="text-base sm:text-lg text-[#555555] font-inter leading-[26px] sm:leading-[28px]">
                       Study from a bank of 2500+ DVSA theory test revision questions, up-to-date for 2025. Take full-length tests and track your progress.
                     </p>
-                    <p className="text-lg text-[#555555] font-inter leading-[28px]">
+                    <p className="text-base sm:text-lg text-[#555555] font-inter leading-[26px] sm:leading-[28px]">
                       Practice on any of these devices at any time and as much as you like
                     </p>
                   </div>
@@ -328,21 +328,21 @@ export default function YolerPage() {
 
                 {/* Download App Button */}
                 <div>
-                  <button className="bg-[#009661] text-white px-[35px] py-[15px] rounded-lg font-inter font-bold text-base leading-normal hover:bg-[#007a4d] transition-colors">
+                  <button className="bg-[#009661] text-white px-6 sm:px-[35px] py-3 sm:py-[15px] rounded-lg font-inter font-bold text-sm sm:text-base leading-normal hover:bg-[#007a4d] transition-colors">
                     Download App
                   </button>
                 </div>
               </div>
 
               {/* Right Content - Phone Mockups */}
-              <div className="relative flex items-center justify-center w-full lg:w-auto mt-8 lg:mt-0 lg:ml-[107px]">
-                <div className="relative w-full max-w-[517px] h-[399px] flex items-center justify-center">
+              <div className="relative flex items-center justify-center w-full lg:w-auto lg:ml-8 xl:ml-[107px]">
+                <div className="relative w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[517px] flex items-center justify-center">
                   {/* Phone Mockup */}
                   <div className="relative z-10">
                     <img
                       src="/figma/yoler/yoler-test-app.png"
                       alt="YOLER App on Phone"
-                      className="w-full h-auto max-w-[375px] lg:max-w-[517px]"
+                      className="w-full h-auto"
                     />
                   </div>
 
@@ -367,7 +367,7 @@ export default function YolerPage() {
               </div>
 
               {/* City Skyline at Bottom */}
-              <div className="absolute bottom-0 left-0 w-full max-w-[705px] h-[106px] overflow-hidden pointer-events-none">
+              <div className="absolute bottom-0 left-0 w-full max-w-[705px] h-[60px] sm:h-[80px] lg:h-[106px] overflow-hidden pointer-events-none hidden sm:block">
                 <img
                   src="/figma/yoler/city-skyline-new.png"
                   alt="City skyline"
@@ -380,34 +380,34 @@ export default function YolerPage() {
       </section>
 
       {/* Features Section */}
-      <section className="w-full py-[120px] px-4 sm:px-6 lg:px-[100px] bg-white">
+      <section className="w-full py-16 sm:py-20 lg:py-[120px] px-4 sm:px-6 lg:px-[100px] bg-white">
         <div className="max-w-[1240px] mx-auto">
-          <div className="flex flex-col gap-[72px] items-center justify-center">
+          <div className="flex flex-col gap-10 sm:gap-14 lg:gap-[72px] items-center justify-center">
             {/* Heading */}
-            <div className="flex flex-col gap-6 items-center justify-center text-center w-full">
-              <h2 className="text-4xl sm:text-5xl lg:text-[56px] font-bold text-[#171a20] font-inter leading-[1.3] max-w-[872px]">
+            <div className="flex flex-col gap-4 sm:gap-6 items-center justify-center text-center w-full">
+              <h2 className="text-2xl sm:text-4xl lg:text-[56px] font-bold text-[#171a20] font-inter leading-[1.3] max-w-[872px]">
                 Exploring the features of the Theory Test 5 in 1 App
               </h2>
-              <p className="text-lg text-[#444444] font-inter leading-[1.6]">
+              <p className="text-base sm:text-lg text-[#444444] font-inter leading-[1.6]">
                 Experience learning on Theorypass today. Ace your theory test on the first try tomorrow.
               </p>
             </div>
 
             {/* Features Grid - Row 1 */}
-            <div className="flex flex-col lg:flex-row gap-6 w-full">
+            <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 w-full">
               {/* Card 1: What do I get? */}
-              <div className="bg-[#cdeafc] rounded-2xl p-8 flex flex-col gap-10 items-center justify-center relative overflow-hidden flex-1 min-h-[453px] pt-8">
-                <div className="flex flex-col gap-6 items-start w-full z-10 relative">
-                  <h3 className="text-4xl font-medium text-[#333333] font-inter text-center w-full leading-normal h-[80px] flex items-center justify-center">
+              <div className="bg-[#cdeafc] rounded-2xl p-5 sm:p-8 flex flex-col gap-6 sm:gap-10 items-center justify-between flex-1 min-h-[320px] sm:min-h-[400px] lg:min-h-[453px]">
+                <div className="flex flex-col gap-4 sm:gap-6 items-start w-full z-10 relative">
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-[#333333] font-inter text-center w-full leading-normal flex items-center justify-center">
                     What do I get?
                   </h3>
-                  <ul className="list-disc text-xl text-[#666666] font-inter leading-[1.5] space-y-2 ml-[30px]">
+                  <ul className="list-disc text-base sm:text-lg lg:text-xl text-[#666666] font-inter leading-[1.5] space-y-2 ml-5 sm:ml-[30px]">
                     <li className="mb-0">Full access to all the questions</li>
                     <li className="mb-0">Unlimited learning sessions with immediate feedback</li>
                     <li>Mock tests and test-ready indicator</li>
                   </ul>
                 </div>
-                <div className="absolute left-1/2 -translate-x-1/2 bottom-[20px] w-[188px] h-[188px] hidden lg:block">
+                <div className="w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] lg:w-[188px] lg:h-[188px]">
                   <img
                     src="/figma/yoler/icon-gift.png"
                     alt="Gift icon"
@@ -417,13 +417,13 @@ export default function YolerPage() {
               </div>
 
               {/* Card 2: Hazard Perception Test */}
-              <div className="bg-[#fcdede] rounded-2xl p-8 flex flex-col gap-10 items-center justify-between flex-1 min-h-[453px]">
-                <div className="flex flex-col gap-6 items-start w-full">
-                  <h3 className="text-4xl font-medium text-[#333333] font-inter text-center w-full leading-normal h-[78px] flex items-center justify-center whitespace-pre-wrap">
-                    Hazard{'\n'}Perception Test
+              <div className="bg-[#fcdede] rounded-2xl p-5 sm:p-8 flex flex-col gap-6 sm:gap-10 items-center justify-between flex-1 min-h-[320px] sm:min-h-[400px] lg:min-h-[453px]">
+                <div className="flex flex-col gap-4 sm:gap-6 items-start w-full">
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-[#333333] font-inter text-center w-full leading-normal flex items-center justify-center">
+                    Hazard Perception Test
                   </h3>
                 </div>
-                <div className="w-full max-w-[331px] h-[264.8px] flex items-center justify-center">
+                <div className="w-[180px] h-[144px] sm:w-[250px] sm:h-[200px] lg:w-[331px] lg:h-[264.8px] flex items-center justify-center">
                   <img
                     src="/figma/yoler/icon-hazard.png"
                     alt="Hazard icon"
@@ -433,13 +433,13 @@ export default function YolerPage() {
               </div>
 
               {/* Card 3: Highway Code */}
-              <div className="bg-[#e6fcfc] rounded-2xl p-8 flex flex-col gap-10 items-center justify-center flex-1 min-h-[453px]">
-                <div className="flex flex-col gap-6 items-start w-full">
-                  <h3 className="text-4xl font-medium font-semibold text-[#333333] font-inter text-center w-full leading-normal h-[80px] flex items-center justify-center whitespace-pre-wrap">
-                    Highway{'\n'}Code
+              <div className="bg-[#e6fcfc] rounded-2xl p-5 sm:p-8 flex flex-col gap-6 sm:gap-10 items-center justify-between flex-1 min-h-[320px] sm:min-h-[400px] lg:min-h-[453px]">
+                <div className="flex flex-col gap-4 sm:gap-6 items-start w-full">
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium font-semibold text-[#333333] font-inter text-center w-full leading-normal flex items-center justify-center">
+                    Highway Code
                   </h3>
                 </div>
-                <div className="w-[269px] h-[269px] flex items-center justify-center">
+                <div className="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px] lg:w-[269px] lg:h-[269px] flex items-center justify-center">
                   <img
                     src="/figma/yoler/icon-highway-code.png"
                     alt="Highway code icon"
@@ -450,15 +450,15 @@ export default function YolerPage() {
             </div>
 
             {/* Features Grid - Row 2 */}
-            <div className="flex flex-col lg:flex-row gap-6 w-full">
+            <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 w-full">
               {/* Card 4: Mock Test */}
-              <div className="bg-[#cdeafc] rounded-2xl p-8 flex flex-col gap-10 items-center justify-center flex-1 min-h-[453px]">
-                <div className="flex flex-col gap-6 items-start w-full">
-                  <h3 className="text-4xl font-medium text-[#333333] font-inter text-center w-full leading-normal h-[80px] flex items-center justify-center whitespace-pre-wrap">
+              <div className="bg-[#cdeafc] rounded-2xl p-5 sm:p-8 flex flex-col gap-6 sm:gap-10 items-center justify-between flex-1 min-h-[320px] sm:min-h-[400px] lg:min-h-[453px]">
+                <div className="flex flex-col gap-4 sm:gap-6 items-start w-full">
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-[#333333] font-inter text-center w-full leading-normal flex items-center justify-center">
                     Mock Test
                   </h3>
                 </div>
-                <div className="w-[264px] h-[264px] flex items-center justify-center">
+                <div className="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px] lg:w-[264px] lg:h-[264px] flex items-center justify-center">
                   <img
                     src="/figma/yoler/icon-mock-test.png"
                     alt="Mock test icon"
@@ -468,13 +468,13 @@ export default function YolerPage() {
               </div>
 
               {/* Card 5: Practice */}
-              <div className="bg-[#fcdede] rounded-2xl p-8 flex flex-col gap-10 items-center justify-center flex-1 min-h-[453px]">
-                <div className="flex flex-col gap-6 items-start w-full">
-                  <h3 className="text-4xl font-medium text-[#333333] font-inter text-center w-full leading-normal h-[57px] flex items-center justify-center whitespace-pre-wrap">
+              <div className="bg-[#fcdede] rounded-2xl p-5 sm:p-8 flex flex-col gap-6 sm:gap-10 items-center justify-between flex-1 min-h-[320px] sm:min-h-[400px] lg:min-h-[453px]">
+                <div className="flex flex-col gap-4 sm:gap-6 items-start w-full">
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-[#333333] font-inter text-center w-full leading-normal flex items-center justify-center">
                     Practice
                   </h3>
                 </div>
-                <div className="w-[266px] h-[266px] flex items-center justify-center">
+                <div className="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px] lg:w-[266px] lg:h-[266px] flex items-center justify-center">
                   <img
                     src="/figma/yoler/icon-practice.png"
                     alt="Practice icon"
@@ -484,13 +484,13 @@ export default function YolerPage() {
               </div>
 
               {/* Card 6: Road Sign */}
-              <div className="bg-[#e6fcfc] rounded-2xl p-8 flex flex-col gap-10 items-center justify-center flex-1 min-h-[453px]">
-                <div className="flex flex-col gap-6 items-start w-full">
-                  <h3 className="text-4xl font-medium text-[#333333] font-inter text-center w-full leading-normal h-[80px] flex items-center justify-center whitespace-pre-wrap">
+              <div className="bg-[#e6fcfc] rounded-2xl p-5 sm:p-8 flex flex-col gap-6 sm:gap-10 items-center justify-between flex-1 min-h-[320px] sm:min-h-[400px] lg:min-h-[453px]">
+                <div className="flex flex-col gap-4 sm:gap-6 items-start w-full">
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-[#333333] font-inter text-center w-full leading-normal flex items-center justify-center">
                     Road Sign
                   </h3>
                 </div>
-                <div className="w-[264px] h-[264px] flex items-center justify-center">
+                <div className="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px] lg:w-[264px] lg:h-[264px] flex items-center justify-center">
                   <img
                     src="/figma/yoler/icon-road-sign.png"
                     alt="Road sign icon"
@@ -573,87 +573,132 @@ export default function YolerPage() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="w-full py-20 px-4 sm:px-6 lg:px-0 overflow-visible">
-        <div className="max-w-[1240px] mx-auto relative h-[628px]">
-
-          {/* Background Purple Block */}
-          {/* Positioned absolute left: 654px (relative to 1240px container) */}
-          <div className="hidden lg:block absolute top-0 left-[654px] w-[685.65px] h-[628px] bg-[#9E8AFB] rounded-[16px]">
-            <div className="absolute left-[127px] top-[250px] flex flex-col gap-2 w-[432.78px]">
-              <h2 className="font-inter font-semibold text-[48px] leading-[64px] text-white">
+      <section className="w-full py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 overflow-visible">
+        <div className="max-w-[1240px] mx-auto">
+          {/* Mobile Layout */}
+          <div className="lg:hidden flex flex-col gap-8">
+            {/* Purple Header for Mobile */}
+            <div className="bg-[#9E8AFB] rounded-[16px] p-6 sm:p-8">
+              <h2 className="font-inter font-semibold text-2xl sm:text-3xl leading-tight text-white text-center">
                 Happy customers
               </h2>
-              <p className="font-inter font-normal text-[18px] leading-[28px] text-white">
+              <p className="font-inter font-normal text-base leading-relaxed text-white text-center mt-2">
                 Feedback from these happy customers helps us in reaching the heights
               </p>
             </div>
-          </div>
-          {/* Mobile Purple Background Fallback */}
-          <div className="block lg:hidden absolute top-0 left-0 w-full h-full bg-[#9E8AFB] rounded-[16px]"></div>
 
-
-          {/* Testimonial Card */}
-          {/* Positioned absolute left: 100px */}
-          <div className="w-full lg:w-[617.57px] h-auto lg:h-[536px] bg-white rounded-[16px] p-10 lg:p-[40px] shadow-[8px_12px_24px_10px_rgba(0,0,0,0.04)] absolute top-[46px] left-0 lg:left-[100px] flex flex-col gap-[24px] z-10">
-
-            {/* Quote Mark (Top Right) */}
-            <div className="w-full flex justify-end">
-              <div className="w-[80px] h-[68px] opacity-30 rotate-180">
-                <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 7.55228 14.017 7V3H19.017C20.6739 3 22.017 4.34315 22.017 6V15C22.017 16.6569 20.6739 18 19.017 18H16.017V21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 7.55228 5.0166 7V3H10.0166C11.6735 3 13.0166 4.34315 13.0166 6V15C13.0166 16.6569 11.6735 18 10.0166 18H7.0166V21H5.0166Z" fill="#FF4A52" />
-                </svg>
-              </div>
-            </div>
-
-            {/* Content Wrapper */}
-            <div className="flex flex-col gap-[20px] w-full">
-
-              {/* Profile & Text */}
-              <div className="flex flex-col gap-[24px]">
-                {/* Profile */}
-                <div className="flex items-center gap-[16px]">
-                  <div className="w-[56px] h-[56px] rounded-full overflow-hidden shrink-0">
-                    <img
-                      src={testimonials[currentTestimonial].avatar}
-                      alt={testimonials[currentTestimonial].name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <h4 className="font-inter font-normal text-[20px] leading-[30px] text-[#222222]">
-                      {testimonials[currentTestimonial].name}
-                    </h4>
-                    <p className="font-inter font-normal text-[14px] leading-[24px] text-[#666666]">
-                      {testimonials[currentTestimonial].location}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Testimonial Text */}
-                <div className="font-inter font-normal text-[18px] leading-[28px] text-[#222222]">
-                  &quot;{testimonials[currentTestimonial].text}&quot;
+            {/* Testimonial Card for Mobile */}
+            <div className="w-full bg-white rounded-[16px] p-6 sm:p-8 shadow-[8px_12px_24px_10px_rgba(0,0,0,0.04)] flex flex-col gap-6">
+              {/* Quote Mark */}
+              <div className="w-full flex justify-end">
+                <div className="w-[60px] h-[50px] opacity-30 rotate-180">
+                  <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 7.55228 14.017 7V3H19.017C20.6739 3 22.017 4.34315 22.017 6V15C22.017 16.6569 20.6739 18 19.017 18H16.017V21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 7.55228 5.0166 7V3H10.0166C11.6735 3 13.0166 4.34315 13.0166 6V15C13.0166 16.6569 11.6735 18 10.0166 18H7.0166V21H5.0166Z" fill="#FF4A52" />
+                  </svg>
                 </div>
               </div>
-
+              {/* Profile */}
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 rounded-full overflow-hidden shrink-0">
+                  <img src={testimonials[currentTestimonial].avatar} alt={testimonials[currentTestimonial].name} className="w-full h-full object-cover" />
+                </div>
+                <div className="flex flex-col">
+                  <h4 className="font-inter font-normal text-lg leading-relaxed text-[#222222]">{testimonials[currentTestimonial].name}</h4>
+                  <p className="font-inter font-normal text-sm leading-relaxed text-[#666666]">{testimonials[currentTestimonial].location}</p>
+                </div>
+              </div>
+              {/* Testimonial Text */}
+              <div className="font-inter font-normal text-base leading-relaxed text-[#222222]">
+                &quot;{testimonials[currentTestimonial].text}&quot;
+              </div>
               {/* Arrows */}
-              <div className="flex justify-end gap-[8px]">
-                <button
-                  onClick={() => setCurrentTestimonial((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1))}
-                  className="w-[40px] h-[40px] flex items-center justify-center hover:opacity-70 transition-opacity"
-                >
-                  <img src="/figma/yoler/chevron-left.svg" alt="Previous" className="w-[24px] h-[24px]" />
+              <div className="flex justify-end gap-2">
+                <button onClick={() => setCurrentTestimonial((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1))} className="w-10 h-10 flex items-center justify-center hover:opacity-70 transition-opacity">
+                  <img src="/figma/yoler/chevron-left.svg" alt="Previous" className="w-6 h-6" />
                 </button>
-                <button
-                  onClick={() => setCurrentTestimonial((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1))}
-                  className="w-[40px] h-[40px] flex items-center justify-center hover:opacity-70 transition-opacity"
-                >
-                  <img src="/figma/yoler/chevron-right.svg" alt="Next" className="w-[24px] h-[24px]" />
+                <button onClick={() => setCurrentTestimonial((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1))} className="w-10 h-10 flex items-center justify-center hover:opacity-70 transition-opacity">
+                  <img src="/figma/yoler/chevron-right.svg" alt="Next" className="w-6 h-6" />
                 </button>
               </div>
-
             </div>
           </div>
 
+          {/* Desktop Layout */}
+          <div className="hidden lg:block relative h-[628px]">
+            {/* Background Purple Block */}
+            <div className="absolute top-0 left-[654px] w-[685.65px] h-[628px] bg-[#9E8AFB] rounded-[16px]">
+              <div className="absolute left-[127px] top-[250px] flex flex-col gap-2 w-[432.78px]">
+                <h2 className="font-inter font-semibold text-[48px] leading-[64px] text-white">
+                  Happy customers
+                </h2>
+                <p className="font-inter font-normal text-[18px] leading-[28px] text-white">
+                  Feedback from these happy customers helps us in reaching the heights
+                </p>
+              </div>
+            </div>
+
+            {/* Testimonial Card */}
+            <div className="w-[617.57px] h-[536px] bg-white rounded-[16px] p-[40px] shadow-[8px_12px_24px_10px_rgba(0,0,0,0.04)] absolute top-[46px] left-[100px] flex flex-col gap-[24px] z-10">
+
+              {/* Quote Mark (Top Right) */}
+              <div className="w-full flex justify-end">
+                <div className="w-[80px] h-[68px] opacity-30 rotate-180">
+                  <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 7.55228 14.017 7V3H19.017C20.6739 3 22.017 4.34315 22.017 6V15C22.017 16.6569 20.6739 18 19.017 18H16.017V21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 7.55228 5.0166 7V3H10.0166C11.6735 3 13.0166 4.34315 13.0166 6V15C13.0166 16.6569 11.6735 18 10.0166 18H7.0166V21H5.0166Z" fill="#FF4A52" />
+                  </svg>
+                </div>
+              </div>
+
+              {/* Content Wrapper */}
+              <div className="flex flex-col gap-[20px] w-full">
+
+                {/* Profile & Text */}
+                <div className="flex flex-col gap-[24px]">
+                  {/* Profile */}
+                  <div className="flex items-center gap-[16px]">
+                    <div className="w-[56px] h-[56px] rounded-full overflow-hidden shrink-0">
+                      <img
+                        src={testimonials[currentTestimonial].avatar}
+                        alt={testimonials[currentTestimonial].name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <h4 className="font-inter font-normal text-[20px] leading-[30px] text-[#222222]">
+                        {testimonials[currentTestimonial].name}
+                      </h4>
+                      <p className="font-inter font-normal text-[14px] leading-[24px] text-[#666666]">
+                        {testimonials[currentTestimonial].location}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Testimonial Text */}
+                  <div className="font-inter font-normal text-[18px] leading-[28px] text-[#222222]">
+                    &quot;{testimonials[currentTestimonial].text}&quot;
+                  </div>
+                </div>
+
+                {/* Arrows */}
+                <div className="flex justify-end gap-[8px]">
+                  <button
+                    onClick={() => setCurrentTestimonial((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1))}
+                    className="w-[40px] h-[40px] flex items-center justify-center hover:opacity-70 transition-opacity"
+                  >
+                    <img src="/figma/yoler/chevron-left.svg" alt="Previous" className="w-[24px] h-[24px]" />
+                  </button>
+                  <button
+                    onClick={() => setCurrentTestimonial((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1))}
+                    className="w-[40px] h-[40px] flex items-center justify-center hover:opacity-70 transition-opacity"
+                  >
+                    <img src="/figma/yoler/chevron-right.svg" alt="Next" className="w-[24px] h-[24px]" />
+                  </button>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
 
@@ -733,20 +778,20 @@ export default function YolerPage() {
       </section>
 
       {/* CTA / Download Section */}
-      <section className="w-full py-16 px-4 sm:px-6 lg:px-[100px] bg-white">
+      <section className="w-full py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-[100px] bg-white">
         <div className="max-w-[1440px] mx-auto">
           <div className="relative bg-[#9e8afb] rounded-2xl overflow-hidden">
             {/* Content Container */}
-            <div className="relative min-h-[510px] flex flex-col lg:flex-row items-stretch">
+            <div className="relative flex flex-col lg:flex-row items-stretch">
               {/* Left Side - Purple Background with Text and Buttons */}
-              <div className="flex-1 bg-[#9e8afb] flex flex-col justify-center px-4 sm:px-8 lg:px-14 py-12 lg:py-16 z-10">
-                <div className="flex flex-col gap-6 max-w-[526px]">
-                  <h2 className="text-4xl sm:text-5xl lg:text-[56px] font-bold text-white font-inter leading-normal whitespace-pre-wrap">
+              <div className="flex-1 bg-[#9e8afb] flex flex-col justify-center px-4 sm:px-8 lg:px-14 py-8 sm:py-12 lg:py-16 z-10">
+                <div className="flex flex-col gap-4 sm:gap-6 max-w-[526px]">
+                  <h2 className="text-2xl sm:text-4xl lg:text-[56px] font-bold text-white font-inter leading-tight lg:leading-normal">
                     Download and unlock the road to success
                   </h2>
 
                   {/* App Store Buttons */}
-                  <div className="flex flex-col sm:flex-row gap-6 items-start">
+                  <div className="flex flex-row gap-4 sm:gap-6 items-start flex-wrap">
                     {/* Google Play Button */}
                     <a
                       href="#"
@@ -755,7 +800,7 @@ export default function YolerPage() {
                       <img
                         src="/figma/yoler/google-play-badge-official.svg"
                         alt="Get it on Google Play"
-                        className="h-[50px] w-auto object-contain"
+                        className="h-[40px] sm:h-[50px] w-auto object-contain"
                       />
                     </a>
 
@@ -767,7 +812,7 @@ export default function YolerPage() {
                       <img
                         src="/figma/yoler/app-store-badge-official.svg"
                         alt="Download on the App Store"
-                        className="h-[50px] w-auto object-contain"
+                        className="h-[40px] sm:h-[50px] w-auto object-contain"
                       />
                     </a>
                   </div>
@@ -775,19 +820,19 @@ export default function YolerPage() {
               </div>
 
               {/* Right Side - Light Blue Background with Phone Mockups */}
-              <div className="flex-1 bg-[#e6fcfc] relative rounded-r-2xl overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center p-8">
-                  <div className="relative w-full h-full max-w-[600px] rounded-2xl overflow-hidden">
+              <div className="flex-1 bg-[#e6fcfc] relative lg:rounded-r-2xl overflow-hidden min-h-[200px] sm:min-h-[280px] lg:min-h-[400px]">
+                <div className="flex items-center justify-center p-4 sm:p-6 lg:p-8 h-full">
+                  <div className="relative w-full max-w-[280px] sm:max-w-[400px] lg:max-w-[600px] rounded-2xl overflow-hidden">
                     <img
                       src="/figma/yoler/cta-phone-mockup.jpg"
                       alt="YOLER App on phones"
-                      className="w-full h-full object-cover rounded-2xl"
+                      className="w-full h-auto object-cover rounded-2xl"
                     />
                   </div>
                 </div>
 
                 {/* Decorative Plant */}
-                <div className="absolute right-4 top-[227px] w-[78px] h-[72px] hidden lg:block z-10">
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 w-[50px] h-[46px] sm:w-[60px] sm:h-[56px] lg:w-[78px] lg:h-[72px] hidden lg:block z-10">
                   <img
                     src="/figma/yoler/decorative-plant.png"
                     alt=""

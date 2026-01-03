@@ -187,7 +187,7 @@ export default function DeepStudyAIPage() {
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src="/figma/google-play-badge.png"
+                      src="/figma/shared/google-play-badge.png"
                       alt="Get it on Google Play"
                       className="w-full h-full object-contain"
                     />
@@ -200,7 +200,7 @@ export default function DeepStudyAIPage() {
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src="/figma/appstore-badge.png"
+                      src="/figma/shared/appstore-badge.png"
                       alt="Download on the App Store"
                       className="w-full h-full object-contain"
                     />
@@ -932,7 +932,7 @@ export default function DeepStudyAIPage() {
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/figma/google-play-badge.png"
+                    src="/figma/shared/google-play-badge.png"
                     alt="Get it on Google Play"
                     className="w-full h-full object-contain"
                   />
@@ -945,7 +945,7 @@ export default function DeepStudyAIPage() {
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/figma/appstore-badge.png"
+                    src="/figma/shared/appstore-badge.png"
                     alt="Download on the App Store"
                     className="w-full h-full object-contain"
                   />

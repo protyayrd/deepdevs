@@ -188,7 +188,7 @@ export default function ZTaxPage() {
                   className="relative w-[140px] sm:w-[160px] md:w-[182px] h-[40px] sm:h-[46px] md:h-[52px] bg-black rounded-[8px] flex items-center justify-center overflow-hidden hover:opacity-90 transition-opacity"
                 >
                   <Image
-                    src="/figma/google-play-badge.png"
+                    src="/figma/shared/google-play-badge.png"
                     alt="Get it on Google Play"
                     fill
                     className="object-contain"
@@ -201,7 +201,7 @@ export default function ZTaxPage() {
                   className="relative w-[140px] sm:w-[160px] md:w-[180px] h-[40px] sm:h-[46px] md:h-[52px] flex items-center justify-center hover:opacity-90 transition-opacity"
                 >
                   <Image
-                    src="/figma/appstore-badge.png"
+                    src="/figma/shared/appstore-badge.png"
                     alt="Download on the App Store"
                     fill
                     className="object-contain"

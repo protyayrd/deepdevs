@@ -43,7 +43,7 @@ export default function PlantzifyPage() {
                 <div className="flex flex-row items-center gap-2 sm:gap-4">
                   {/* Logo Icon */}
                   <Image
-                    src="/figma/app-icon-1-56586a.png"
+                    src="/figma/plantzify/app-icon-1-56586a.png"
                     alt="Plantzify Logo"
                     width={36}
                     height={38}
@@ -110,7 +110,7 @@ export default function PlantzifyPage() {
                 {/* Right Side - Plant Image */}
                 <div className="w-full max-w-[280px] sm:max-w-[350px] lg:max-w-[456px] h-[250px] sm:h-[300px] lg:h-[400px] flex-shrink-0">
                   <Image
-                    src="/figma/plant-image-56586a.png"
+                    src="/figma/plantzify/plant-image-56586a.png"
                     alt="Plant Detective"
                     width={456}
                     height={452}
@@ -143,7 +143,7 @@ export default function PlantzifyPage() {
                 <div className="flex flex-col items-center p-6 sm:p-10 gap-4 sm:gap-6 w-full md:w-[397.33px] bg-white border-2 border-[#F3F0F0] rounded-[16px]">
                   <div className="flex flex-col items-center gap-4 sm:gap-6 w-full max-w-[226px]">
                     <Image
-                      src="/figma/plant-finder-icon-6528e5.png"
+                      src="/figma/plantzify/plant-finder-icon-6528e5.png"
                       alt="Plant Finder"
                       width={64}
                       height={74}
@@ -164,7 +164,7 @@ export default function PlantzifyPage() {
                 <div className="flex flex-col items-center p-6 sm:p-10 gap-4 sm:gap-6 w-full md:w-[397.33px] bg-white border-2 border-[#F3F0F0] rounded-[16px]">
                   <div className="flex flex-col items-center gap-4 sm:gap-6 w-full max-w-[226px]">
                     <Image
-                      src="/figma/water-calculator-icon-4a66fb.png"
+                      src="/figma/plantzify/water-calculator-icon-4a66fb.png"
                       alt="Water Calculator"
                       width={73}
                       height={64}
@@ -185,7 +185,7 @@ export default function PlantzifyPage() {
                 <div className="flex flex-col items-center p-6 sm:p-10 gap-4 sm:gap-6 w-full md:w-[397.33px] bg-white border-2 border-[#F3F0F0] rounded-[16px]">
                   <div className="flex flex-col items-center gap-4 sm:gap-6 w-full max-w-[226px]">
                     <Image
-                      src="/figma/light-meter-icon-6fd182.png"
+                      src="/figma/plantzify/light-meter-icon-6fd182.png"
                       alt="Light Meter"
                       width={64}
                       height={64}
@@ -209,7 +209,7 @@ export default function PlantzifyPage() {
                 <div className="flex flex-col items-center p-6 sm:p-10 gap-4 sm:gap-6 w-full md:w-[397.33px] bg-white border-2 border-[#F3F0F0] rounded-[16px]">
                   <div className="flex flex-col items-center gap-4 sm:gap-6 w-full max-w-[226px]">
                     <Image
-                      src="/figma/diagnose-icon-69e405.png"
+                      src="/figma/plantzify/diagnose-icon-69e405.png"
                       alt="Diagnose"
                       width={64}
                       height={55}
@@ -230,7 +230,7 @@ export default function PlantzifyPage() {
                 <div className="flex flex-col items-center p-6 sm:p-10 gap-4 sm:gap-6 w-full md:w-[397.33px] bg-white border-2 border-[#F3F0F0] rounded-[16px]">
                   <div className="flex flex-col items-center gap-4 sm:gap-6 w-full max-w-[226px]">
                     <Image
-                      src="/figma/checker-icon-6eff61.png"
+                      src="/figma/plantzify/checker-icon-6eff61.png"
                       alt="Checker"
                       width={64}
                       height={60}
@@ -277,7 +277,7 @@ export default function PlantzifyPage() {
                 {/* Image */}
                 <div className="w-full md:w-[620px] h-auto md:h-[567.39px] rounded-2xl overflow-hidden">
                   <Image
-                    src="/figma/identify-problems-image-5c14ec.png"
+                    src="/figma/plantzify/identify-problems-image-5c14ec.png"
                     alt="Identify Problems, Save Your Plants"
                     width={620}
                     height={567}
@@ -317,7 +317,7 @@ export default function PlantzifyPage() {
                 {/* Image */}
                 <div className="w-full md:w-[650px] h-auto md:h-[567px] rounded-2xl overflow-hidden">
                   <Image
-                    src="/figma/healthy-gardens-image-5c14ec.png"
+                    src="/figma/plantzify/healthy-gardens-image-5c14ec.png"
                     alt="Healthy gardens, happy growers"
                     width={650}
                     height={567}
@@ -358,7 +358,7 @@ export default function PlantzifyPage() {
         {/* Testimonials Section */}
         <div className="w-full py-[110px] relative overflow-hidden"
           style={{
-            backgroundImage: 'url(/figma/testimonials-bg-d22517.png)',
+            backgroundImage: 'url(/figma/plantzify/testimonials-bg-d22517.png)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
@@ -413,7 +413,7 @@ export default function PlantzifyPage() {
                     {/* Avatar */}
                     <div className="w-[105px] h-[105px] rounded-full overflow-hidden">
                       <Image
-                        src="/figma/testimonial-avatar-56586a.png"
+                        src="/figma/plantzify/testimonial-avatar-56586a.png"
                         alt="Ann Smith"
                         width={105}
                         height={105}
@@ -470,7 +470,7 @@ export default function PlantzifyPage() {
                 {/* Gallery Image 1 */}
                 <div className="aspect-[4/3] sm:aspect-[544/352] rounded-lg sm:rounded-xl lg:rounded-[20px] overflow-hidden">
                   <Image
-                    src="/figma/gallery-image-1.png"
+                    src="/figma/plantzify/gallery-image-1.png"
                     alt="Hand woman photographing outdoors"
                     width={544}
                     height={352}
@@ -480,7 +480,7 @@ export default function PlantzifyPage() {
                 {/* Gallery Image 2 */}
                 <div className="aspect-[4/3] sm:aspect-[544/352] rounded-lg sm:rounded-xl lg:rounded-[20px] overflow-hidden">
                   <Image
-                    src="/figma/gallery-image-2.png"
+                    src="/figma/plantzify/gallery-image-2.png"
                     alt="Hand photographing plants with mobile phone park"
                     width={544}
                     height={352}
@@ -490,7 +490,7 @@ export default function PlantzifyPage() {
                 {/* Gallery Image 3 */}
                 <div className="aspect-[4/3] sm:aspect-[544/352] rounded-lg sm:rounded-xl lg:rounded-[20px] overflow-hidden">
                   <Image
-                    src="/figma/gallery-image-3.png"
+                    src="/figma/plantzify/gallery-image-3.png"
                     alt="She was using his phone take pictures plants check integrity before posting sale social media"
                     width={544}
                     height={352}
@@ -500,7 +500,7 @@ export default function PlantzifyPage() {
                 {/* Gallery Image 4 */}
                 <div className="aspect-[4/3] sm:aspect-[544/352] rounded-lg sm:rounded-xl lg:rounded-[20px] overflow-hidden">
                   <Image
-                    src="/figma/gallery-image-4.png"
+                    src="/figma/plantzify/gallery-image-4.png"
                     alt="Person takes smartphone photo potted green plant home interior hand holds device captures"
                     width={544}
                     height={352}
@@ -510,7 +510,7 @@ export default function PlantzifyPage() {
                 {/* Gallery Image 5 */}
                 <div className="aspect-[4/3] sm:aspect-[544/352] rounded-lg sm:rounded-xl lg:rounded-[20px] overflow-hidden">
                   <Image
-                    src="/figma/gallery-image-5.png"
+                    src="/figma/plantzify/gallery-image-5.png"
                     alt="Hand photographing plants with mobile phone park"
                     width={544}
                     height={352}
@@ -520,7 +520,7 @@ export default function PlantzifyPage() {
                 {/* Gallery Image 6 */}
                 <div className="aspect-[4/3] sm:aspect-[544/352] rounded-lg sm:rounded-xl lg:rounded-[20px] overflow-hidden">
                   <Image
-                    src="/figma/gallery-image-6.png"
+                    src="/figma/plantzify/gallery-image-6.png"
                     alt="Midsection person holding pink flowering plants"
                     width={544}
                     height={352}
@@ -561,7 +561,7 @@ export default function PlantzifyPage() {
                     {/* Blog Image */}
                     <div className="relative w-full aspect-[352/250]">
                       <Image
-                        src="/figma/blog-image-1.png"
+                        src="/figma/plantzify/blog-image-1.png"
                         alt="Smart agriculture IoT with hand planting tree background"
                         width={352}
                         height={250}
@@ -616,7 +616,7 @@ export default function PlantzifyPage() {
                     {/* Blog Image */}
                     <div className="relative w-full aspect-[352/250]">
                       <Image
-                        src="/figma/blog-image-2-31a3cb.png"
+                        src="/figma/plantzify/blog-image-2-31a3cb.png"
                         alt="Dangers bloodsucking ticks animals hand with magnifying glass shows tick magnified"
                         width={352}
                         height={250}
@@ -671,7 +671,7 @@ export default function PlantzifyPage() {
                     {/* Blog Image */}
                     <div className="relative w-full aspect-[352/250]">
                       <Image
-                        src="/figma/blog-image-3.png"
+                        src="/figma/plantzify/blog-image-3.png"
                         alt="Person takes smartphone photo potted green plant home interior hand holds device captures"
                         width={352}
                         height={250}
@@ -745,7 +745,7 @@ export default function PlantzifyPage() {
                   {/* Google Play Badge */}
                   <div className="w-[140px] h-[40px] sm:w-[160px] sm:h-[45px] lg:w-[182px] lg:h-[50px] bg-black rounded-md flex items-center justify-center">
                     <Image
-                      src="/figma/google-play-badge.png"
+                      src="/figma/plantzify/google-play-badge.png"
                       alt="Get it on Google Play"
                       width={182}
                       height={50}
@@ -756,7 +756,7 @@ export default function PlantzifyPage() {
                   {/* App Store Badge */}
                   <div className="w-[140px] h-[40px] sm:w-[160px] sm:h-[45px] lg:w-[180px] lg:h-[52px] bg-black rounded-md flex items-center justify-center">
                     <Image
-                      src="/figma/app-store-badge.png"
+                      src="/figma/plantzify/app-store-badge.png"
                       alt="Download on the App Store"
                       width={180}
                       height={52}
@@ -769,7 +769,7 @@ export default function PlantzifyPage() {
               {/* Right Side Phone Image */}
               <div className="w-[180px] h-[370px] sm:w-[200px] sm:h-[410px] lg:w-[251px] lg:h-[515px] flex-shrink-0">
                 <Image
-                  src="/figma/download-section-phone.png"
+                  src="/figma/plantzify/download-section-phone.png"
                   alt="Plantzify App on Mobile Phone"
                   width={251}
                   height={515}

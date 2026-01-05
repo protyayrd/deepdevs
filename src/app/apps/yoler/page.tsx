@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import useDownloadLink from '@/hooks/useDownloadLink';
+import Navbar from '@/components/Navbar';
 
 interface FAQ {
   id: string;
@@ -10,15 +12,93 @@ interface FAQ {
   answer: string;
 }
 
+interface YolerHero {
+  title: string;
+  appStoreUrl: string;
+  playStoreUrl: string;
+  heroImage: string;
+  logo: string;
+}
+
+interface YolerFeatureCard {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+}
+
+interface YolerBrand {
+  id: string;
+  name: string;
+  logoUrl: string;
+}
+
+interface YolerTheoryTestApp {
+  title: string;
+  description1: string;
+  description2: string;
+  phoneImage: string;
+}
+
+interface YolerFeatureGridItem {
+  id: string;
+  title: string;
+  isList: boolean;
+  listItems: string[];
+  icon: string;
+  backgroundColor: string;
+}
+
+interface YolerInfoSection {
+  id: string;
+  title: string;
+  description: string[];
+  image: string;
+  imagePosition: 'left' | 'right';
+}
+
+interface YolerDownloadCta {
+  title: string;
+  appStoreUrl: string;
+  playStoreUrl: string;
+}
+
+interface YolerContent {
+  hero: YolerHero;
+  featureCards: YolerFeatureCard[];
+  featuredBrands: YolerBrand[];
+  theoryTestApp: YolerTheoryTestApp;
+  featuresGrid: YolerFeatureGridItem[];
+  infoSections: YolerInfoSection[];
+  downloadCta: YolerDownloadCta;
+}
+
 export default function YolerPage() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [faqs, setFaqs] = useState<FAQ[]>([]);
   const [faqsLoading, setFaqsLoading] = useState(true);
+  const [content, setContent] = useState<YolerContent | null>(null);
+
+  const downloadLink = useDownloadLink(
+    content?.hero?.playStoreUrl || '#',
+    content?.hero?.appStoreUrl || '#'
+  );
 
   useEffect(() => {
     fetchFAQs();
+    fetchContent();
   }, []);
+
+  const fetchContent = async () => {
+    try {
+      const res = await fetch('/api/yoler-content');
+      const data = await res.json();
+      setContent(data);
+    } catch (error) {
+      console.error('Error fetching content:', error);
+    }
+  };
 
   const fetchFAQs = async () => {
     try {
@@ -41,14 +121,19 @@ export default function YolerPage() {
     }
   ];
 
+  if (!content) {
+    return <div className="min-h-screen flex items-center justify-center bg-white"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#009661]"></div></div>;
+  }
+
   return (
-    <main className="min-h-screen w-full relative bg-white">
+    <main className="min-h-screen w-full relative bg-white pt-[62px] sm:pt-[72px]">
+      <Navbar />
       {/* Hero Section with Background Image */}
       <section className="relative w-full h-[700px] overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
-            src="/figma/yoler/hero-background.jpg"
+            src={content.hero.heroImage || "/figma/yoler/hero-background.jpg"}
             alt="Driving background"
             fill
             className="object-cover object-center"
@@ -65,7 +150,7 @@ export default function YolerPage() {
             {/* Logo */}
             <div className="flex items-center">
               <Image
-                src="/figma/yoler/logo.png"
+                src={content.hero.logo || "/figma/yoler/logo.png"}
                 alt="YOLER Logo"
                 width={120}
                 height={56}
@@ -90,23 +175,28 @@ export default function YolerPage() {
             </nav>
 
             {/* Download App Button */}
-            <button className="bg-[#009661] border-2 border-white text-white px-6 py-2 rounded-lg font-inter font-medium text-base leading-normal hover:bg-[#007a4d] transition-colors">
+            <a
+              href={downloadLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-[#009661] border-2 border-white text-white px-6 py-2 rounded-lg font-inter font-medium text-base leading-normal hover:bg-[#007a4d] transition-colors"
+            >
               Download App
-            </button>
+            </a>
           </header>
 
           {/* Hero Content - Centered */}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[992px] px-4 text-center">
             {/* Main Headline */}
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-bold text-white font-inter leading-normal mb-8 whitespace-pre-wrap">
-              Pass your Theory Test{'\n'}First Time
+              {content.hero.title}
             </h1>
 
             {/* App Store Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               {/* Google Play Button */}
               <a
-                href="#"
+                href={content.hero.playStoreUrl}
                 className="hover:opacity-90 transition-opacity"
               >
                 <Image
@@ -120,7 +210,7 @@ export default function YolerPage() {
 
               {/* App Store Button */}
               <a
-                href="#"
+                href={content.hero.appStoreUrl}
                 className="hover:opacity-90 transition-opacity"
               >
                 <Image
@@ -138,86 +228,27 @@ export default function YolerPage() {
 
       {/* Feature Cards Section */}
       <section className="relative -mt-32 sm:-mt-24 md:-mt-20 lg:-mt-16 z-20 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-[100px] pb-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-[30px]">
-          {/* Car Card */}
-          <div className="bg-white rounded-xl p-6 shadow-[0px_10px_20px_0px_rgba(41,41,42,0.07)] flex flex-col items-center text-center gap-6 hover:shadow-[0px_15px_30px_0px_rgba(41,41,42,0.12)] transition-shadow min-w-[200px]">
-            <div className="w-[65px] h-[65px] flex items-center justify-center shrink-0 relative">
-              <Image
-                src="/figma/yoler/car-icon.svg"
-                alt="Car icon"
-                fill
-                className="object-contain"
-              />
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-[30px]">
+          {content.featureCards.map((card, index) => (
+            <div key={card.id || index} className="bg-white rounded-xl p-4 sm:p-6 shadow-[0px_10px_20px_0px_rgba(41,41,42,0.07)] flex flex-col items-center text-center gap-4 sm:gap-6 hover:shadow-[0px_15px_30px_0px_rgba(41,41,42,0.12)] transition-all hover:-translate-y-1 min-w-[unset]">
+              <div className="w-[50px] h-[50px] sm:w-[65px] sm:h-[65px] flex items-center justify-center shrink-0 relative bg-[#F5F5F5] rounded-full p-2">
+                <Image
+                  src={card.icon}
+                  alt={`${card.title} icon`}
+                  fill
+                  className="object-contain p-1"
+                />
+              </div>
+              <div className="flex flex-col gap-2 sm:gap-3 w-full">
+                <h3 className="text-lg sm:text-2xl font-medium text-[#171a20] font-inter leading-normal">
+                  {card.title}
+                </h3>
+                <p className="text-xs sm:text-lg text-[#555555] font-inter leading-[1.5] sm:leading-[28px] line-clamp-3 sm:line-clamp-none">
+                  {card.description}
+                </p>
+              </div>
             </div>
-            <div className="flex flex-col gap-3">
-              <h3 className="text-2xl font-medium text-[#171a20] font-inter leading-normal">
-                Car
-              </h3>
-              <p className="text-lg text-[#555555] font-inter leading-[28px]">
-                Practice 700+ clips across different environments and road conditions to prepare for your test
-              </p>
-            </div>
-          </div>
-
-          {/* Motorcycle Card */}
-          <div className="bg-white rounded-xl p-6 shadow-[0px_10px_20px_0px_rgba(41,41,42,0.07)] flex flex-col items-center text-center gap-6 hover:shadow-[0px_15px_30px_0px_rgba(41,41,42,0.12)] transition-shadow min-w-[200px]">
-            <div className="w-[65px] h-[65px] flex items-center justify-center shrink-0 relative">
-              <Image
-                src="/figma/yoler/motorcycle-icon.svg"
-                alt="Motorcycle icon"
-                fill
-                className="object-contain"
-              />
-            </div>
-            <div className="flex flex-col gap-3">
-              <h3 className="text-2xl font-medium text-[#171a20] font-inter leading-normal">
-                Motorcycle
-              </h3>
-              <p className="text-lg text-[#555555] font-inter leading-[28px]">
-                Practice 700+ clips across different environments and road conditions to prepare for your test
-              </p>
-            </div>
-          </div>
-
-          {/* Lorry Card */}
-          <div className="bg-white rounded-xl p-6 shadow-[0px_10px_20px_0px_rgba(41,41,42,0.07)] flex flex-col items-center text-center gap-6 hover:shadow-[0px_15px_30px_0px_rgba(41,41,42,0.12)] transition-shadow min-w-[200px]">
-            <div className="w-[65px] h-[65px] flex items-center justify-center shrink-0 relative">
-              <Image
-                src="/figma/yoler/lorry-icon.svg"
-                alt="Lorry icon"
-                fill
-                className="object-contain"
-              />
-            </div>
-            <div className="flex flex-col gap-3">
-              <h3 className="text-2xl font-medium text-[#171a20] font-inter leading-normal">
-                Lorry
-              </h3>
-              <p className="text-lg text-[#555555] font-inter leading-[28px]">
-                Includes comprehensive learning materials covering every aspect of the DVSA syllabus for the CPC test
-              </p>
-            </div>
-          </div>
-
-          {/* Bus Card */}
-          <div className="bg-white rounded-xl p-6 shadow-[0px_10px_20px_0px_rgba(41,41,42,0.07)] flex flex-col items-center text-center gap-6 hover:shadow-[0px_15px_30px_0px_rgba(41,41,42,0.12)] transition-shadow min-w-[200px]">
-            <div className="w-[65px] h-[65px] flex items-center justify-center shrink-0 relative">
-              <Image
-                src="/figma/yoler/bus-icon.svg"
-                alt="Bus icon"
-                fill
-                className="object-contain"
-              />
-            </div>
-            <div className="flex flex-col gap-3">
-              <h3 className="text-2xl font-medium text-[#171a20] font-inter leading-normal">
-                Bus
-              </h3>
-              <p className="text-lg text-[#555555] font-inter leading-[28px]">
-                Practice 700+ bus clips in different environments and road conditions to prepare for your test
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -231,73 +262,33 @@ export default function YolerPage() {
             </h2>
           </div>
 
-          {/* Brand Logos - Horizontal Scroll Container */}
-          <div className="overflow-x-auto pb-[61px] scrollbar-hide z-[1] relative">
-            <div className="flex items-start gap-0 min-w-max">
-              {/* Brand 1 - MakeLess */}
-              <div className="flex items-center justify-center px-0 pr-6 py-0 shrink-0 w-[234px] h-[26.95px]">
-                <div className="flex items-center justify-center w-[210px] h-full pt-[2.95px]">
-                  <img
-                    src="/figma/yoler/brand-1.png"
-                    alt="MakeLess"
-                    className="h-6 w-auto opacity-80 max-w-[140px]"
-                  />
+          {/* Brand Logos - Marquee Container */}
+          <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+            <div className="flex items-center justify-center md:justify-start [&_>_div]:mx-8 animate-scroll-left">
+              {/* First Set */}
+              {content.featuredBrands.map((brand, index) => (
+                <div key={`brand-${brand.id || index}-1`} className="flex items-center justify-center px-0 pr-6 py-0 shrink-0 w-[234px] h-[35px]">
+                  <div className="flex items-center justify-center w-[210px] h-full">
+                    <img
+                      src={brand.logoUrl}
+                      alt={brand.name}
+                      className="h-full w-auto opacity-80 max-w-[150px] object-contain"
+                    />
+                  </div>
                 </div>
-              </div>
-
-              {/* Brand 2 - coworks */}
-              <div className="flex items-center justify-center px-0 pr-6 py-0 shrink-0 w-[234px] h-[30px]">
-                <div className="flex items-center justify-center w-[210px] h-full">
-                  <img
-                    src="/figma/yoler/brand-2.png"
-                    alt="coworks"
-                    className="h-[30px] w-auto opacity-80 max-w-[148px]"
-                  />
+              ))}
+              {/* Second Set (Duplicate for Infinite Scroll) */}
+              {content.featuredBrands.map((brand, index) => (
+                <div key={`brand-${brand.id || index}-2`} className="flex items-center justify-center px-0 pr-6 py-0 shrink-0 w-[234px] h-[35px]">
+                  <div className="flex items-center justify-center w-[210px] h-full">
+                    <img
+                      src={brand.logoUrl}
+                      alt={brand.name}
+                      className="h-full w-auto opacity-80 max-w-[150px] object-contain"
+                    />
+                  </div>
                 </div>
-              </div>
-
-              {/* Brand 3 - greener */}
-              <div className="flex items-center justify-center px-0 pr-6 py-0 shrink-0 w-[234px] h-[28.95px]">
-                <div className="flex items-center justify-center w-[210px] h-full pt-[0.95px]">
-                  <img
-                    src="/figma/yoler/brand-3.png"
-                    alt="greener"
-                    className="h-7 w-auto opacity-80 max-w-[147px]"
-                  />
-                </div>
-              </div>
-
-              {/* Brand 4 - SAAS TODAY */}
-              <div className="flex items-center justify-center px-0 pr-6 py-0 shrink-0 w-[234px] h-[34px]">
-                <div className="flex items-center justify-center w-[210px] h-full">
-                  <img
-                    src="/figma/yoler/brand-4.png"
-                    alt="SAAS TODAY"
-                    className="h-[34px] w-auto opacity-80 max-w-[93px]"
-                  />
-                </div>
-              </div>
-
-              {/* Repeat brands for seamless scroll effect */}
-              <div className="flex items-center justify-center px-0 pr-6 py-0 shrink-0 w-[234px] h-[34px]">
-                <div className="flex items-center justify-center w-[210px] h-full">
-                  <img
-                    src="/figma/yoler/brand-4.png"
-                    alt="SAAS TODAY"
-                    className="h-[34px] w-auto opacity-80 max-w-[93px]"
-                  />
-                </div>
-              </div>
-
-              <div className="flex items-center justify-center px-0 pr-6 py-0 shrink-0 w-[234px] h-[26.95px]">
-                <div className="flex items-center justify-center w-[210px] h-full pt-[2.95px]">
-                  <img
-                    src="/figma/yoler/brand-1.png"
-                    alt="MakeLess"
-                    className="h-6 w-auto opacity-80 max-w-[140px]"
-                  />
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
@@ -314,23 +305,28 @@ export default function YolerPage() {
                 {/* Heading and Description */}
                 <div className="flex flex-col gap-4">
                   <h2 className="text-3xl sm:text-4xl lg:text-[56px] font-medium text-[#171a20] font-inter leading-tight lg:leading-normal">
-                    Theory Test App
+                    {content.theoryTestApp.title}
                   </h2>
                   <div className="flex flex-col gap-2 max-w-[534px]">
                     <p className="text-base sm:text-lg text-[#555555] font-inter leading-[26px] sm:leading-[28px]">
-                      Study from a bank of 2500+ DVSA theory test revision questions, up-to-date for 2025. Take full-length tests and track your progress.
+                      {content.theoryTestApp.description1}
                     </p>
                     <p className="text-base sm:text-lg text-[#555555] font-inter leading-[26px] sm:leading-[28px]">
-                      Practice on any of these devices at any time and as much as you like
+                      {content.theoryTestApp.description2}
                     </p>
                   </div>
                 </div>
 
                 {/* Download App Button */}
                 <div>
-                  <button className="bg-[#009661] text-white px-6 sm:px-[35px] py-3 sm:py-[15px] rounded-lg font-inter font-bold text-sm sm:text-base leading-normal hover:bg-[#007a4d] transition-colors">
+                  <a
+                    href={downloadLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-[#009661] text-white px-6 sm:px-[35px] py-3 sm:py-[15px] rounded-lg font-inter font-bold text-sm sm:text-base leading-normal hover:bg-[#007a4d] transition-colors inline-block"
+                  >
                     Download App
-                  </button>
+                  </a>
                 </div>
               </div>
 
@@ -340,7 +336,7 @@ export default function YolerPage() {
                   {/* Phone Mockup */}
                   <div className="relative z-10">
                     <img
-                      src="/figma/yoler/yoler-test-app.png"
+                      src={content.theoryTestApp.phoneImage}
                       alt="YOLER App on Phone"
                       className="w-full h-auto"
                     />
@@ -393,111 +389,31 @@ export default function YolerPage() {
               </p>
             </div>
 
-            {/* Features Grid - Row 1 */}
-            <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 w-full">
-              {/* Card 1: What do I get? */}
-              <div className="bg-[#cdeafc] rounded-2xl p-5 sm:p-8 flex flex-col gap-6 sm:gap-10 items-center justify-between flex-1 min-h-[320px] sm:min-h-[400px] lg:min-h-[453px]">
-                <div className="flex flex-col gap-4 sm:gap-6 items-start w-full z-10 relative">
-                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-[#333333] font-inter text-center w-full leading-normal flex items-center justify-center">
-                    What do I get?
-                  </h3>
-                  <ul className="list-disc text-base sm:text-lg lg:text-xl text-[#666666] font-inter leading-[1.5] space-y-2 ml-5 sm:ml-[30px]">
-                    <li className="mb-0">Full access to all the questions</li>
-                    <li className="mb-0">Unlimited learning sessions with immediate feedback</li>
-                    <li>Mock tests and test-ready indicator</li>
-                  </ul>
+            {/* Features Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 w-full">
+              {content.featuresGrid.map((feature, idx) => (
+                <div key={feature.id || idx} className="rounded-2xl p-4 sm:p-8 flex flex-col gap-4 sm:gap-10 items-center justify-between min-h-[280px] sm:min-h-[400px] lg:min-h-[453px] hover:shadow-[0px_15px_30px_0px_rgba(41,41,42,0.12)] transition-all duration-300 hover:-translate-y-2 cursor-pointer" style={{ backgroundColor: feature.backgroundColor }}>
+                  <div className="flex flex-col gap-3 sm:gap-6 items-start w-full z-10 relative">
+                    <h3 className="text-lg sm:text-3xl lg:text-4xl font-medium text-[#333333] font-inter text-center w-full leading-normal flex items-center justify-center">
+                      {feature.title}
+                    </h3>
+                    {feature.isList && (
+                      <ul className="list-disc text-sm sm:text-lg lg:text-xl text-[#666666] font-inter leading-[1.5] space-y-1 sm:space-y-2 ml-4 sm:ml-[30px] w-full">
+                        {feature.listItems?.map((item, i) => (
+                          <li key={i} className={i !== (feature.listItems.length - 1) ? 'mb-0' : ''}>{item}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                  <div className="w-[80px] h-[80px] sm:w-[150px] sm:h-[150px] lg:w-[188px] lg:h-[188px] relative flex items-center justify-center mt-auto">
+                    <img
+                      src={feature.icon}
+                      alt={`${feature.title} icon`}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
                 </div>
-                <div className="w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] lg:w-[188px] lg:h-[188px]">
-                  <img
-                    src="/figma/yoler/icon-gift.png"
-                    alt="Gift icon"
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-              </div>
-
-              {/* Card 2: Hazard Perception Test */}
-              <div className="bg-[#fcdede] rounded-2xl p-5 sm:p-8 flex flex-col gap-6 sm:gap-10 items-center justify-between flex-1 min-h-[320px] sm:min-h-[400px] lg:min-h-[453px]">
-                <div className="flex flex-col gap-4 sm:gap-6 items-start w-full">
-                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-[#333333] font-inter text-center w-full leading-normal flex items-center justify-center">
-                    Hazard Perception Test
-                  </h3>
-                </div>
-                <div className="w-[180px] h-[144px] sm:w-[250px] sm:h-[200px] lg:w-[331px] lg:h-[264.8px] flex items-center justify-center">
-                  <img
-                    src="/figma/yoler/icon-hazard.png"
-                    alt="Hazard icon"
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-              </div>
-
-              {/* Card 3: Highway Code */}
-              <div className="bg-[#e6fcfc] rounded-2xl p-5 sm:p-8 flex flex-col gap-6 sm:gap-10 items-center justify-between flex-1 min-h-[320px] sm:min-h-[400px] lg:min-h-[453px]">
-                <div className="flex flex-col gap-4 sm:gap-6 items-start w-full">
-                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium font-semibold text-[#333333] font-inter text-center w-full leading-normal flex items-center justify-center">
-                    Highway Code
-                  </h3>
-                </div>
-                <div className="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px] lg:w-[269px] lg:h-[269px] flex items-center justify-center">
-                  <img
-                    src="/figma/yoler/icon-highway-code.png"
-                    alt="Highway code icon"
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Features Grid - Row 2 */}
-            <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 w-full">
-              {/* Card 4: Mock Test */}
-              <div className="bg-[#cdeafc] rounded-2xl p-5 sm:p-8 flex flex-col gap-6 sm:gap-10 items-center justify-between flex-1 min-h-[320px] sm:min-h-[400px] lg:min-h-[453px]">
-                <div className="flex flex-col gap-4 sm:gap-6 items-start w-full">
-                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-[#333333] font-inter text-center w-full leading-normal flex items-center justify-center">
-                    Mock Test
-                  </h3>
-                </div>
-                <div className="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px] lg:w-[264px] lg:h-[264px] flex items-center justify-center">
-                  <img
-                    src="/figma/yoler/icon-mock-test.png"
-                    alt="Mock test icon"
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-              </div>
-
-              {/* Card 5: Practice */}
-              <div className="bg-[#fcdede] rounded-2xl p-5 sm:p-8 flex flex-col gap-6 sm:gap-10 items-center justify-between flex-1 min-h-[320px] sm:min-h-[400px] lg:min-h-[453px]">
-                <div className="flex flex-col gap-4 sm:gap-6 items-start w-full">
-                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-[#333333] font-inter text-center w-full leading-normal flex items-center justify-center">
-                    Practice
-                  </h3>
-                </div>
-                <div className="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px] lg:w-[266px] lg:h-[266px] flex items-center justify-center">
-                  <img
-                    src="/figma/yoler/icon-practice.png"
-                    alt="Practice icon"
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-              </div>
-
-              {/* Card 6: Road Sign */}
-              <div className="bg-[#e6fcfc] rounded-2xl p-5 sm:p-8 flex flex-col gap-6 sm:gap-10 items-center justify-between flex-1 min-h-[320px] sm:min-h-[400px] lg:min-h-[453px]">
-                <div className="flex flex-col gap-4 sm:gap-6 items-start w-full">
-                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-[#333333] font-inter text-center w-full leading-normal flex items-center justify-center">
-                    Road Sign
-                  </h3>
-                </div>
-                <div className="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px] lg:w-[264px] lg:h-[264px] flex items-center justify-center">
-                  <img
-                    src="/figma/yoler/icon-road-sign.png"
-                    alt="Road sign icon"
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
@@ -508,67 +424,38 @@ export default function YolerPage() {
       {/* Example Questions & Quick Tips Wrapper */}
       <section className="w-full py-16 px-4 sm:px-6 lg:px-[100px] bg-white">
         <div className="max-w-[1240px] mx-auto flex flex-col gap-[120px]">
-
-          {/* Section 1: Example Questions (Image Left, Text Right) */}
-          <div className="flex flex-col lg:flex-row gap-14 items-center">
-            {/* Image (Left) */}
-            <div className="relative w-full lg:w-[50%] flex justify-start">
-              <img
-                src="/figma/yoler/example-questions.png"
-                alt="Example Questions"
-                className="w-full max-w-[620px] h-auto object-contain"
-              />
-            </div>
-
-            {/* Text (Right) */}
-            <div className="flex flex-col gap-8 w-full lg:w-[50%]">
-              <h2 className="text-4xl sm:text-5xl lg:text-[56px] font-medium text-[#171a20] font-inter leading-tight">
-                Example Of Questions On The Theory Test
-              </h2>
-              <div className="flex flex-col gap-4 text-[18px] text-[#444444] font-inter leading-[1.6]">
-                <p>
-                  What type of questions can one expect on the theory test? A theory test is divided into five categories. To pass the test and become a safe driver you must be knowledgeable in every category
-                </p>
-                <p>
-                  It&apos;s impossible to say which questions you will get on your specific test, but we can give examples of typical questions from each category
-                </p>
+          {content.infoSections.map((section, idx) => (
+            <div key={section.id} className={`flex flex-col ${section.imagePosition === 'right' ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-14 items-center`}>
+              {/* Image */}
+              <div className={`relative w-full lg:w-[50%] flex ${section.imagePosition === 'right' ? 'justify-end' : 'justify-start'}`}>
+                <img
+                  src={section.image}
+                  alt={section.title}
+                  className="w-full max-w-[620px] h-auto object-contain"
+                />
               </div>
-              <button className="bg-[#009661] text-white px-[35px] py-[15px] rounded-lg font-inter font-bold text-base leading-normal hover:bg-[#007a4d] transition-colors w-fit">
-                Download App
-              </button>
-            </div>
-          </div>
 
-          {/* Section 2: Quick Tips (Text Left, Image Right) */}
-          <div className="flex flex-col-reverse lg:flex-row gap-14 items-center">
-            {/* Text (Left) */}
-            <div className="flex flex-col gap-8 w-full lg:w-[50%]">
-              <h2 className="text-4xl sm:text-5xl lg:text-[56px] font-medium text-[#171a20] font-inter leading-tight">
-                Quick tips to pass your theory test
-              </h2>
-              <div className="flex flex-col gap-4 text-[18px] text-[#444444] font-inter leading-[1.6]">
-                <p>
-                  Try to get a good night&apos;s sleep and have a steady breakfast before your test. It can also be a good idea to bring fruit or some snacks to the test
-                </p>
-                <p>
-                  Don&apos;t stress and try to stay focused. After all - 50 minutes is a fairly long time. If a question takes too long, mark it and move on - you can always return to the question later on.
-                </p>
+              {/* Text */}
+              <div className="flex flex-col gap-8 w-full lg:w-[50%]">
+                <h2 className="text-4xl sm:text-5xl lg:text-[56px] font-medium text-[#171a20] font-inter leading-tight">
+                  {section.title}
+                </h2>
+                <div className="flex flex-col gap-4 text-[18px] text-[#444444] font-inter leading-[1.6]">
+                  {section.description.map((desc, i) => (
+                    <p key={i}>{desc}</p>
+                  ))}
+                </div>
+                <a
+                  href={downloadLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-[#009661] text-white px-[35px] py-[15px] rounded-lg font-inter font-bold text-base leading-normal hover:bg-[#007a4d] transition-colors w-fit text-center"
+                >
+                  Download App
+                </a>
               </div>
-              <button className="bg-[#009661] text-white px-[35px] py-[15px] rounded-lg font-inter font-bold text-base leading-normal hover:bg-[#007a4d] transition-colors w-fit">
-                Download App
-              </button>
             </div>
-
-            {/* Image (Right) */}
-            <div className="relative w-full lg:w-[50%] flex justify-end">
-              <img
-                src="/figma/yoler/quick-tips.png"
-                alt="Quick Tips"
-                className="w-full max-w-[620px] h-auto object-contain"
-              />
-            </div>
-          </div>
-
+          ))}
         </div>
       </section>
 
@@ -787,58 +674,45 @@ export default function YolerPage() {
               <div className="flex-1 bg-[#9e8afb] flex flex-col justify-center px-4 sm:px-8 lg:px-14 py-8 sm:py-12 lg:py-16 z-10">
                 <div className="flex flex-col gap-4 sm:gap-6 max-w-[526px]">
                   <h2 className="text-2xl sm:text-4xl lg:text-[56px] font-bold text-white font-inter leading-tight lg:leading-normal">
-                    Download and unlock the road to success
+                    {content.downloadCta.title}
                   </h2>
 
                   {/* App Store Buttons */}
                   <div className="flex flex-row gap-4 sm:gap-6 items-start flex-wrap">
                     {/* Google Play Button */}
                     <a
-                      href="#"
+                      href={content.downloadCta.playStoreUrl}
                       className="hover:opacity-90 transition-opacity"
                     >
                       <img
                         src="/figma/yoler/google-play-badge-official.svg"
                         alt="Get it on Google Play"
-                        className="h-[40px] sm:h-[50px] w-auto object-contain"
+                        className="h-[50px] w-auto object-contain"
                       />
                     </a>
 
                     {/* App Store Button */}
                     <a
-                      href="#"
+                      href={content.downloadCta.appStoreUrl}
                       className="hover:opacity-90 transition-opacity"
                     >
                       <img
                         src="/figma/yoler/app-store-badge-official.svg"
                         alt="Download on the App Store"
-                        className="h-[40px] sm:h-[50px] w-auto object-contain"
+                        className="h-[50px] w-auto object-contain"
                       />
                     </a>
                   </div>
                 </div>
               </div>
 
-              {/* Right Side - Light Blue Background with Phone Mockups */}
-              <div className="flex-1 bg-[#e6fcfc] relative lg:rounded-r-2xl overflow-hidden min-h-[200px] sm:min-h-[280px] lg:min-h-[400px]">
-                <div className="flex items-center justify-center p-4 sm:p-6 lg:p-8 h-full">
-                  <div className="relative w-full max-w-[280px] sm:max-w-[400px] lg:max-w-[600px] rounded-2xl overflow-hidden">
-                    <img
-                      src="/figma/yoler/cta-phone-mockup.jpg"
-                      alt="YOLER App on phones"
-                      className="w-full h-auto object-cover rounded-2xl"
-                    />
-                  </div>
-                </div>
-
-                {/* Decorative Plant */}
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 w-[50px] h-[46px] sm:w-[60px] sm:h-[56px] lg:w-[78px] lg:h-[72px] hidden lg:block z-10">
-                  <img
-                    src="/figma/yoler/decorative-plant.png"
-                    alt=""
-                    className="w-full h-full object-contain"
-                  />
-                </div>
+              {/* Right Side - Image */}
+              <div className="flex-1 relative min-h-[300px] lg:min-h-0">
+                <img
+                  src="/figma/yoler/cta-image.png"
+                  alt="Driving App"
+                  className="absolute inset-0 w-full h-full object-cover object-center lg:object-left"
+                />
               </div>
             </div>
           </div>
@@ -1008,4 +882,3 @@ export default function YolerPage() {
     </main>
   );
 }
-

@@ -2,7 +2,72 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export default function Footer() {
+// Define props interface matching our backend model
+export interface IFooterContent {
+  socialLinks: {
+    facebook: string;
+    instagram: string;
+    twitter?: string;
+    linkedin?: string;
+    youtube?: string;
+  };
+  columns: {
+    title: string;
+    links: {
+      label: string;
+      url: string;
+    }[];
+  }[];
+  copyrightText: string;
+}
+
+export default function Footer({ content }: { content?: IFooterContent }) {
+  // Default values if content is not provided
+  const defaults: IFooterContent = {
+    socialLinks: {
+      facebook: '#',
+      instagram: '#',
+      twitter: '#',
+      linkedin: '#'
+    },
+    columns: [
+      {
+        title: 'Our Apps',
+        links: [
+          { label: 'Yoler', url: '/apps/yoler' },
+          { label: 'Deep tattoo', url: '/apps/deep-tattoo' },
+          { label: 'Plantzify', url: '/apps/plantzify' },
+          { label: 'SeSign', url: '/apps/sesign' },
+          { label: 'Deep Study Ai', url: '/apps/deep-study-ai' },
+          { label: 'Ztax', url: '/apps/ztax' },
+        ]
+      },
+      {
+        title: 'Our Plugins',
+        links: [
+          { label: 'Deep Plugin', url: '#' },
+          { label: 'Deep Plugin', url: '#' },
+          { label: 'Deep Plugin', url: '#' },
+          { label: 'Deep Plugin', url: '#' },
+          { label: 'Deep Plugin', url: '#' },
+        ]
+      },
+      {
+        title: 'Quick Links',
+        links: [
+          { label: 'About Us', url: '/about-us' },
+          { label: 'Faq', url: '#' },
+          { label: 'Contact us', url: '/contact-us' },
+          { label: 'Support', url: '#' },
+          { label: 'More inf.', url: '#' },
+        ]
+      }
+    ],
+    copyrightText: 'All Rights Reserved.'
+  };
+
+  const footerData = content || defaults;
+
   return (
     <footer className="bg-[#f1f1f1] w-full">
       {/* Main Container */}
@@ -21,7 +86,7 @@ export default function Footer() {
                 priority
               />
             </div>
-            
+
             {/* Description */}
             <div className="pl-3 mb-10">
               <p className="font-inter font-normal text-[18px] leading-normal text-[#24222e]">
@@ -30,136 +95,70 @@ export default function Footer() {
                 imperdiet luctus.
               </p>
             </div>
-            
+
             {/* Social Media Icons */}
             <div className="flex gap-3 pl-3">
-              <a 
-                href="#" 
-                className="w-10 h-10 relative hover:opacity-70 transition-opacity"
-                aria-label="Facebook"
-              >
-                <Image
-                  src="/facebook-icon.png"
-                  alt="Facebook"
-                  fill
-                  className="object-contain"
-                  unoptimized
-                />
-              </a>
-              <a 
-                href="#" 
-                className="w-10 h-10 relative hover:opacity-70 transition-opacity"
-                aria-label="Instagram"
-              >
-                <Image
-                  src="/instagram-icon.png"
-                  alt="Instagram"
-                  fill
-                  className="object-contain"
-                  unoptimized
-                />
-              </a>
+              {footerData.socialLinks.facebook && (
+                <a
+                  href={footerData.socialLinks.facebook}
+                  className="w-10 h-10 relative hover:opacity-70 transition-opacity"
+                  aria-label="Facebook"
+                >
+                  <Image
+                    src="/facebook-icon.svg"
+                    alt="Facebook"
+                    fill
+                    className="object-contain"
+                    unoptimized
+                  />
+                </a>
+              )}
+              {footerData.socialLinks.instagram && (
+                <a
+                  href={footerData.socialLinks.instagram}
+                  className="w-10 h-10 relative hover:opacity-70 transition-opacity"
+                  aria-label="Instagram"
+                >
+                  <Image
+                    src="/figma/instagram-image.svg"
+                    alt="Instagram"
+                    fill
+                    className="object-contain"
+                    unoptimized
+                  />
+                </a>
+              )}
             </div>
           </div>
 
           {/* Right Columns */}
           <div className="flex flex-col sm:flex-row gap-8 lg:gap-[26px] w-full lg:w-auto">
-            {/* Our Apps Column */}
-            <div className="flex flex-col gap-[30px] w-full sm:w-[235px]">
-              <div className="relative pb-[17px]">
-                <h3 className="font-inter font-medium text-[24px] leading-normal text-[#24222e] mb-0">
-                  Our Apps
-                </h3>
-                <div className="absolute bottom-0 left-0 h-[2px] w-[100px] bg-[#3e66f3]"></div>
-                <div className="absolute bottom-[-4px] left-[96px] w-[10px] h-[10px] rounded-full bg-white border-2 border-[#3e66f3]"></div>
-              </div>
-              
-              <div className="flex flex-col gap-[21px]">
-                {[
-                  { name: "Yoler", link: "/apps/yoler" },
-                  { name: "Deep tattoo", link: "/apps/deep-tattoo" },
-                  { name: "Plantzify", link: "/apps/plantzify" },
-                  { name: "SeSign", link: "/apps/sesign" },
-                  { name: "Deep Study Ai", link: "/apps/deep-study-ai" },
-                  { name: "Ztax", link: "/apps/ztax" },
-                ].map((app, index) => (
-                  <Link
-                    key={index}
-                    href={app.link}
-                    className="flex items-center gap-2 pl-5 relative group hover:text-[#3e66f3] transition-colors"
-                  >
-                    <span className="absolute left-0 text-[#24222e] group-hover:text-[#3e66f3] transition-colors text-[14.4px]">›</span>
-                    <span className="font-inter font-medium text-[16px] leading-[1.6] text-[#24222e] group-hover:text-[#3e66f3] transition-colors">
-                      {app.name}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            </div>
+            {footerData.columns.map((column, colIndex) => (
+              <div key={colIndex} className="flex flex-col gap-[30px] w-full sm:w-[235px]">
+                <div className="relative pb-[17px]">
+                  <h3 className="font-inter font-medium text-[24px] leading-normal text-[#24222e] mb-0">
+                    {column.title}
+                  </h3>
+                  <div className="absolute bottom-0 left-0 h-[2px] w-[100px] bg-[#3e66f3]"></div>
+                  <div className="absolute bottom-[-4px] left-[96px] w-[10px] h-[10px] rounded-full bg-white border-2 border-[#3e66f3]"></div>
+                </div>
 
-            {/* Our Plugins Column */}
-            <div className="flex flex-col gap-[30px] w-full sm:w-[261px]">
-              <div className="relative pb-[17px]">
-                <h3 className="font-inter font-medium text-[24px] leading-normal text-[#141d38] mb-0">
-                  Our Plugins
-                </h3>
-                <div className="absolute bottom-0 left-0 h-[2px] w-[100px] bg-[#3e66f3]"></div>
-                <div className="absolute bottom-[-4px] left-[96px] w-[10px] h-[10px] rounded-full bg-white border-2 border-[#3e66f3]"></div>
+                <div className="flex flex-col gap-[21px]">
+                  {column.links.map((link, index) => (
+                    <Link
+                      key={index}
+                      href={link.url}
+                      className="flex items-center gap-2 pl-5 relative group hover:text-[#3e66f3] transition-colors"
+                    >
+                      <span className="absolute left-0 text-[#24222e] group-hover:text-[#3e66f3] transition-colors text-[14.4px]">›</span>
+                      <span className="font-inter font-medium text-[16px] leading-[1.6] text-[#24222e] group-hover:text-[#3e66f3] transition-colors">
+                        {link.label}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
               </div>
-              
-              <div className="flex flex-col gap-[21px]">
-                {[
-                  "Deep Plugin",
-                  "Deep Plugin",
-                  "Deep Plugin",
-                  "Deep Plugin",
-                  "Deep Plugin",
-                ].map((plugin, index) => (
-                  <Link
-                    key={index}
-                    href="#"
-                    className="flex items-center gap-2 pl-5 relative group hover:text-[#3e66f3] transition-colors"
-                  >
-                    <span className="absolute left-0 text-[#24222e] group-hover:text-[#3e66f3] transition-colors text-[14.4px]">›</span>
-                    <span className="font-inter font-medium text-[16px] leading-[1.6] text-[#24222e] group-hover:text-[#3e66f3] transition-colors">
-                      {plugin}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Quick Links Column */}
-            <div className="flex flex-col gap-[30px] w-full sm:w-[173px]">
-              <div className="relative pb-[17px]">
-                <h3 className="font-inter font-medium text-[24px] leading-normal text-[#141d38] mb-0">
-                  Quick Links
-                </h3>
-                <div className="absolute bottom-0 left-0 h-[2px] w-[100px] bg-[#3e66f3]"></div>
-                <div className="absolute bottom-[-4px] left-[96px] w-[10px] h-[10px] rounded-full bg-white border-2 border-[#3e66f3]"></div>
-              </div>
-              
-              <div className="flex flex-col gap-[21px]">
-                {[
-                  { name: "About Us", link: "/about-us" },
-                  { name: "Faq", link: "#" },
-                  { name: "Contact us", link: "/contact-us" },
-                  { name: "Support", link: "#" },
-                  { name: "More inf.", link: "#" },
-                ].map((link, index) => (
-                  <Link
-                    key={index}
-                    href={link.link}
-                    className="flex items-center gap-2 pl-5 relative group hover:text-[#3e66f3] transition-colors"
-                  >
-                    <span className="absolute left-0 text-[#24222e] group-hover:text-[#3e66f3] transition-colors text-[14.4px]">›</span>
-                    <span className="font-inter font-medium text-[16px] leading-[1.6] text-[#24222e] group-hover:text-[#3e66f3] transition-colors">
-                      {link.name}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 

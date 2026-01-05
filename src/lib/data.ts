@@ -650,3 +650,55 @@ export async function deleteNavigation(id: string): Promise<boolean> {
   const result = await Navigation.findByIdAndDelete(id);
   return !!result;
 }
+
+// ============== Dashboard Functions ==============
+
+export interface DashboardStats {
+  counts: {
+    contacts: number;
+    faqs: number;
+    testimonials: number;
+    pages: number;
+  };
+  recentContacts: ContactSubmission[];
+}
+
+export async function getDashboardStats(): Promise<DashboardStats> {
+  try {
+    await connectDB();
+
+    const [contactCount, faqCount, testimonialCount, pageCount, recentContacts] = await Promise.all([
+      Contact.countDocuments(),
+      FAQ.countDocuments(),
+      Testimonial.countDocuments({ isActive: true }),
+      Page.countDocuments({ isPublished: true }),
+      Contact.find().sort({ submittedAt: -1 }).limit(5).lean(),
+    ]);
+
+    return {
+      counts: {
+        contacts: contactCount,
+        faqs: faqCount,
+        testimonials: testimonialCount,
+        pages: pageCount,
+      },
+      recentContacts: recentContacts.map((contact) => ({
+        id: contact._id.toString(),
+        firstName: contact.firstName,
+        lastName: contact.lastName,
+        phoneNumber: contact.phoneNumber,
+        emailAddress: contact.emailAddress,
+        subject: contact.subject,
+        message: contact.message,
+        isRobot: contact.isRobot,
+        submittedAt: contact.submittedAt.toISOString(),
+      })),
+    };
+  } catch (error) {
+    console.error('Error fetching dashboard stats:', error);
+    return {
+      counts: { contacts: 0, faqs: 0, testimonials: 0, pages: 0 },
+      recentContacts: [],
+    };
+  }
+}

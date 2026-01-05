@@ -62,6 +62,12 @@ const openSans = Open_Sans({
 export const metadata: Metadata = {
   title: "DeepDevs",
   description: "DeepDevs web application",
+  themeColor: "#ffffff",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+  },
 };
 
 export default function RootLayout({
@@ -74,7 +80,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${poppins.variable} ${libreBaskerville.variable} ${plusJakartaSans.variable} ${montserrat.variable} ${roboto.variable} ${nunito.variable} ${openSans.variable} antialiased`}
       >
-        <div className="min-h-dvh flex flex-col">
+        <div className="min-h-dvh flex flex-col bg-white">
           <main className="flex-1">
             {children}
           </main>

@@ -43,6 +43,7 @@ body {
 html {
   background-color: #ffffff;
   color-scheme: light;
+  scroll-behavior: smooth;
 }
 
 /* Hide scrollbar for testimonials section */

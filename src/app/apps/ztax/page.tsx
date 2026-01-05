@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
@@ -153,6 +153,33 @@ export default function ZTaxPage() {
   const [faqsLoading, setFaqsLoading] = useState(true);
   const [content, setContent] = useState<ZtaxContentData | null>(null);
 
+  const [isVisible, setIsVisible] = useState(false);
+  const featuresRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    if (featuresRef.current) {
+      observer.observe(featuresRef.current);
+    }
+
+    return () => {
+      if (featuresRef.current) {
+        observer.unobserve(featuresRef.current);
+      }
+    };
+  }, []);
+
   useEffect(() => {
     fetchFAQs();
     fetchContent();
@@ -205,6 +232,7 @@ export default function ZTaxPage() {
 
       {/* Hero Section - Full Width Background */}
       <section
+        id="home"
         className="relative w-full pt-20 sm:pt-24 md:pt-28 lg:pt-[96px] pb-24 sm:pb-32 md:pb-40 lg:pb-[244px]"
         style={{
           background: 'linear-gradient(0deg, #F1F0FF, #F1F0FF)'
@@ -229,13 +257,18 @@ export default function ZTaxPage() {
               {/* Desktop Navigation */}
               <nav className="hidden lg:flex flex-row items-center">
                 <ul className="flex flex-row items-center gap-0">
-                  {['Home', 'Features', 'Testimonials', 'Pricing'].map((item) => (
-                    <li key={item}>
+                  {[
+                    { name: 'Home', href: '#home' },
+                    { name: 'Features', href: '#features' },
+                    { name: 'Testimonials', href: '#testimonials' },
+                    { name: 'Pricing', href: '#pricing' }
+                  ].map((item) => (
+                    <li key={item.name}>
                       <a
-                        href="#"
+                        href={item.href}
                         className="px-4 sm:px-6 py-2 sm:py-4 text-sm sm:text-base md:text-[18px] leading-[76px] text-[#24222E] font-montserrat font-medium hover:opacity-70 transition-opacity"
                       >
-                        {item}
+                        {item.name}
                       </a>
                     </li>
                   ))}
@@ -281,14 +314,19 @@ export default function ZTaxPage() {
             {isMenuOpen && (
               <div className="lg:hidden mt-4 bg-white rounded-lg shadow-lg p-4 border border-gray-200">
                 <nav className="flex flex-col gap-2">
-                  {['Home', 'Features', 'Testimonials', 'Pricing'].map((item) => (
+                  {[
+                    { name: 'Home', href: '#home' },
+                    { name: 'Features', href: '#features' },
+                    { name: 'Testimonials', href: '#testimonials' },
+                    { name: 'Pricing', href: '#pricing' }
+                  ].map((item) => (
                     <a
-                      key={item}
-                      href="#"
+                      key={item.name}
+                      href={item.href}
                       className="px-4 py-3 text-base text-[#24222E] font-montserrat font-medium hover:bg-gray-50 rounded transition-colors"
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      {item}
+                      {item.name}
                     </a>
                   ))}
                   <a
@@ -396,7 +434,7 @@ export default function ZTaxPage() {
         </section>
 
         {/* Features Section */}
-        <section className="relative w-full max-w-[1440px] mx-auto py-8 sm:py-10 md:py-12 lg:py-16 px-4 sm:px-6 lg:px-[100px]">
+        <section id="features" className="relative w-full max-w-[1440px] mx-auto py-8 sm:py-10 md:py-12 lg:py-16 px-4 sm:px-6 lg:px-[100px]">
           <div className="flex flex-col items-center gap-8 sm:gap-12 md:gap-[48px] w-full">
             {/* Title */}
             <h2 className="w-full max-w-[1240px] text-3xl sm:text-4xl md:text-5xl lg:text-[56px] leading-tight sm:leading-[1.2] lg:leading-[68px] font-inter font-medium text-[#171A20] text-center">
@@ -472,9 +510,15 @@ export default function ZTaxPage() {
                 </div>
 
                 {/* Feature Cards */}
-                <div className="flex flex-col gap-10 sm:gap-12 md:gap-14 lg:gap-[54px] flex-1 max-w-[305px]">
-                  {displayContent.powerfulFeatures.steps.map((step) => (
-                    <div key={step.id} className="flex flex-col gap-3 sm:gap-4 md:gap-[12px]">
+                <div
+                  ref={featuresRef}
+                  className="flex flex-col gap-10 sm:gap-12 md:gap-14 lg:gap-[54px] flex-1 max-w-[305px]"
+                >
+                  {displayContent.powerfulFeatures.steps.map((step, index) => (
+                    <div
+                      key={step.id}
+                      className={`flex flex-col gap-3 sm:gap-4 md:gap-[12px] fade-in-up stagger-${index + 1} ${isVisible ? 'is-visible' : ''}`}
+                    >
                       <h3 className="text-xl sm:text-2xl md:text-[24px] leading-tight sm:leading-[1.3] md:leading-[32px] text-[#171A20] font-open-sans font-semibold">
                         {step.title}
                       </h3>
@@ -506,7 +550,7 @@ export default function ZTaxPage() {
           </div>
         </section>
         {/* Testimonials Section */}
-        <section className="relative w-full max-w-[1440px] mx-auto py-8 sm:py-10 md:py-12 lg:py-16 px-4 sm:px-6 lg:px-[160px]">
+        <section id="testimonials" className="relative w-full max-w-[1440px] mx-auto py-8 sm:py-10 md:py-12 lg:py-16 px-4 sm:px-6 lg:px-[160px]">
           <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-12 md:gap-16 lg:gap-[100px] w-full">
             {/* Left Side - Title */}
             <div className="flex-shrink-0 w-full lg:w-auto">
@@ -575,7 +619,7 @@ export default function ZTaxPage() {
           </div>
         </section>
         {/* Pricing Table Section */}
-        <section className="relative w-full max-w-[1440px] mx-auto py-8 sm:py-10 md:py-12 lg:py-14 px-4 sm:px-6 lg:px-[15px]">
+        <section id="pricing" className="relative w-full max-w-[1440px] mx-auto py-8 sm:py-10 md:py-12 lg:py-14 px-4 sm:px-6 lg:px-[15px]">
           <div className="flex flex-col items-center gap-8 sm:gap-12 md:gap-16 lg:gap-[50px] w-full">
             {/* Header Container */}
             <div className="flex flex-col items-center gap-4 sm:gap-5 md:gap-[20px] w-full max-w-[1120px]">

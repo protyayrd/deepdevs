@@ -1,67 +1,81 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import Logo from '@/components/Logo';
 
-export type TabType = 'dashboard' | 'homepage' | 'faqs' | 'contacts' | 'testimonials' | 'app-links' | 'pages' | 'yoler' | 'plantzify' | 'deep-study-ai' | 'sesign' | 'ztax';
-
-export const ADMIN_TABS: { id: TabType; label: string; icon: string }[] = [
-    { id: 'dashboard', label: 'Dashboard', icon: '📊' },
-    { id: 'homepage', label: 'Homepage', icon: '🏠' },
-    { id: 'faqs', label: 'FAQs', icon: '❓' },
-    { id: 'contacts', label: 'Contacts', icon: '📧' },
-    { id: 'testimonials', label: 'Testimonials', icon: '💬' },
-    { id: 'app-links', label: 'App Links', icon: '📱' },
-    { id: 'pages', label: 'Pages', icon: '📄' },
-    { id: 'yoler', label: 'Yoler', icon: '🚗' },
-    { id: 'plantzify', label: 'Plantzify', icon: '🌿' },
-    { id: 'deep-study-ai', label: 'Deep Study AI', icon: '🎓' },
-    { id: 'sesign', label: 'SeSign', icon: '✍️' },
-    { id: 'ztax', label: 'Ztax', icon: '💰' },
+export const ADMIN_PAGES = [
+    { path: '/admin/dashboard', label: 'Dashboard', icon: '📊' },
+    { path: '/admin/homepage', label: 'Homepage', icon: '🏠' },
+    { path: '/admin/faqs', label: 'FAQs', icon: '❓' },
+    { path: '/admin/contacts', label: 'Contacts', icon: '📧' },
+    { path: '/admin/testimonials', label: 'Testimonials', icon: '💬' },
+    { path: '/admin/apps-page', label: 'Apps Page', icon: '✨' },
+    { path: '/admin/app-links', label: 'App Links', icon: '📱' },
+    { path: '/admin/pages', label: 'Custom Pages', icon: '📄' },
+    { path: '/admin/yoler', label: 'Yoler', icon: '🚗' },
+    { path: '/admin/plantzify', label: 'Plantzify', icon: '🌿' },
+    { path: '/admin/deep-study-ai', label: 'Deep Study AI', icon: '🎓' },
+    { path: '/admin/sesign', label: 'SeSign', icon: '✍️' },
+    { path: '/admin/ztax', label: 'Ztax', icon: '💰' },
 ];
 
 interface AdminSidebarProps {
-    activeTab: TabType;
-    setActiveTab: (tab: TabType) => void;
+    currentPath: string;
     onLogout: () => void;
 }
 
-export default function AdminSidebar({ activeTab, setActiveTab, onLogout }: AdminSidebarProps) {
+export default function AdminSidebar({ currentPath, onLogout }: AdminSidebarProps) {
     return (
-        <div className="w-64 bg-white shadow-lg h-screen fixed left-0 top-0 flex flex-col z-10">
+        <div className="w-72 bg-white border-r border-gray-100 h-screen fixed left-0 top-0 flex flex-col z-20 shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
             {/* Header */}
-            <div className="p-6 border-b border-gray-100">
-                <div className="flex items-center gap-3">
-                    <Link href="/" className="flex items-center">
+            <div className="p-8">
+                <div className="flex items-center gap-3 group px-2">
+                    <Link href="/" className="flex items-center transform transition-transform group-hover:scale-110">
                         <Logo />
                     </Link>
-                    <span className="font-bold text-gray-900 text-lg">Admin</span>
+                    <div>
+                        <span className="font-extrabold text-gray-900 text-xl tracking-tight block leading-none">Admin</span>
+                        <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-indigo-500 mt-1 block">Control Center</span>
+                    </div>
                 </div>
             </div>
 
             {/* Navigation */}
-            <nav className="flex-1 overflow-y-auto p-4 space-y-1">
-                {ADMIN_TABS.map((tab) => (
-                    <button
-                        key={tab.id}
-                        onClick={() => setActiveTab(tab.id)}
-                        className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${activeTab === tab.id
-                                ? 'bg-indigo-50 text-indigo-600'
-                                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                            }`}
-                    >
-                        <span className="text-lg">{tab.icon}</span>
-                        {tab.label}
-                    </button>
-                ))}
+            <nav className="flex-1 overflow-y-auto px-4 py-2 space-y-1 custom-scrollbar">
+                <div className="text-[10px] uppercase font-bold text-gray-400 px-4 mb-2 tracking-widest">Main Menu</div>
+                {ADMIN_PAGES.map((page) => {
+                    const isActive = currentPath === page.path || (currentPath === '/admin' && page.path === '/admin/dashboard');
+                    return (
+                        <Link
+                            key={page.path}
+                            href={page.path}
+                            className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-2xl transition-all duration-300 relative group
+                                ${isActive
+                                    ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-100'
+                                    : 'text-gray-500 hover:bg-gray-50 hover:text-indigo-600'
+                                }`}
+                        >
+                            <span className={`text-lg transition-transform duration-300 group-hover:scale-125 ${isActive ? 'scale-110' : ''}`}>
+                                {page.icon}
+                            </span>
+                            <span className="flex-1 text-left">{page.label}</span>
+                            {isActive && (
+                                <div className="absolute right-3 w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                            )}
+                        </Link>
+                    );
+                })}
             </nav>
 
             {/* Footer / Logout */}
-            <div className="p-4 border-t border-gray-100">
+            <div className="p-6">
                 <button
                     onClick={onLogout}
-                    className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-red-600 rounded-lg hover:bg-red-50 transition-colors"
+                    className="w-full flex items-center justify-center gap-2 py-3 px-4 text-sm font-bold text-red-500 bg-red-50/50 rounded-2xl hover:bg-red-500 hover:text-white transition-all duration-300 active:scale-95 border border-red-100 hover:border-red-500 shadow-sm"
                 >
-                    <span>🚪</span>
+                    <span className="text-lg">🚪</span>
                     Logout
                 </button>
             </div>

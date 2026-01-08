@@ -3,10 +3,16 @@ import mongoose, { Schema, Document, Model } from 'mongoose';
 export interface IAppLink extends Document {
     appName: string;
     appDisplayName: string;
+    websiteUrl: string;
     appStoreUrl: string;
     playStoreUrl: string;
     appIcon: string;
+    mockupImage: string;
+    qrCode: string;
     appDescription: string;
+    features: string[];
+    platforms: string[];
+    order: number;
     isActive: boolean;
     createdAt?: Date;
     updatedAt?: Date;
@@ -25,6 +31,10 @@ const AppLinkSchema: Schema = new Schema(
             type: String,
             required: true,
         },
+        websiteUrl: {
+            type: String,
+            default: '#',
+        },
         appStoreUrl: {
             type: String,
             default: '#',
@@ -37,9 +47,29 @@ const AppLinkSchema: Schema = new Schema(
             type: String,
             default: '',
         },
+        mockupImage: {
+            type: String,
+            default: '',
+        },
+        qrCode: {
+            type: String,
+            default: '',
+        },
         appDescription: {
             type: String,
             default: '',
+        },
+        features: {
+            type: [String],
+            default: [],
+        },
+        platforms: {
+            type: [String],
+            default: [],
+        },
+        order: {
+            type: Number,
+            default: 0,
         },
         isActive: {
             type: Boolean,
@@ -52,7 +82,7 @@ const AppLinkSchema: Schema = new Schema(
 );
 
 // Index for efficient lookups
-AppLinkSchema.index({ isActive: 1 });
+AppLinkSchema.index({ isActive: 1, order: 1 });
 
 const AppLink: Model<IAppLink> = mongoose.models.AppLink || mongoose.model<IAppLink>('AppLink', AppLinkSchema);
 

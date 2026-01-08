@@ -168,12 +168,12 @@ export default function Footer({ content }: { content?: IFooterContent }) {
             {/* Copyright */}
             <div className="flex items-center gap-1 text-[16px] leading-[28px] text-[#24222e] font-roboto">
               <span>Copyright</span>
-              <span className="inline-block w-4 h-4 relative">
+              <span className="flex items-center justify-center w-4 h-4">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/copyright-icon.png"
                   alt="Copyright"
-                  className="w-full h-full object-contain scale-y-[-1]"
+                  className="w-full h-full object-contain"
                 />
               </span>
               <span>2025</span>

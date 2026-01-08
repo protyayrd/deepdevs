@@ -53,10 +53,16 @@ export interface AppLinkData {
   id: string;
   appName: string;
   appDisplayName: string;
+  websiteUrl: string;
   appStoreUrl: string;
   playStoreUrl: string;
   appIcon: string;
+  mockupImage: string;
+  qrCode: string;
   appDescription: string;
+  features: string[];
+  platforms: string[];
+  order: number;
   isActive: boolean;
 }
 
@@ -364,6 +370,89 @@ export async function deleteTestimonial(id: string): Promise<boolean> {
 
 // ============== App Link Functions ==============
 
+const DEFAULT_APPS: AppLinkData[] = [
+  {
+    id: 'default-yoler',
+    appName: 'yoler',
+    appDisplayName: 'Yoler',
+    websiteUrl: '/apps/yoler',
+    appStoreUrl: '#',
+    playStoreUrl: '#',
+    appIcon: 'https://placehold.co/100/4F46E5/ffffff?text=Y',
+    mockupImage: 'https://placehold.co/1080x1920/black/white?text=Yoler+App',
+    qrCode: 'https://placehold.co/200?text=QR+Code',
+    appDescription: 'Your ultimate travel companion for seamless rides and deliveries. Yoler connects you with trusted drivers instantly.',
+    features: ['Ride Sharing', 'Real-time Tracking', 'Secure Payments'],
+    platforms: ['iOS', 'Android'],
+    order: 1,
+    isActive: true
+  },
+  {
+    id: 'default-plantzify',
+    appName: 'plantzify',
+    appDisplayName: 'Plantzify',
+    websiteUrl: '/apps/plantzify',
+    appStoreUrl: '#',
+    playStoreUrl: '#',
+    appIcon: 'https://placehold.co/100/10B981/ffffff?text=P',
+    mockupImage: 'https://placehold.co/1080x1920/10B981/white?text=Plantzify',
+    qrCode: 'https://placehold.co/200?text=QR+Code',
+    appDescription: 'Identify plants instantly and get expert care tips. Your personal botanist in your pocket to keep your garden thriving.',
+    features: ['Plant ID', 'Care Schedules', 'Disease Diagnosis'],
+    platforms: ['iOS', 'Android'],
+    order: 2,
+    isActive: true
+  },
+  {
+    id: 'default-deepstudy',
+    appName: 'deep-study-ai',
+    appDisplayName: 'Deep Study AI',
+    websiteUrl: '/apps/deep-study-ai',
+    appStoreUrl: '#',
+    playStoreUrl: '#',
+    appIcon: 'https://placehold.co/100/3B82F6/ffffff?text=DS',
+    mockupImage: 'https://placehold.co/1080x1920/3B82F6/white?text=Deep+Study+AI',
+    qrCode: 'https://placehold.co/200?text=QR+Code',
+    appDescription: 'Master any subject with AI-powered study plans, flashcards, and personalized tutoring sessions.',
+    features: ['AI Tutoring', 'Smart Flashcards', 'Progress Analytics'],
+    platforms: ['Web', 'iOS'],
+    order: 3,
+    isActive: true
+  },
+  {
+    id: 'default-sesign',
+    appName: 'sesign',
+    appDisplayName: 'SeSign',
+    websiteUrl: '/apps/sesign',
+    appStoreUrl: '#',
+    playStoreUrl: '#',
+    appIcon: 'https://placehold.co/100/6366F1/ffffff?text=S',
+    mockupImage: 'https://placehold.co/1080x1920/6366F1/white?text=SeSign',
+    qrCode: 'https://placehold.co/200?text=QR+Code',
+    appDescription: 'Secure, legally binding digital signatures for everyone. Sign documents anywhere, anytime with bank-grade security.',
+    features: ['E-Signatures', 'Audit Trails', 'Document Management'],
+    platforms: ['Web', 'Mobile'],
+    order: 4,
+    isActive: true
+  },
+  {
+    id: 'default-ztax',
+    appName: 'ztax',
+    appDisplayName: 'Ztax',
+    websiteUrl: '/apps/ztax',
+    appStoreUrl: '#',
+    playStoreUrl: '#',
+    appIcon: 'https://placehold.co/100/F59E0B/ffffff?text=Z',
+    mockupImage: 'https://placehold.co/1080x1920/F59E0B/white?text=Ztax',
+    qrCode: 'https://placehold.co/200?text=QR+Code',
+    appDescription: 'Simplify your taxes with our intelligent filing system. Maximize refunds and ensure compliance effortlessly.',
+    features: ['Auto Filing', 'Expense Tracking', 'Expert Support'],
+    platforms: ['Web', 'Android'],
+    order: 5,
+    isActive: true
+  }
+];
+
 export async function getAppLinks(appName?: string): Promise<AppLinkData[]> {
   try {
     await connectDB();
@@ -373,19 +462,29 @@ export async function getAppLinks(appName?: string): Promise<AppLinkData[]> {
 
     const links = await AppLink.find(query).lean();
 
+    if (!links || links.length === 0) {
+      return DEFAULT_APPS;
+    }
+
     return links.map((l) => ({
       id: l._id.toString(),
       appName: l.appName,
       appDisplayName: l.appDisplayName,
+      websiteUrl: l.websiteUrl,
       appStoreUrl: l.appStoreUrl,
       playStoreUrl: l.playStoreUrl,
       appIcon: l.appIcon,
+      mockupImage: l.mockupImage,
+      qrCode: l.qrCode,
       appDescription: l.appDescription,
+      features: l.features,
+      platforms: l.platforms,
+      order: l.order,
       isActive: l.isActive,
     }));
   } catch (error) {
     console.error('Error fetching app links:', error);
-    return [];
+    return DEFAULT_APPS;
   }
 }
 
@@ -402,10 +501,16 @@ export async function saveAppLink(data: Omit<AppLinkData, 'id'>): Promise<AppLin
     id: saved._id.toString(),
     appName: saved.appName,
     appDisplayName: saved.appDisplayName,
+    websiteUrl: saved.websiteUrl,
     appStoreUrl: saved.appStoreUrl,
     playStoreUrl: saved.playStoreUrl,
     appIcon: saved.appIcon,
+    mockupImage: saved.mockupImage,
+    qrCode: saved.qrCode,
     appDescription: saved.appDescription,
+    features: saved.features,
+    platforms: saved.platforms,
+    order: saved.order,
     isActive: saved.isActive,
   };
 }
@@ -424,10 +529,16 @@ export async function updateAppLink(id: string, data: Partial<Omit<AppLinkData, 
     id: updated._id.toString(),
     appName: updated.appName,
     appDisplayName: updated.appDisplayName,
+    websiteUrl: updated.websiteUrl,
     appStoreUrl: updated.appStoreUrl,
     playStoreUrl: updated.playStoreUrl,
     appIcon: updated.appIcon,
+    mockupImage: updated.mockupImage,
+    qrCode: updated.qrCode,
     appDescription: updated.appDescription,
+    features: updated.features,
+    platforms: updated.platforms,
+    order: updated.order,
     isActive: updated.isActive,
   };
 }
@@ -445,10 +556,16 @@ export async function upsertAppLink(appName: string, data: Partial<Omit<AppLinkD
     id: updated._id.toString(),
     appName: updated.appName,
     appDisplayName: updated.appDisplayName,
+    websiteUrl: updated.websiteUrl,
     appStoreUrl: updated.appStoreUrl,
     playStoreUrl: updated.playStoreUrl,
     appIcon: updated.appIcon,
+    mockupImage: updated.mockupImage,
+    qrCode: updated.qrCode,
     appDescription: updated.appDescription,
+    features: updated.features,
+    platforms: updated.platforms,
+    order: updated.order,
     isActive: updated.isActive,
   };
 }

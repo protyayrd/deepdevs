@@ -14,12 +14,16 @@ export interface IContentItem {
 
 // Interface for the main content structure
 export interface IContentData {
+    tag?: string;
     title?: string;
     subtitle?: string;
     description?: string;
     buttonText?: string;
     buttonLink?: string;
+    secondaryButtonText?: string;
+    secondaryButtonLink?: string;
     backgroundImage?: string;
+    heroImage?: string;
     items?: IContentItem[];
 }
 
@@ -44,12 +48,16 @@ const ContentItemSchema = new Schema({
 }, { _id: false });
 
 const ContentDataSchema = new Schema({
+    tag: { type: String },
     title: { type: String },
     subtitle: { type: String },
     description: { type: String },
     buttonText: { type: String },
     buttonLink: { type: String },
+    secondaryButtonText: { type: String },
+    secondaryButtonLink: { type: String },
     backgroundImage: { type: String },
+    heroImage: { type: String },
     items: [ContentItemSchema],
 }, { _id: false });
 

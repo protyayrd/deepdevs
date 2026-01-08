@@ -20,7 +20,11 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
-        const { appName, appDisplayName, appStoreUrl, playStoreUrl, appIcon, appDescription, isActive } = body;
+        const {
+            appName, appDisplayName, appStoreUrl, playStoreUrl, appIcon,
+            appDescription, isActive, websiteUrl, mockupImage, qrCode,
+            features, platforms, order
+        } = body;
 
         if (!appName || !appDisplayName) {
             return NextResponse.json(
@@ -36,6 +40,12 @@ export async function POST(request: NextRequest) {
             playStoreUrl: playStoreUrl || '#',
             appIcon: appIcon || '',
             appDescription: appDescription || '',
+            websiteUrl: websiteUrl || '#',
+            mockupImage: mockupImage || '',
+            qrCode: qrCode || '',
+            features: features || [],
+            platforms: platforms || [],
+            order: order || 0,
             isActive: isActive ?? true,
         });
 

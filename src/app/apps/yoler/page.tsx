@@ -864,7 +864,7 @@ export default function YolerPage() {
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-[100px] py-4">
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
               <p className="text-sm text-black font-inter font-medium leading-normal">
-                © 2025 DeepDevs. All rights reserved
+                © 2026 DeepDevs. All rights reserved
               </p>
               <div className="flex gap-2 items-center text-sm text-black">
                 <a href="#" className="font-medium font-inter leading-normal hover:opacity-70 transition-opacity">

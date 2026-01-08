@@ -100,7 +100,7 @@ const YolerContentSchema: Schema = new Schema(
         }],
         theoryTestApp: {
             title: { type: String, default: 'Theory Test App' },
-            description1: { type: String, default: 'Study from a bank of 2500+ DVSA theory test revision questions, up-to-date for 2025. Take full-length tests and track your progress.' },
+            description1: { type: String, default: 'Study from a bank of 2500+ DVSA theory test revision questions, up-to-date for 2026. Take full-length tests and track your progress.' },
             description2: { type: String, default: 'Practice on any of these devices at any time and as much as you like' },
             phoneImage: { type: String, default: '/figma/yoler/yoler-test-app.png' },
         },

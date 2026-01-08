@@ -720,7 +720,7 @@ export default function PlantzifyPage() {
               <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
                 {/* Copyright */}
                 <span className="font-heebo font-normal text-base leading-7 text-black/75 text-center sm:text-left">
-                  Copyright 2025 - DeepDevs
+                  Copyright 2026 - DeepDevs
                 </span>
 
                 {/* Legal Links */}
